@@ -1,5 +1,5 @@
 const User = require("../models/userModel")
-
+const cloudinary = require('../lib/cloudinary');
 
 
 const getSuggestedConnections = async (req,res) =>{
@@ -70,6 +70,18 @@ const updateProfile = async (req,res) =>{
         }
     }
 
+    //Uploading images
+
+    if(req.body.profilePicture){
+        const result = await cloudinary.uploader.upload(req.body.profilePicture);
+        updatedData.profilePicture = result.secure_url;     //we are storing the url
+    }
+
+    if(req.body.bannerImg){
+        const result = await cloudinary.uploader.upload(req.body.bannerImg);
+        updatedData.bannerImg = result.secure_url;     //we are storing the url
+    }
+
     const user = await User.findByIdAndUpdate(req.user._id,{$set:updatedData},{new:true,runValidators: true}).select("-password"); // here humne us data ko update kiya also new:true matlab updated user store hoga in user not the old one(if we dont add this then old vala response ayega) and the runValidators true means while updating the info it will chcek the model contraints like uniqueness  etc with more power
 
     res.status(200).json(user);
@@ -92,6 +104,8 @@ const updateProfile = async (req,res) =>{
 };
 
 }
+
+
 module.exports = {
     getSuggestedConnections,
     getPublicProfile,
