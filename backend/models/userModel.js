@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema({
         type:String,
         default:""
     },
-    skiils:[String],
+    skills:[String],
     experience:[   //it is an array if objects
         {
             title:String,
