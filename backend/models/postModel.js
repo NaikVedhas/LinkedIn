@@ -2,10 +2,11 @@ const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
 
+    //The combination is type: mongoose.Schema.Types.ObjectId  and ref is like a foreign key of sql dbs.Also ref can only be used when type ie this ha  
     author:{
-        type:String,
+        type:mongoose.Schema.Types.ObjectId, // Use ObjectId for referencing another document.
         required:true,
-        ref:"User"
+        ref:"User"    // Referencing the User model
     },
     content:{
         type:String

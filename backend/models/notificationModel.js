@@ -12,16 +12,16 @@ const notificationSchema = new mongoose.Schema({
         required:true,
         enum:["like","comment","connectionAccepted"]
     },
-    relatedUser:{ //the sender
-        typetype:mongoose.Schema.Types.ObjectId,
-        ref:"User"
+    relatedUser:{ //the sender ie the one who will like or etc 
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User",
     },
     realtedPost:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Post",
     },
     read:{
-        type:bool,
+        type:Boolean,
         default:false
     }
 
