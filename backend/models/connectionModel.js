@@ -20,7 +20,7 @@ const connectionSchema = mongoose.Schema({
 },{timestamps:true});
 
 
-const Connection = mongoose.model('Connection',connectionSchema);
+const ConnectionRequest = mongoose.model('Connection',connectionSchema);
 
 
-module.exports= Connection;
+module.exports= ConnectionRequest;
