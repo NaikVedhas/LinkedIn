@@ -3,7 +3,7 @@ const {createWelcomeEmailTemplate} = require('./emailTemplates')
 
 const sendWelcomeEmail = async (email,name,profileUrl) =>{
 
-    const recipients  = [{email}];
+    const recipients  = [{email}];      //this 
 
     try {
         const response = await mailtrapClient.send({
@@ -13,7 +13,6 @@ const sendWelcomeEmail = async (email,name,profileUrl) =>{
             html:createWelcomeEmailTemplate(name,profileUrl),
             category: "welcome",
         })
-
         console.log("Welcome email sent");
         
     } catch (error) {
@@ -23,8 +22,32 @@ const sendWelcomeEmail = async (email,name,profileUrl) =>{
     }
 }
 
+
+const sendCommentNotificationEmail = async (recipientEmail,recipientName,commenterName,postUrl,commentContent) =>{
+
+    const recipients  = [{email}];  //idk what this eamil is
+
+    try {
+        const response= await mailtrapClient.send({
+            from:sender,
+            to: recipients,
+            subject:"New Comment on your Post",
+            html:createCommentNotificationEmailTemplate(recipientName,commenterName,postUrl,commentContent),
+            category:"comment_notification"
+        });
+        console.log("Notification sent successfully");
+        
+    } catch (error) {
+        console.log("Error:",error.message);
+        
+    }
+
+}
+
+
 module.exports = {
-    sendWelcomeEmail
+    sendWelcomeEmail,
+    sendCommentNotificationEmail
 }
 
 

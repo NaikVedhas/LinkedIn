@@ -1,6 +1,10 @@
 const Post = require('../models/postModel');
+const Notification = require('../models/notificationModel')
 const cloudinary = require('../lib/cloudinary');
 const User = require('../models/userModel');
+const {sendCommentNotificationEmail} = require('../emails/emailHandlers');
+require('dotenv').config();
+
 
 const getFeedPosts = async (req,res)=>{
 
@@ -75,9 +79,127 @@ const deletePost = async (req,res) =>{
     }
 
 }
+
+
+const getPostById = async (req,res) =>{
+  
+    try {
+        const postId = req.params.id;
+
+        const post = await Post.findById(postId)
+        .populate("author","name username profilePicture headline")
+        .populate("comments.user","name username profilePicture headline")
+        if(!post){
+            return res.status(400).json({message:"No post found"});
+        }
+
+        res.status(200).json(post);
+    } catch (error) {
+        console.log("Error in getPostById",error);
+        res.status(500).json({message:"Server Error"});
+        
+    }
+} 
+
+const createComment = async (req,res)=>{
+
+    try {
+        const postId = req.params.id;
+        const {content}= req.body;
+        const post = await Post.findByIdAndUpdate(postId,{
+            $push:{comments:{user:req.user._id,content}}      //pushing into array
+        },{new:true})
+        .populate("author","name email "); //we are populating bec we want these for sending email
+
+        if(!post){
+            return res.status(404).json({message:"No post found"});
+        }
+        //create a notification if the commenter is not the owner of post
+
+        if(post.author.toString()!==req.user._id.toString()){
+            const newNotification =  await Notification.create({
+                recipient:post.author,
+                type:"comment",
+                relatedUser:req.user._id,
+                realtedPost:postId
+            });
+
+            if(!newNotification){
+                return res.status(400).json({message:"Error in sending Notification"});
+            }
+            //send email
+
+            try {
+                const postUrl = process.env.CLIENT_URL + "/post/"+postId; 
+                await sendCommentNotificationEmail(post.author.email,post.author.name,req.user.name,postUrl,content)
+            } catch (error) {
+                
+                console.log("Error in sending email",error);
+                
+            }
+
+        }
+
+        res.status(200).json(post)
+
+    } catch (error) {
+        
+    }
+
+}
+
+const likePost = async (req,res)=>{
+
+    try {
+
+        //We have 2 cases liking and unliking post
+
+        const postId = req.params.id;
+        const post = await Post.findById(postId);
+
+        if(!post){
+            return res.status(404).json({message:"No post found"});
+        }
+
+        if(post.likes.includes(req.user._id)){
+            //disliking
+            post.likes = post.likes.filter((id)=> id.toString()!==req.user._id.toString());
+        }else{
+            
+            post.likes.push(req.user._id);
+
+            if(post.author.toString()!== req.user._id.toString()){
+                
+                //Send notifiction
+                
+                const newNotification = await  Notification.create({
+                    recipient:post.author,
+                    type:"like",
+                    relatedUser:req.user._id,
+                    realtedPost:postId
+                });
+                
+                if(!newNotification){
+                    return res.status(400).json({message:"Error in newNotifiaction"});
+                }
+            }
+
+            await post.save();
+        }
+
+        res.status(200).json(post);
+
+    } catch (error) {
+        console.log("Error in likePost",error);
+        res.status(500).json({message:"Server Error"});
+    }
+}
+
 module.exports = {
     getFeedPosts,
     createPost,
-    deletePost
-
+    deletePost,
+    getPostById,
+    createComment,
+    likePost 
 }
