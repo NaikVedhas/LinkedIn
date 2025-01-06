@@ -10,10 +10,11 @@ import { axiosInstance } from "./lib/axios";
 
 function App() {
 
+
   //We want the info of user who has logged in becasuse in login function in backedn we are sending just a message thet user has lgggedin successfully and not his data. So we have createda  additional function called getme
 
   const {data:authUser,isLoading} = useQuery({
-    queryKey:["authUser"],    //by this key we can fetch this same data in any component by just writing - const {data:authUser,isLoading} = useQuery({queryKey:["authUser"]}); and now we hot the same data in authUser. querykey meinkcuh bhi likh sakte hai ha
+    queryKey:["authUser"],    //by this key we can fetch this same data in any component by just writing - const {data:authUser,isLoading} = useQuery({queryKey:["authUser"]}); and now we hot the same data in authUser. querykey meinkcuh bhi likh sakte hai ha. in usequrey we have data as the default variable 
     queryFn:async () =>{
       try {
         const res = await axiosInstance.get("/auth/me");
@@ -28,6 +29,8 @@ function App() {
   });
 
   if(isLoading) return null;    //we send null in user when we are getting the user info bec if he is not login and goes on home page and website is taking time to check the user is login or not at that loading time also he doesnt see the home page  
+
+
 
   const router = createBrowserRouter(
     createRoutesFromElements(

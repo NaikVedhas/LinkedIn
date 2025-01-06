@@ -1,5 +1,5 @@
 import { useState } from "react"
-import {useMutation} from "@tanstack/react-query"
+import {useMutation, useQueryClient} from "@tanstack/react-query"
 import { axiosInstance } from "../../lib/axios.js"  //as we are not exporting default from axios we need to use {}
 import { toast } from "react-hot-toast";
 import {Loader} from "lucide-react";  // Icon from Lucide
@@ -12,15 +12,18 @@ const SignupForm = () => {
     const [email,setEmail]= useState('')
     const [password,setPassword]= useState('')
   
+    const queryClient = useQueryClient();
+
     //For updating we use Mutation functions. It gives us mutate,islaoding state too and we have onSuccess,onError too.mutate:signupMutation means we are renaming it here
     const {mutate:signupMutation,isLoading } = useMutation({
 
         mutationFn: async (data) =>{
             const res = await axiosInstance.post("/auth/signup",data); //we can use fetch method also inside react qurey but axios is better than fetch method. As u can see react qurey is just replacing the try catch, if(!data) etc etc things for us but we use fetch/axios method only inside this
-            return res.data;
+            return res.data;   //we are returing the data property of this response
         },
         onSuccess:()=>{
             toast.success("Account created successfully");
+            queryClient.invalidateQueries({queryKey:["authUser"]}); //so basically this will refetch the authUser and as we have logged in now we will be redirected to home page without refreshing just like react context
             
         },
         onError:(err)=>{
