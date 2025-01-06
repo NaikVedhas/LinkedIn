@@ -8,7 +8,7 @@ const SignupForm = () => {
     
 
     const [name,setName]= useState('');
-    const [username,setusername]= useState('');
+    const [username,setUsername]= useState('');
     const [email,setEmail]= useState('')
     const [password,setPassword]= useState('')
   
@@ -52,7 +52,7 @@ const SignupForm = () => {
             type="text"
             placeholder="username"
             value={username}
-            onChange={(e)=>setusername(e.target.value)}
+            onChange={(e)=>setUsername(e.target.value)}
             className="input input-bordered w-full"
             required            
             />
