@@ -11,9 +11,9 @@ import { axiosInstance } from "./lib/axios";
 function App() {
 
 
-  //We want the info of user who has logged in becasuse in login function in backedn we are sending just a message thet user has lgggedin successfully and not his data. So we have createda  additional function called getme
+  //We want the info of user who has logged in becasuse in login function in backedn we are sending just a message thet user has loggedin successfully and not his data. So we have createda  additional function called getme
 
-  const {data:authUser,isLoading} = useQuery({
+  const {data:authUser,isLoading} = useQuery({  //in usequery we dont have the onSuccess and Onerror prop so we do try catch inside. and in useMutation we have that 
     queryKey:["authUser"],    //by this key we can fetch this same data in any component by just writing - const {data:authUser,isLoading} = useQuery({queryKey:["authUser"]}); and now we hot the same data in authUser. querykey meinkcuh bhi likh sakte hai ha. in usequrey we have data as the default variable 
     queryFn:async () =>{
       try {

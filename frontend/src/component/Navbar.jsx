@@ -50,7 +50,7 @@ const Navbar = () => {
 
 
   return (
-        <nav className='bg-secondary shadow-md sticky top-0 z-10'>
+        <nav className='bg-secondary shadow-md sticky top-0 z-10 mb-5'>
           <div className='max-w-7xl mx-auto px-4'>
            <div className='flex justify-between items-center py-3'>
               <div className='flex items-center space-x-4'>
