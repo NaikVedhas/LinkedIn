@@ -3,6 +3,7 @@ import { axiosInstance } from "../lib/axios"
 import toast from "react-hot-toast";
 import Sidebar from "../component/Sidebar";
 import PostCreation from "../component/PostCreation";
+import Post from "../component/Post";
 
 const Home = () => {
  
@@ -46,7 +47,12 @@ const Home = () => {
 
 			<div className='col-span-1 lg:col-span-2 order-first lg:order-none'>
 				<PostCreation user={authUser} />
-        </div>
+        {posts?.map((post) => (
+					<Post key={post._id} post={post} />
+				))}
+
+      </div>
+
         </div>
   )
 }
