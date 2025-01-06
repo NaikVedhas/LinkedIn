@@ -4,6 +4,7 @@ import Signup from "./pages/auth/Signup";
 import Home from "./pages/Home"
 import NotFound  from "./pages/NotFound";
 import { createBrowserRouter,Route,createRoutesFromElements,RouterProvider } from "react-router"
+import { Toaster } from "react-hot-toast";   //for that ui notifications
 
 function App() {
 
@@ -20,7 +21,12 @@ function App() {
   );
 
 
-  return (<RouterProvider router={router}/>)
+  return (
+    <>
+    <RouterProvider router={router}/>
+    <Toaster /> 
+    </>
+  )
 }
 
 export default App
