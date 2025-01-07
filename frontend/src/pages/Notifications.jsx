@@ -9,16 +9,13 @@ import { formatDistanceToNow } from "date-fns";
 
 const NotificationsPage = () => {
 	const { data: authUser } = useQuery({ queryKey: ["authUser"] });
-
 	const queryClient = useQueryClient();
-
 
 	const { data: notifications, isLoading } = useQuery({
 		queryKey: ["notifications"],
 		queryFn: () => axiosInstance.get("/notifications"),
 	});
 
-	console.log(notifications);
 	
 	const { mutate: markAsReadMutation } = useMutation({
 		mutationFn: (id) => axiosInstance.put(`/notifications/${id}/read`),
@@ -83,9 +80,6 @@ const NotificationsPage = () => {
 	const renderRelatedPost = (relatedPost) => {
 
 		if (!relatedPost) return null;
-		
-
-		
 		return (
 			<Link
 				to={`/post/${relatedPost._id}`}
@@ -101,7 +95,6 @@ const NotificationsPage = () => {
 			</Link>
 		);
 	};
-	console.log("notifications",notifications);
 	
 
 	return (
@@ -146,6 +139,7 @@ const NotificationsPage = () => {
 														addSuffix: true,
 													})}
 												</p>
+												{/* Here is a typo in database ha for realtedPost */}
 												{renderRelatedPost(notification.realtedPost)}
 											</div>
 										</div>
