@@ -9,7 +9,7 @@ require('dotenv').config();
 const getFeedPosts = async (req,res)=>{
 
     try {
-        //we are in post moeel only storing id of author so we need to go in ref model and find the other details that is done using populate method. Same for comments mein user pe (id)
+        //we are in post model only storing id of author so we need to go in ref model and find the other details that is done using populate method. Same for comments mein user pe (id)
         //only connections ke post dikhaenge
 
         const posts = await Post.find({author:{$in: [...req.user.connections, req.user._id]}})

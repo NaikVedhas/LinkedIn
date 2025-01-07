@@ -37,8 +37,9 @@ const Post = ({post}) => {
     });
 
     const {mutate:createComment,isPending:isAddingComment}= useMutation({
+
         mutationFn:async (newComment)=>{
-            const res = await axiosInstance.post(`/posts/${post._id}/comment`,newComment);
+            const res = await axiosInstance.post(`/posts/${post._id}/comment`, { content: newComment });
             return res.data;
         },
         onSuccess:()=>{
@@ -96,26 +97,25 @@ const Post = ({post}) => {
 		likePost();
 	};
 
-    const handleAddComment = (e) =>{
-        e.preventDefault();
-
-        if(newComment.trim()){       //if comment is not empty (ie only white spaces are there)
-            createComment(newComment);
-            setNewComment("");
-            setComments([
-                ...comments,{
-                    content:newComment, 
-                    user:{                  // we are having these fields bec we are populating them from backend 
-                        _id:authUser._id,
-                        name: authUser.name,
-                        profilePicture: authUser.profilePicture,
-                    },
-                    createdAt: new Date(),
-                },
-            ])
-
-        }
-    }
+  const handleAddComment = async (e) => {
+		e.preventDefault();
+		if (newComment.trim()) {
+			createComment(newComment);
+			setNewComment("");
+			setComments([
+				...comments,
+				{
+					content: newComment,
+					user: {
+						_id: authUser._id,
+						name: authUser.name,
+						profilePicture: authUser.profilePicture,
+					},
+					createdAt: new Date(),
+				},
+			]);
+		}
+	};
     
     return (
 		<div className='bg-secondary rounded-lg shadow mb-4'>
@@ -193,7 +193,7 @@ const Post = ({post}) => {
 							type='text'
 							value={newComment}
 							onChange={(e) => setNewComment(e.target.value)}
-							placeholder='Add a comment...'
+							placeholder='   Add a comment...'
 							className='flex-grow p-2 rounded-l-full bg-base-100 focus:outline-none focus:ring-2 focus:ring-primary'
 						/>
 
