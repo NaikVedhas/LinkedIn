@@ -16,7 +16,7 @@ const Navbar = () => {
     queryKey:["notifications"],
     queryFn: async () => {
       const res = await axiosInstance.get("/notifications/");
-      return res.data;
+      return res;
     },
     enabled: !!authUser   //this means that this query will run only when we have authUser 
   });
@@ -25,7 +25,7 @@ const Navbar = () => {
     queryKey:["connections"],
     queryFn: async()=> {
       const res = await axiosInstance.get("/connections/requests");
-      return res.data;
+      return res;
     }, 
     enabled:!!authUser
   });
@@ -45,8 +45,8 @@ const Navbar = () => {
     }
   });
   
-  const unreadNotificationCount = notifications?.filter((n)=> !n.read).length;
-  const unreadConnectionRequestsCount = connections?.length;
+  const unreadNotificationCount = notifications?.data.filter((notif) => !notif.read).length;
+  const unreadConnectionRequestsCount = connections?.data?.length;;
 
 
   return (
