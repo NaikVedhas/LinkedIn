@@ -21,8 +21,8 @@ const Navbar = () => {
     enabled: !!authUser   //this means that this query will run only when we have authUser 
   });
 
-  const {data:connections} = useQuery({
-    queryKey:["connections"],
+  const {data:connectionRequests} = useQuery({
+    queryKey:["connectionRequests"],
     queryFn: async()=> {
       const res = await axiosInstance.get("/connections/requests");
       return res;
@@ -30,8 +30,6 @@ const Navbar = () => {
     enabled:!!authUser
   });
 
-  console.log("notifications",notifications);
-  console.log("connections",connections);
   
   const {mutate:logout} = useMutation({
     mutationFn: async () => axiosInstance.post('/auth/logout'),
@@ -46,8 +44,8 @@ const Navbar = () => {
   });
   
   const unreadNotificationCount = notifications?.data.filter((notif) => !notif.read).length;
-  const unreadConnectionRequestsCount = connections?.data?.length;;
-
+  const unreadConnectionRequestsCount = connectionRequests?.data?.length;;
+  
 
   return (
         <nav className='bg-secondary shadow-md sticky top-0 z-10 mb-5'>
