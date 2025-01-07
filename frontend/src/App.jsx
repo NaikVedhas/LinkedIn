@@ -9,6 +9,8 @@ import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "./lib/axios";
 import Notifications from "./pages/Notifications";
 import Network from "./pages/Network";
+import PostPage from "./pages/PostPage";
+
 function App() {
 
 
@@ -41,6 +43,7 @@ function App() {
         <Route path="signup" element={!authUser?<Signup/>:<Navigate to={"/"}/>}/>
         <Route path="/notifications" element={authUser? <Notifications/>:<Navigate to={"/login"}/>} />
         <Route path="/network" element={authUser? <Network/>:<Navigate to={"/login"}/>} />
+        <Route path="/posts/:postId" element={authUser? <PostPage/>:<Navigate to={"/login"}/>} />
         <Route path="*" element={<NotFound/>}/> 
       </Route>
     )

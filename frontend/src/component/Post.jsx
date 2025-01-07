@@ -9,7 +9,6 @@ import PostAction from "./PostAction";
 
 const Post = ({post}) => {
     
-    console.log(post.comments);
     
     const {data:authUser} = useQuery({queryKey:["authUser"]});
 
@@ -146,8 +145,10 @@ const Post = ({post}) => {
 						</button>
 					)}
 				</div>
+				<Link to={`/posts/${post._id}`} >
 				<p className='mb-4'>{post.content}</p>
 				{post.image && <img src={post.image} alt='Post content' className='rounded-lg w-full mb-4' />}
+				</Link>
 
 				<div className='flex justify-between text-info'>
 					<PostAction
