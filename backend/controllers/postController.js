@@ -116,7 +116,7 @@ const createComment = async (req,res)=>{
         }
         //create a notification if the commenter is not the owner of post
 
-        if(post.author.toString()!==req.user._id.toString()){
+        if(post.author._id.toString()!==req.user._id.toString()){
             const newNotification =  await Notification.create({
                 recipient:post.author,
                 type:"comment",
