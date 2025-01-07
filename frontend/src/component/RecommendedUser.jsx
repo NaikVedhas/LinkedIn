@@ -40,7 +40,7 @@ const RecommendedUser = ({user}) => { //this is the recommended user
         },
         onSuccess:()=>{
             toast.success("Request Accepted");
-            queryClient.invalidateQueries({queryKey:["connectionStatus",user._id]}) // do this to update and remove from suggested user
+            queryClient.invalidateQueries({queryKey:["recommendedUsers"]});  // do this to update and remove from suggested user
         },
         onError:()=>{
             toast.error(err.response.data.message||"Error Occured");
