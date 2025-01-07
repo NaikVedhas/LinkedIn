@@ -17,15 +17,17 @@ const RecommendedUser = ({user}) => { //this is the recommended user
             return res.data;
         },
     })
-
+    
+    
 
     const {mutate:sendConnectionRequest} = useMutation({
-        queryFn: async ()=>{
+        mutationFn: async ()=>{
             const res = await axiosInstance.post(`/connections/request/${user._id}`);
             return res.data;
         },
         onSuccess:()=>{
             toast.success("Sent Connection Request");
+            queryClient.invalidateQueries({ queryKey: ["connectionStatus", user._id] });
         },
         onError:(err)=>{
             toast.error(err.response.data.message || "Error occured");
@@ -33,8 +35,8 @@ const RecommendedUser = ({user}) => { //this is the recommended user
     });
 
     const {mutate:acceptConnectionRequest} = useMutation({
-        mutationFn: async () =>{
-            await axiosInstance.put(`/connections/accept/${user._id}`);
+        mutationFn: async (requestId) =>{
+            return await axiosInstance.put(`/connections/accept/${requestId}`);
         },
         onSuccess:()=>{
             toast.success("Request Accepted");
@@ -46,8 +48,8 @@ const RecommendedUser = ({user}) => { //this is the recommended user
     });
 
     const {mutate:rejectConnectionRequest}= useMutation({
-        mutationFn: async ()=>{
-            await axiosInstance.put(`/connections/reject/${user._id}`);
+        mutationFn: async (requestId)=>{
+            return await axiosInstance.put(`/connections/reject/${requestId}`);
         },
         onSuccess:()=>{
             toast.success("Request Rejected");
@@ -58,9 +60,11 @@ const RecommendedUser = ({user}) => { //this is the recommended user
         }
     })
 
+    console.log("ConnectionStatus",connectionStatus?.requestId);
+    
     
     const handleConnect = () =>{
-        if (connectionStatus?.data?.status === "not_connected") {
+        if (connectionStatus?.status === "not_connected") {
 			sendConnectionRequest();
 		}
     }
@@ -89,13 +93,13 @@ const RecommendedUser = ({user}) => { //this is the recommended user
 				return (
 					<div className='flex gap-2 justify-center'>
 						<button
-							onClick={() => acceptConnectionRequest()}
+							onClick={()=> acceptConnectionRequest(connectionStatus.requestId)}
 							className={`rounded-full p-1 flex items-center justify-center bg-green-500 hover:bg-green-600 text-white`}
 						>
 							<Check size={16} />
 						</button>
 						<button
-							onClick={() => rejectConnectionRequest()}
+							onClick={()=> rejectConnectionRequest(connectionStatus.requestId)}
 							className={`rounded-full p-1 flex items-center justify-center bg-red-500 hover:bg-red-600 text-white`}
 						>
 							<X size={16} />

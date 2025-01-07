@@ -48,7 +48,7 @@ const sendConnectionRequest = async (req,res)=>{
 const acceptConnectionRequest = async (req,res)=>{
     
     try {
-        const requestId = req.params.id;  //this is the id of connection document in connectionrequest model.
+        const requestId = req.params.requestId;  //this is the id of connection document in connectionrequest model.
         
         const request = await ConnectionRequest.findById(requestId)
         .populate("sender","name username connections email")    //we will send a email to sender that we accepedt the req so we need populate data
@@ -59,8 +59,8 @@ const acceptConnectionRequest = async (req,res)=>{
         }
         
         //Chcek if the user is accepting his request only
-        if(request.recipient._id.toString()!==req.user._id){ //even if we dont write id in populate we still get it by default
-            return res.json(401).json({message:"You are not authorized"});
+        if(request.recipient._id.toString()!==req.user._id.toString()){ //even if we dont write id in populate we still get it by default
+            return res.status(401).json({message:"You are not authorized"});
         }
         
         if(request.status!=="pending"){
@@ -113,7 +113,7 @@ const acceptConnectionRequest = async (req,res)=>{
 const rejectConnectionRequest = async (req,res)=>{
     
     try {
-        const requestId = req.params.id;
+        const requestId = req.params.requestId;
         
         const request = await ConnectionRequest.findById(requestId);
         if(!request){
