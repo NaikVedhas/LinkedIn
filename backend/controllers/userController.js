@@ -31,10 +31,20 @@ const getPublicProfile = async (req,res) => {
 
     try {
         
-        const user = await User.findOne({username:req.params.username}).select("-password");
+        const user = await User.findOneAndUpdate(
+            {username:req.params.username},
+            {$push:{profileViewers: {
+                user: req.user._id,
+                createdAt: new Date(),
+            },}},
+            {new:true})
+            .select("-password");
+
         if(!user){
             return res.json(404).json({message:"User not found"});
         }
+        //add the profile in profileViewers too 
+        
         res.status(200).json(user)
 
     } catch (error) {
@@ -106,8 +116,25 @@ const updateProfile = async (req,res) =>{
 }
 
 
+const getProfileViewers = async (req,res) =>{
+
+    try {
+        const profileViewers = await User.findById(req.user._id).select("profileViewers").sort({createdAt:-1});
+        
+        if(!profileViewers){
+            return res.status(404).json({message:"Not found"});
+        }
+
+        res.status(200).json(profileViewers);
+
+    } catch (error) {
+        console.log("Error in getprofileViewers",error);
+        res.status(500).json({message:"Server Error"});
+    }
+}
 module.exports = {
     getSuggestedConnections,
     getPublicProfile,
-    updateProfile
+    updateProfile,
+    getProfileViewers
 }

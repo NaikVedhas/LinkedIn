@@ -1,6 +1,6 @@
 const express = require('express');
 const protectRoute = require('../middleware/authMiddleware');
-const { getPublicProfile,getSuggestedConnections,updateProfile } = require('../controllers/userController');
+const { getPublicProfile,getSuggestedConnections,updateProfile,getProfileViewers } = require('../controllers/userController');
 
 const router = express.Router();
 
@@ -10,6 +10,7 @@ router.get("/:username",protectRoute,getPublicProfile);
 
 router.put("/profile",protectRoute,updateProfile);
 
+router.get("/profileViewers",protectRoute,getProfileViewers);
 module.exports = router;
 
 
