@@ -13,11 +13,19 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 	const { data: authUser } = useQuery({ queryKey: ["authUser"] });
     
     //We wil show the connect buttons too and the renderfunction here again
-	const { data: connectionStatus, refetch: refetchConnectionStatus } = useQuery({queryKey: ["connectionStatus", userData._id]});
+	const {data:connectionStatus,isLoading} = useQuery({
+        queryKey:["connectionStatus",userData._id],
+        queryFn: async ()=>{
+            const res = await axiosInstance.get(`/connections/status/${userData._id}`);
+            return res.data;
+        },
+    })
 
     
-	const isConnected = userData.connections.some((connection) => connection === authUser._id);
-
+	
+	// if(isLoading){
+	// 	return null;
+	// }
 
     //to do : Make querykey for these connection functions in recommenduser and just use the key here
 	const { mutate: sendConnectionRequest } = useMutation({
@@ -61,7 +69,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 		mutationFn: (userId) => axiosInstance.delete(`/connections/${userId}`),
 		onSuccess: () => {
 			toast.success("Connection removed");
-			refetchConnectionStatus();
+			queryClient.invalidateQueries({queryKey:["connectionStatus"]})
 			queryClient.invalidateQueries(["connectionRequests"]);
 		},
 		onError: (error) => {
@@ -70,16 +78,12 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 	});
 
     
-    
-	const getConnectionStatus = useMemo(() => {
-		if (isConnected) return "connected";
-		if (!isConnected) return "not_connected";
-		return connectionStatus?.data?.status;  //this is pending status
-	}, [isConnected, connectionStatus]);
+    console.log("connectionStatus",connectionStatus);
+
     
     const renderConnectionButton = () => {
         const baseClass = "text-white py-2 px-4 rounded-full transition duration-300 flex items-center justify-center";
-        switch (getConnectionStatus) {
+        switch (connectionStatus?.status) {
             case "connected":
                 return (
                     <div className='flex gap-2 justify-center'>
@@ -109,13 +113,13 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
                 return (
                     <div className='flex gap-2 justify-center'>
                         <button
-                            onClick={() => acceptRequest(connectionStatus.data.requestId)}
+                            onClick={() => acceptRequest(connectionStatus.requestId)}
                             className={`${baseClass} bg-green-500 hover:bg-green-600`}
                         >
                             Accept
                         </button>
                         <button
-                            onClick={() => rejectRequest(connectionStatus.data.requestId)}
+                            onClick={() => rejectRequest(connectionStatus.requestId)}
                             className={`${baseClass} bg-red-500 hover:bg-red-600`}
                         >
                             Reject

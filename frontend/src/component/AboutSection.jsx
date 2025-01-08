@@ -42,7 +42,7 @@ const AboutSection = ({ userData, isOwnProfile, onSave }) => {
 					)}
 				</>
 			)}
-			<p>{userData.about}</p>
+			{!isOwnProfile && <p>{userData.about}</p>}
 		</div>
 	);
 };
