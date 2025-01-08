@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../lib/axios";
 import { Link } from "react-router-dom";
 import Sidebar from "../component/Sidebar";
+import { formatDistanceToNow } from "date-fns";
 
 const ProfileViewers = () => {
     const { data: authUser } = useQuery({ queryKey: ["authUser"] });
@@ -18,8 +19,6 @@ const ProfileViewers = () => {
         return <p>Loading profile viewers...</p>;
     }
 
-    console.log(profile?.data?.profileViewers);
-    
     return (
         <div className='grid grid-cols-1 lg:grid-cols-4 gap-6'>
             {/* Sidebar */}
@@ -39,25 +38,35 @@ const ProfileViewers = () => {
                                     key={viewer._id}
                                     className='bg-white border rounded-lg p-4 my-4 transition-all hover:shadow-md'
                                 >
-                                    <div className='flex items-center space-x-4'>
-                                        {/* Profile Picture */}
-                                        <Link to={`/profile/${viewer.user.name}`}>
-                                            <img
-                                                src={viewer.user.profilePicture || "/avatar.png"}
-                                                alt={viewer.user.name}
-                                                className='w-12 h-12 rounded-full object-cover'
-                                            />
-                                        </Link>
-
-                                        {/* User Info */}
-                                        <div>
-                                            <Link
-                                                to={`/profile/${viewer.username}`}
-                                                className='text-lg font-bold hover:underline'
-                                            >
-                                                {viewer.user.name}
+                                    <div className='flex items-center justify-between'>
+                                        <div className='flex items-center space-x-4'>
+                                            {/* Profile Picture */}
+                                            <Link to={`/profile/${viewer.user.username}`}>
+                                                <img
+                                                    src={viewer.user.profilePicture || "/avatar.png"}
+                                                    alt={viewer.user.name}
+                                                    className='w-12 h-12 rounded-full object-cover'
+                                                />
                                             </Link>
-                                            <p className='text-sm text-gray-600'>{viewer.user.headline}</p>
+
+                                            {/* User Info */}
+                                            <div>
+                                                <Link
+                                                    to={`/profile/${viewer.user.username}`}
+                                                    className='text-lg font-bold hover:underline'
+                                                >
+                                                    {viewer.user.name}
+                                                </Link>
+                                                <p className='text-sm text-gray-600'>{viewer.user.headline}</p>
+                                            </div>
+                                        </div>
+
+                                        {/* Time of view */}
+                                        <div className='text-sm text-gray-500'>
+                                            {viewer.createdAt &&
+                                                formatDistanceToNow(new Date(viewer.createdAt), {
+                                                    addSuffix: true,
+                                                })}
                                         </div>
                                     </div>
                                 </li>

@@ -119,7 +119,7 @@ const updateProfile = async (req,res) =>{
 const getProfileViewers = async (req,res) =>{
 
     try {
-        const profileViewers = await User.findById(req.user._id).select("profileViewers").sort({createdAt:-1}).populate("profileViewers.user","name profilePicture headline");
+        const profileViewers = await User.findById(req.user._id).select("profileViewers").sort({createdAt:-1}).populate("profileViewers.user","name username profilePicture headline");
         
         if(!profileViewers){
             return res.status(404).json({message:"Not found"});
