@@ -42,6 +42,7 @@ const AboutSection = ({ userData, isOwnProfile, onSave }) => {
 					)}
 				</>
 			)}
+			<p>{userData.about}</p>
 		</div>
 	);
 };
