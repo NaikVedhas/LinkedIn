@@ -21,8 +21,8 @@ const ExperienceSection  = ({userData,isOwnProfile,onSave}) => {
       setNewExperience({
         title:"",
         company:"",
-        startDate :"",
-        endDate :"",
+        startDate :"", //JavaScript automatically updates the type from an empty string to a date string(because state values can change their type dynamically in JavaScript.)
+        endDate :"",  // Mongoose is implicitly converting the empty string to null for Date fields as we are sending empty string for no end date
         description:"",
         currentlyWorking:false
       })
