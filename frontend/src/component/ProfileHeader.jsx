@@ -22,11 +22,6 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
     })
 
     
-	
-	// if(isLoading){
-	// 	return null;
-	// }
-
     //to do : Make querykey for these connection functions in recommenduser and just use the key here
 	const { mutate: sendConnectionRequest } = useMutation({
 		mutationFn: (userId) => axiosInstance.post(`/connections/request/${userId}`),
