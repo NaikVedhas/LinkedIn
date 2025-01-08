@@ -46,7 +46,7 @@ const Profile = () => {
         return <div>Loading</div>
     }
 
-    const isOwnProfile = authUser.username === userProfile?.username; 
+    const isOwnProfile = authUser.username === userProfile?.username; //This is a boolean
 	const userData = isOwnProfile ? authUser : userProfile; 
 
 
