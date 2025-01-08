@@ -26,13 +26,14 @@ const Profile = () => {
 
     
     const {mutate:updateProfile} = useMutation({
-        queryFn: async(updatedData)=>{
+        mutationFn: async(updatedData)=>{
             const res = await axiosInstance.put('/users/profile',updatedData);
             return res;
         },
         onSuccess:()=>{
             toast.success("Profile Updated");
-            queryClient.invalidateQueries({queryKey:["username"]});      
+            queryClient.invalidateQueries({queryKey:["authUser"]}); 
+
         },
         onError: (err)=>{
             toast.error(err.response.data.message||"An error occured");
@@ -48,10 +49,10 @@ const Profile = () => {
     const isOwnProfile = authUser.username === userProfile?.username; 
 	const userData = isOwnProfile ? authUser : userProfile; 
 
-    
 
-    const handleSave = (updatedData) => {  //whicver component we willupdatewe want to call this function from here
+    const handleSave = (updatedData) => {  //whichever component we will updatewe want to call this function from here
 		updateProfile(updatedData);
+        
 	};
 
     return (
