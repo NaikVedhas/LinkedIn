@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema({
         default:""
     },
     skills:[String],
-    experience:[   //it is an array if objects
+    experience:[   //it is an array if objects and each object will also get an id
         {
             title:String,
             company:String,
@@ -51,7 +51,7 @@ const userSchema = new mongoose.Schema({
             description:String
         }
     ],
-    education:[
+    education:[ 
         {
             school:String,
             feildOfStudy:String,
