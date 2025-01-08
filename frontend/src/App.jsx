@@ -11,6 +11,7 @@ import Notifications from "./pages/Notifications";
 import Network from "./pages/Network";
 import PostPage from "./pages/PostPage";
 import Profile from "./pages/Profile";
+import ProfileViewers from "./pages/ProfileViewers";
 
 function App() {
 
@@ -46,6 +47,7 @@ function App() {
         <Route path="/network" element={authUser? <Network/>:<Navigate to={"/login"}/>} />
         <Route path="/posts/:postId" element={authUser? <PostPage/>:<Navigate to={"/login"}/>} />
         <Route path="/profile/:username" element={authUser? <Profile/>:<Navigate to={"/login"}/>} />
+        <Route path="/profileViewers" element={authUser? <ProfileViewers/>:<Navigate to={"/login"}/>} />
         <Route path="*" element={<NotFound/>}/> 
       </Route>
     )

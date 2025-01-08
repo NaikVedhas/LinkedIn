@@ -6,11 +6,12 @@ const router = express.Router();
 
 router.get("/suggestions",protectRoute,getSuggestedConnections);    //whichever route we wanna protect we add this protectRoute there
 
+router.get("/profileViewers",protectRoute,getProfileViewers);
+router.put("/profile",protectRoute,updateProfile);
 router.get("/:username",protectRoute,getPublicProfile);
 
-router.put("/profile",protectRoute,updateProfile);
 
-router.get("/profileViewers",protectRoute,getProfileViewers);
+
 module.exports = router;
 
 
