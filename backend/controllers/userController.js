@@ -141,10 +141,25 @@ const getProfileViewers = async (req,res) =>{
     }
 }
 
+const getMyActivityProfileViewers = async (req,res) =>{
 
+    try {
+        const myProfileViewers = await User.find({profileViewers:{$elemMatch:{user:req.user._id}}});
+
+        if(!myProfileViewers){
+            return res.status(404).json({message:"No myProfileViewers"});
+        }
+
+        res.status(200).json(myProfileViewers);
+    } catch (error) {
+        console.log("Error in myProfileViewers",error);
+        res.status(500).json({message:"Server Error"});
+    }
+}
 module.exports = {
     getSuggestedConnections,
     getPublicProfile,
     updateProfile,
-    getProfileViewers
+    getProfileViewers,
+    getMyActivityProfileViewers
 }
