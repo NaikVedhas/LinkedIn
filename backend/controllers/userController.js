@@ -30,13 +30,19 @@ const getSuggestedConnections = async (req,res) =>{
 const getPublicProfile = async (req,res) => {
 
     try {
-        
+
+        const isSelfProfile = req.user.username.toString()===req.params.username.toString();
         const user = await User.findOneAndUpdate(
             {username:req.params.username},
-            {$push:{profileViewers: {
-                user: req.user._id,
-                createdAt: new Date(),
-            },}},
+            isSelfProfile?{}:
+            {$push:
+                {
+                    profileViewers: {
+                    user: req.user._id,
+                    createdAt: new Date(),
+                    },
+                }
+            },
             {new:true})
             .select("-password");
 
