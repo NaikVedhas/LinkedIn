@@ -202,7 +202,7 @@ const getMyActivityLike = async (req,res) =>{
     try {
         
         const likes = await Post.find({likes:req.user._id})
-        .populate("likes");
+        .populate("author","headline name profilePicture username");
 
         if(!likes){
             return res.status(404).json({message:"Likes not found"});
@@ -219,7 +219,8 @@ const getMyActivityLike = async (req,res) =>{
 const getMyActivityComment = async (req,res)=>{
 
     try {
-        const comments = await Post.find({comments:{ $elemMatch: { user: req.user._id } }})  //here we ahve to match a element in comments so we used this elematch
+        const comments = await Post.find({comments:{ $elemMatch: { user: req.user._id } }})
+        .populate("author","headline name profilePicture username");  //here we ahve to match a element in comments so we used this elematch
         
         if(!comments){
             return res.status(404).json({message:"No comment found"});

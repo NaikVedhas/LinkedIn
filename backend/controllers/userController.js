@@ -141,10 +141,12 @@ const getProfileViewers = async (req,res) =>{
     }
 }
 
+//This contains the ppl whom user have viewed 
 const getMyActivityProfileViewers = async (req,res) =>{
 
     try {
-        const myProfileViewers = await User.find({profileViewers:{$elemMatch:{user:req.user._id}}});
+        const myProfileViewers = await User.find({profileViewers:{$elemMatch:{user:req.user._id}}})
+        .select("name username headline profilePicture");
 
         if(!myProfileViewers){
             return res.status(404).json({message:"No myProfileViewers"});
@@ -156,6 +158,8 @@ const getMyActivityProfileViewers = async (req,res) =>{
         res.status(500).json({message:"Server Error"});
     }
 }
+
+
 module.exports = {
     getSuggestedConnections,
     getPublicProfile,
