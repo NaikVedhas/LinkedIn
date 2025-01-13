@@ -11,7 +11,7 @@ const Myactivity = () => {
   const { data: likes } = useQuery({
     queryKey: ["likes", authUser._id],
     queryFn: async () => {
-      const res = await axiosInstance("/posts/myActivity/like");
+      const res = await axiosInstance.get("/posts/myActivity/like");
       return res.data;
     },
   });
@@ -19,7 +19,7 @@ const Myactivity = () => {
   const { data: comments } = useQuery({
     queryKey: ["comments", authUser._id],
     queryFn: async () => {
-      const res = await axiosInstance("/posts/myActivity/comment");
+      const res = await axiosInstance.get("/posts/myActivity/comment");
       return res.data;
     },
   });
@@ -27,7 +27,7 @@ const Myactivity = () => {
   const { data: myProfileViewers } = useQuery({
     queryKey: ["myProfileViewers", authUser._id],
     queryFn: async () => {
-      const res = await axiosInstance("/users/myActivity/profileViewers");
+      const res = await axiosInstance.get("/users/myActivity/profileViewers");
       return res.data;
     },
   });
