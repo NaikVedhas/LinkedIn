@@ -70,16 +70,16 @@ const Navbar = () => {
                   to="/network"
                   className={({ isActive }) =>
                     isActive
-                      ? "text-primary flex flex-col items-center font-bold" // active icon becomes bold and colored
-                      : "text-neutral flex flex-col items-center hover:text-primary"
+                      ? "text-primary flex flex-col items-center font-bold relative"
+                      : "text-neutral flex flex-col items-center hover:text-primary relative"
                   }
                 >
                   <Users size={20} />
                   <span className="text-xs hidden md:block">My Network</span>
                   {unreadConnectionRequestsCount > 0 && (
                     <span
-                      className="absolute -top-1 -right-1 md:right-4 bg-blue-500 text-white text-xs 
-                      rounded-full size-3 md:size-4 flex items-center justify-center"
+                      className="absolute top-0 right-0 md:right-4 bg-blue-500 text-white text-xs 
+                      rounded-full h-4 w-4 flex items-center justify-center"
                     >
                       {unreadConnectionRequestsCount}
                     </span>
@@ -89,16 +89,16 @@ const Navbar = () => {
                   to="/notifications"
                   className={({ isActive }) =>
                     isActive
-                      ? "text-primary flex flex-col items-center font-bold" // active icon becomes bold and colored
-                      : "text-neutral flex flex-col items-center hover:text-primary"
+                      ? "text-primary flex flex-col items-center font-bold relative"
+                      : "text-neutral flex flex-col items-center hover:text-primary relative"
                   }
                 >
                   <Bell size={20} />
                   <span className="text-xs hidden md:block">Notifications</span>
                   {unreadNotificationCount > 0 && (
                     <span
-                      className="absolute -top-1 -right-1 md:right-4 bg-blue-500 text-white text-xs 
-                      rounded-full size-3 md:size-4 flex items-center justify-center"
+                      className="absolute top-0 right-0 md:right-4 bg-blue-500 text-white text-xs 
+                      rounded-full h-4 w-4 flex items-center justify-center"
                     >
                       {unreadNotificationCount}
                     </span>

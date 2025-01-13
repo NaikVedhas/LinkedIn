@@ -3,6 +3,7 @@ import { axiosInstance } from "../lib/axios";
 import { Link } from "react-router-dom";
 import Sidebar from "../component/Sidebar";
 import { formatDistanceToNow } from "date-fns";
+import {ExternalLink} from "lucide-react"
 
 const ProfileViewers = () => {
     const { data: authUser } = useQuery({ queryKey: ["authUser"] });
@@ -61,6 +62,7 @@ const ProfileViewers = () => {
                                                     className='text-lg font-bold hover:underline'
                                                 >
                                                     {viewer.user.name}
+                                                    <ExternalLink size={14} className='text-gray-400' />
                                                 </Link>
                                                 <p className='text-sm text-gray-600'>{viewer.user.headline}</p>
                                             </div>
