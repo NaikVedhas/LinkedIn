@@ -12,6 +12,7 @@ import Network from "./pages/Network";
 import PostPage from "./pages/PostPage";
 import Profile from "./pages/Profile";
 import ProfileViewers from "./pages/ProfileViewers";
+import Myactivity from "./pages/Myactivity";
 
 function App() {
 
@@ -48,6 +49,7 @@ function App() {
         <Route path="/posts/:postId" element={authUser? <PostPage/>:<Navigate to={"/login"}/>} />
         <Route path="/profile/:username" element={authUser? <Profile/>:<Navigate to={"/login"}/>} />
         <Route path="/profileViewers" element={authUser? <ProfileViewers/>:<Navigate to={"/login"}/>} />
+        <Route path="/myactivity" element={authUser? <Myactivity/>:<Navigate to={"/login"}/>} />
         <Route path="*" element={<NotFound/>}/> 
       </Route>
     )

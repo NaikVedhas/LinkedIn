@@ -196,11 +196,50 @@ const likePost = async (req,res)=>{
     }
 }
 
+
+const getMyActivityLike = async (req,res) =>{
+
+    try {
+        
+        const likes = await Post.find({likes:req.user._id})
+        .populate("likes");
+
+        if(!likes){
+            return res.status(404).json({message:"Likes not found"});
+        }
+
+        res.status(200).json(likes);
+
+    } catch (error) {
+        console.log("Error in getActivityLikes",error);
+        res.status(500).json({message:"Server Error"});
+    }
+};
+
+const getMyActivityComment = async (req,res)=>{
+
+    try {
+        const comments = await Post.find({comments:{ $elemMatch: { user: req.user._id } }})  //here we ahve to match a element in comments so we used this elematch
+        
+        if(!comments){
+            return res.status(404).json({message:"No comment found"});
+        }
+
+        res.status(200).json(comments);
+
+    } catch (error) {
+        console.log("Error in getActivityComments",error);
+        res.status(500).json({message:"Server error"});         
+        
+    }
+}
 module.exports = {
     getFeedPosts,
     createPost,
     deletePost,
     getPostById,
     createComment,
-    likePost 
+    likePost,
+    getMyActivityLike,
+    getMyActivityComment
 }

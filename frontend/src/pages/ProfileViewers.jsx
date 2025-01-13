@@ -57,13 +57,13 @@ const ProfileViewers = () => {
 
                                             {/* User Info */}
                                             <div>
-                                                <Link
-                                                    to={`/profile/${viewer.user.username}`}
-                                                    className='text-lg font-bold hover:underline'
+                                            <Link
+                                                to={`/profile/${viewer.user.username}`}
+                                                className="text-lg font-bold hover:underline flex items-center gap-1"
                                                 >
-                                                    {viewer.user.name}
-                                                    <ExternalLink size={14} className='text-gray-400' />
-                                                </Link>
+                                                {viewer.user.name}
+                                                <ExternalLink size={14} className="text-gray-400" />
+                                            </Link>
                                                 <p className='text-sm text-gray-600'>{viewer.user.headline}</p>
                                             </div>
                                         </div>
