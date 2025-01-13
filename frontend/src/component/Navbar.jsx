@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "../lib/axios";
 import toast from "react-hot-toast";
 import { Link, NavLink } from "react-router-dom";
-import { Bell, Home, LogOut, User, Users } from "lucide-react";
+import { Bell, Home, LogOut, User, Users,Activity,Shield    } from "lucide-react";
 
 const Navbar = () => {
   const { data: authUser } = useQuery({ queryKey: ["authUser"] });
@@ -104,6 +104,32 @@ const Navbar = () => {
                     </span>
                   )}
                 </NavLink>
+                <NavLink
+                  to="/myactivity"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-primary flex flex-col items-center font-bold relative"
+                      : "text-neutral flex flex-col items-center hover:text-primary relative"
+                  }
+                >
+                  <Activity  size={20} />
+                  <span className="text-xs hidden md:block">Activity</span>
+                </NavLink>
+
+                <NavLink
+                  to="/profileViewers"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-primary flex flex-col items-center font-bold relative"
+                      : "text-neutral flex flex-col items-center hover:text-primary relative"
+                  }
+                >
+                  <Shield     size={20} />
+                  <span className="text-xs hidden md:block">Profile Viewers</span>
+                </NavLink>
+
+
+
                 <NavLink
                   to={`/profile/${authUser.username}`}
                   className={({ isActive }) =>

@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { Home, UserPlus, Bell,Eye,Users } from "lucide-react";
+import { Home, UserPlus, Bell,Shield,Users } from "lucide-react";
 
 export default function Sidebar({ user }) {
     return (
@@ -50,7 +50,7 @@ export default function Sidebar({ user }) {
                                     }`
                                 }
                             >
-                                <Eye className='mr-2' size={20} /> Profile Viewers
+                                <Shield className='mr-2' size={20} /> Profile Viewers
                             </NavLink>
                         </li>
                         <li>
