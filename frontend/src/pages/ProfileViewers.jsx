@@ -19,6 +19,8 @@ const ProfileViewers = () => {
         return <p>Loading profile viewers...</p>;
     }
 
+    const totalViewers = profile?.data?.profileViewers?.length || 0;
+
     return (
         <div className='grid grid-cols-1 lg:grid-cols-4 gap-6'>
             {/* Sidebar */}
@@ -29,11 +31,14 @@ const ProfileViewers = () => {
             {/* Main Content */}
             <div className='col-span-1 lg:col-span-3'>
                 <div className='bg-white rounded-lg shadow p-6'>
-                    <h1 className='text-2xl font-bold mb-6'>Profile Viewers</h1>
+                    <h1 className='text-2xl font-bold mb-2'>Profile Viewers</h1>
+                    <p className='text-lg text-gray-700'>
+                        {totalViewers} {totalViewers === 1 ? 'person' : 'people'} saw your profile
+                    </p>
 
-                    {profile?.data?.profileViewers?.length > 0 ? (
+                    {totalViewers > 0 ? (
                         <ul>
-                            {profile?.data?.profileViewers.map((viewer) => (
+                            {profile?.data?.profileViewers?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map((viewer) => (
                                 <li
                                     key={viewer._id}
                                     className='bg-white border rounded-lg p-4 my-4 transition-all hover:shadow-md'
