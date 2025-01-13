@@ -4,7 +4,6 @@ import { useState } from "react";
 import Sidebar from "../component/Sidebar";
 import { ExternalLink, ThumbsUp,MessageSquare,ChevronDown, ChevronUp } from "lucide-react";
 import { Link } from "react-router-dom";
-import { formatDistanceToNow } from "date-fns";
 
 const Myactivity = () => {
   const { data: authUser } = useQuery({ queryKey: ["authUser"] });
