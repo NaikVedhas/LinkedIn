@@ -160,10 +160,35 @@ const getMyActivityProfileViewers = async (req,res) =>{
 }
 
 
+const getSearchedUsers = async (req,res) =>{
+
+    try {
+        
+        const {name} = req.body;
+        
+        if(!name){
+            return res.status(404).json({message:"name is required"});
+        }
+
+        const result =await User.find({name:{$regex:name,$options:'i'}});//Search: case senstive - i and pattern matching  - regex
+
+        if(!result){
+            return res.status(404).json({message:"No user found"});
+        }
+        res.status(200).json(result);
+
+    } catch (error) {
+        console.log("Error ini getSearchedUsers",error);
+        res.status(500).json({message:"Server Error"});
+    }
+
+}
+
 module.exports = {
     getSuggestedConnections,
     getPublicProfile,
     updateProfile,
     getProfileViewers,
-    getMyActivityProfileViewers
+    getMyActivityProfileViewers,
+    getSearchedUsers
 }

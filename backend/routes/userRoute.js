@@ -1,16 +1,15 @@
 const express = require('express');
 const protectRoute = require('../middleware/authMiddleware');
-const { getPublicProfile,getSuggestedConnections,updateProfile,getProfileViewers,getMyActivityProfileViewers } = require('../controllers/userController');
+const { getPublicProfile,getSuggestedConnections,updateProfile,getProfileViewers,getMyActivityProfileViewers, getSearchedUsers } = require('../controllers/userController');
 
 const router = express.Router();
 
 router.get("/suggestions",protectRoute,getSuggestedConnections);    //whichever route we wanna protect we add this protectRoute there
-
 router.get("/profileViewers",protectRoute,getProfileViewers);
 router.put("/profile",protectRoute,updateProfile);
-router.get("/:username",protectRoute,getPublicProfile);
-
 router.get("/myActivity/profileViewers",protectRoute,getMyActivityProfileViewers)
+router.get('/searchUser',protectRoute,getSearchedUsers);
+router.get("/:username",protectRoute,getPublicProfile);
 
 module.exports = router;
 
