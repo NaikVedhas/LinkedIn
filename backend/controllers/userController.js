@@ -13,7 +13,7 @@ const getSuggestedConnections = async (req,res) =>{
             _id:{
                 $ne:req.user._id, $nin:currentUser.connections //here $ne means not equal to and $nin means not in
             }
-        }).select("name username profilePicture headline").limit(5);    //and select only these fields of 5 ppl
+        }).select("name username profilePicture headline").limit(25);    //and select only these fields of 5 ppl
 
         res.status(200).json(suggestedUser); 
 
@@ -169,7 +169,8 @@ const getSearchedUsers = async (req,res) =>{
             return res.status(404).json({message:"name is required"});
         }
 
-        const result =await User.find({name:{$regex:name,$options:'i'}});//Search: case senstive - i and pattern matching  - regex
+        const result =await User.find({name:{$regex:name,$options:'i'}})
+        .select("name username headline profilePicture");//Search: case senstive - i and pattern matching  - regex
 
         if(!result){
             return res.status(404).json({message:"No user found"});
@@ -177,11 +178,13 @@ const getSearchedUsers = async (req,res) =>{
         res.status(200).json(result);
 
     } catch (error) {
-        console.log("Error ini getSearchedUsers",error);
+        console.log("Error in getSearchedUsers",error);
         res.status(500).json({message:"Server Error"});
     }
 
 }
+
+
 
 module.exports = {
     getSuggestedConnections,

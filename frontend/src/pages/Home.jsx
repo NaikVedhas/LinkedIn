@@ -5,6 +5,8 @@ import Sidebar from "../component/Sidebar";
 import PostCreation from "../component/PostCreation";
 import Post from "../component/Post";
 import RecommendedUser from "../component/RecommendedUser";
+import {ExternalLink} from "lucide-react"
+import { Link } from "react-router";
 
 
 const Home = () => {
@@ -58,9 +60,18 @@ const Home = () => {
           <div className='col-span-1 lg:col-span-1 hidden lg:block'>
             <div className='bg-secondary rounded-lg shadow p-4'>
               <h2 className='font-semibold mb-4'>People you may know</h2>
-              {recommendedUsers?.map((user) => (
+              {recommendedUsers?.slice(0, 5).map((user) => (
                 <RecommendedUser key={user._id} user={user} />
               ))}
+              <div >
+              <Link 
+                to="/search" 
+                className="flex items-center p-2 space-x-1 text font-medium text-gray-600 hover:text-primary"
+              >
+                <span>See all suggestions</span>
+                <ExternalLink size={18} className="hover:text-primary" />
+              </Link>
+              </div>
             </div>
           </div>
         )}
