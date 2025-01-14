@@ -142,11 +142,11 @@ const Navbar = () => {
                   <span className="text-xs hidden md:block">Me</span>
                 </NavLink>
                 <button
-                  className="flex items-center space-x-1 text-sm text-gray-600 hover:text-gray-800"
+                  className="flex items-center space-x-1 text-sm text-gray-600 hover:text-primary hover:font-bold"
                   onClick={() => logout()}
                 >
-                  <LogOut size={20} />
-                  <span className="hidden md:inline">Logout</span>
+                  <LogOut size={20}  />
+                  <span className="hidden md:inline ">Logout</span>
                 </button>
               </>
             ) : (
