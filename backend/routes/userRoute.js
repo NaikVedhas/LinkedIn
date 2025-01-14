@@ -8,7 +8,7 @@ router.get("/suggestions",protectRoute,getSuggestedConnections);    //whichever 
 router.get("/profileViewers",protectRoute,getProfileViewers);
 router.put("/profile",protectRoute,updateProfile);
 router.get("/myActivity/profileViewers",protectRoute,getMyActivityProfileViewers)
-router.get('/searchUser',protectRoute,getSearchedUsers);
+router.post('/searchUser',protectRoute,getSearchedUsers);
 router.get("/:username",protectRoute,getPublicProfile);
 
 module.exports = router;

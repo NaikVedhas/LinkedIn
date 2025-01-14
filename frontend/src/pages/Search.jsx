@@ -11,14 +11,16 @@ const Search = () => {
         queryFn: async ()=>{
             console.log({name});
             
-            const res = await axiosInstance.get('/users/searchUser',{name});
+            const res = await axiosInstance.post('/users/searchUser',{name});
             return res.data;
         }
     })
     
-    console.log(searchedUsers);
+    console.log("searchedUsers",searchedUsers);
     
-    const handleSubmit = () =>{
+    const handleSubmit = (e) =>{
+        e.preventDefault();
+        // console.log(name);
         
     }
   return (
@@ -28,7 +30,7 @@ const Search = () => {
             value={name}
             onChange={(e)=>setName(e.target.value)}
             />
-            <button>Search</button>
+            <button type="submit">Search</button>
         </form>
     </div>
   )

@@ -1,7 +1,6 @@
 const User = require("../models/userModel")
 const cloudinary = require('../lib/cloudinary');
 
-
 const getSuggestedConnections = async (req,res) =>{
 
     try {
