@@ -13,7 +13,7 @@ import PostPage from "./pages/PostPage";
 import Profile from "./pages/Profile";
 import ProfileViewers from "./pages/ProfileViewers";
 import Myactivity from "./pages/Myactivity";
-import Search from "./pages/Search";
+import SearchUser from "./pages/SearchUser";
 
 function App() {
 
@@ -50,7 +50,7 @@ function App() {
         <Route path="/posts/:postId" element={authUser? <PostPage/>:<Navigate to={"/login"}/>} />
         <Route path="/profile/:username" element={authUser? <Profile/>:<Navigate to={"/login"}/>} />
         <Route path="/profileViewers" element={authUser? <ProfileViewers/>:<Navigate to={"/login"}/>} />
-        <Route path="/search" element={authUser? <Search/>:<Navigate to={"/login"}/>} />
+        <Route path="/search" element={authUser? <SearchUser/>:<Navigate to={"/login"}/>} />
         <Route path="/myactivity" element={authUser? <Myactivity/>:<Navigate to={"/login"}/>} />
         <Route path="*" element={<NotFound/>}/> 
       </Route>

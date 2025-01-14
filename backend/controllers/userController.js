@@ -13,7 +13,7 @@ const getSuggestedConnections = async (req,res) =>{
             _id:{
                 $ne:req.user._id, $nin:currentUser.connections //here $ne means not equal to and $nin means not in
             }
-        }).select("name username profilePicture headline").limit(25);    //and select only these fields of 5 ppl
+        }).limit(25);    //and select only these fields of 5 ppl
 
         res.status(200).json(suggestedUser); 
 
