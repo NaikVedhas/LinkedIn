@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "../lib/axios";
 import toast from "react-hot-toast";
 import { Link, NavLink } from "react-router-dom";
-import { Bell, Home, LogOut, User, Users,Activity,Shield    } from "lucide-react";
+import { Bell, Home, LogOut, User, Users,Activity,Shield, Search   } from "lucide-react";
 
 const Navbar = () => {
   const { data: authUser } = useQuery({ queryKey: ["authUser"] });
@@ -65,6 +65,17 @@ const Navbar = () => {
                 >
                   <Home size={20} />
                   <span className="text-xs hidden md:block">Home</span>
+                </NavLink>
+                <NavLink
+                  to="/search"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-primary flex flex-col items-center font-bold" 
+                      : "text-neutral flex flex-col items-center hover:text-primary"
+                  }
+                >
+                  <Search size={20} />
+                  <span className="text-xs hidden md:block">Search</span>
                 </NavLink>
                 <NavLink
                   to="/network"

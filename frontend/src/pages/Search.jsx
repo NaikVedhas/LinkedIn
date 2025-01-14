@@ -1,37 +1,43 @@
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react"
-import {useQuery} from "@tanstack/react-query"
 import { axiosInstance } from "../lib/axios";
 
 const Search = () => {
+  
+  
+  const [name,setName] = useState("");
 
-    const [name,setName] = useState("");
-    
-    const {data:searchedUsers} = useQuery({
-        queryKey:["searchedUsers"],
-        queryFn: async ()=>{
-            console.log({name});
-            
-            const res = await axiosInstance.post('/users/searchUser',{name});
-            return res.data;
-        }
-    })
-    
-    console.log("searchedUsers",searchedUsers);
-    
-    const handleSubmit = (e) =>{
-        e.preventDefault();
-        // console.log(name);
-        
+  const {data:searchUsers,mutate} = useMutation({
+    mutationKey:["searchUsers"],
+    mutationFn: async (name)=>{
+        const res = await axiosInstance.post('/users/searchUser',{name})
+        return res.data;
+    },
+    onError: async (error) =>{
+        toast.error(error.message || "Something went wrong try again");
     }
-  return (
+  })
+  
+   
+   const handleSubmit = (e)=>{
+    console.log("Inisde handleSubmit");
+    e.preventDefault();
+ 
+    mutate(name);
+   }
+   console.log("searchUsers",searchUsers);
+   
+    return (
     <div>
         <form onSubmit={handleSubmit}>
-            <input type="text"
+            <input 
+            type="text"
             value={name}
-            onChange={(e)=>setName(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
             />
-            <button type="submit">Search</button>
+            <button>Submit</button>
         </form>
+        {searchUsers && searchUsers}
     </div>
   )
 }
