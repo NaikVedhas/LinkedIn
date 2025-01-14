@@ -220,6 +220,7 @@ const getMyActivityComment = async (req,res)=>{
 
     try {
         const comments = await Post.find({comments:{ $elemMatch: { user: req.user._id } }})
+        .select("content image comments")
         .populate("author","headline name profilePicture username");  //here we ahve to match a element in comments so we used this elematch
         
         if(!comments){
