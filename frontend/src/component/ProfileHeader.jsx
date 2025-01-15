@@ -75,33 +75,30 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 
     const {mutate:followUser} = useMutation({
 		mutationFn: async () =>{
-			const res = await axiosInstance.post(`/connections/follow/${userData._id}`);
-			return res;
+			return await axiosInstance.post(`/connections/follow/${userData._id}`);
 		},
-		onSuccess:()=>{
-			toast.success(res.data || "Followed");
+		onSuccess:(response)=>{      //this response is the response that we get from backend we can name it anything	
+			toast.success(response.data.message || "Followed");
+			setIsFollower(true); // Directly update the state after successful follow
 		},
 		onError:(err)=>{
 			toast.error(err.message || "Something went wrong Please try again later")
 		}
-
 	})
 
 	const {mutate:unFollowUser} = useMutation({
 		mutationFn: async ()=>{
-			const res = await axiosInstance.post(`/connections/unfollow/${userData._id}`);
-			return res;
+			return  await axiosInstance.post(`/connections/unfollow/${userData._id}`);
 		},
-		onSuccess:()=>{
-			toast.success(res.data || "UnFollowed");
+		onSuccess:(response)=>{       
+			toast.success( response.data.message ||"UnFollowed");
+			setIsFollower(false); 
 		},
 		onError:(err)=>{
 			toast.error(err.message || "Something went wrong Please try again later")
 		}
 	});
-    console.log("connectionStatus",connectionStatus);
-
-    
+  
     const renderConnectionButton = () => {
         const baseClass = "text-white py-2 px-4 rounded-full transition duration-300 flex items-center justify-center";
         switch (connectionStatus?.status) {
@@ -160,20 +157,32 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
         }
     };
     
-	useEffect(()=>{
-		setIsFollower(authUser.following.some(followingId => followingId.toString() === userData._id.toString()));
-	},[unFollowUser,followUser])
 
-	const renderFollowButton = () =>{
-
-		if(isFollower){
-			return <button onClick={unFollowUser}>Following</button>  //give a toast first ha
-		}else{
-			return <button onClick={followUser}>Follow</button>
+	const renderFollowButton = () => {
+		const baseClass = "text-white py-2 px-4 rounded-full transition duration-300 flex items-center justify-center";
+	
+		if (isFollower) {
+			return (
+				<button
+					onClick={unFollowUser}
+					className={`${baseClass} bg-red-500 hover:bg-red-600 text-sm`}
+				>
+					<X size={20} className="mr-2" />
+					Unfollow
+				</button>
+			);
+		} else {
+			return (
+				<button
+					onClick={followUser}
+					className={`${baseClass} bg-blue-500 hover:bg-blue-600 text-sm`}
+				>
+					<UserPlus size={20} className="mr-2" />
+					Follow
+				</button>
+			);
 		}
-		
-
-	}
+	};
     //yeh just is toast ke liye likha hai
     const handleRemoveConnection = ()=>{
         toast((t) => (
@@ -332,9 +341,9 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 						</button>
 					)
 				) : (
-					<div>
-					<div className='flex justify-center'>{renderConnectionButton()}</div>
-					<div className='flex justify-center'>{renderFollowButton()}</div>
+					<div className="flex flex-col items-center gap-4">
+					<div >{renderConnectionButton()}</div>
+					<div >{renderFollowButton()}</div>
 					</div>
 
 				)}
