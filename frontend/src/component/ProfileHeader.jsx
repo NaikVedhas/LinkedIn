@@ -150,7 +150,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
                 return (
                     <button
                         onClick={() => sendConnectionRequest(userData._id)}
-                        className='bg-primary hover:bg-primary-dark text-white py-2 px-4 rounded-full transition duration-300 flex items-center justify-center'
+                        className='bg-primary hover:bg-primary-dark text-white py-1 px-4 rounded-full transition duration-300 flex items-center justify-center'
                         >
                         <UserPlus size={20} className='mr-2' />
                         Connect

@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 
 const PeopleSimilar = ({ userData, isOwnProfile,authUser }) => {
+
+  //We are showing the connections of the user
+  
   const totalProfiles = userData?.connections?.length || 0;
   
   // Filter out the current user from the list of connections
@@ -18,7 +21,7 @@ const PeopleSimilar = ({ userData, isOwnProfile,authUser }) => {
 
           {/* Profiles Container with Scroll */}
           <div
-            className="flex overflow-x-auto space-x-4"
+            className="flex overflow-x-auto space-x-4"  //due to overflow-x-auto we got a silider directly from chrome 
             style={{
               scrollbarWidth: "thin",
               scrollbarColor: "#E5E7EB",
@@ -54,5 +57,4 @@ export default PeopleSimilar;
 
 
 
- //due to overflow-x-auto we got a silider directly from chrome 
-//We are showing the connections of the user
+ 
