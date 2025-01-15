@@ -9,11 +9,6 @@ const MutualConnections = ({user}) => {
 
     const mutual = user?.connections?.filter(u => set1.has(u._id));
 
-    console.log("authUser",authUser);
-    console.log("user",user);
-    
-    
-    console.log("mutual",mutual);
     
     return (
         <div>
@@ -24,7 +19,7 @@ const MutualConnections = ({user}) => {
                 {mutual.slice(0, 3).map((m, index) => (
                   <img
                     key={m._id}
-                    className={`h-8 w-8 rounded-full absolute ${index === 0 ? "left-0" : index === 1 ? "left-5" : "left-10"}`} // fir the image overlapp effect
+                    className={`h-8 w-8 rounded-full object-cover absolute ${index === 0 ? "left-0" : index === 1 ? "left-5" : "left-10"}`} // fir the image overlapp effect
                     src={m.profilePicture || "/avatar.png"}
                     alt={m.name}
                   />
@@ -32,14 +27,18 @@ const MutualConnections = ({user}) => {
                 {/* Show names */}
                 <div className="ml-12 px-2 text-gray-500" >
                   {mutual.slice(0, 3).map((m, index) => (
-                    <Link key={m._id} to={`/profile/${m.username}`} className=" text-lg hover:text-primary">
+                    <Link key={m._id} to={`/profile/${m.username}`} className=" text-base hover:text-primary">
                       {m.name}
-                      {index < 2 && ", "}
+                      {index < mutual.slice(0, 3).length - 1 ? ", ":" "}
                     </Link>
                   ))}
                   {mutual?.length > 3 ? (
                     <span>and {mutual.length - 3} other mutual connections</span>
-                  ) : null}
+                  ) : (
+                    <span>
+                      are  mutual connection
+                    </span>
+                  )}
                 </div>
               </div>
             </div>

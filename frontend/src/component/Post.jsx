@@ -125,7 +125,7 @@ const Post = ({post}) => {
 							<img
 								src={post.author.profilePicture || "/avatar.png"}
 								alt={post.author.name}
-								className='size-10 rounded-full mr-3'
+								className='size-10 rounded-full mr-3 object-cover'
 							/>
 						</Link>
 
