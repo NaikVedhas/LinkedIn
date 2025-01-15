@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { axiosInstance } from "../lib/axios";
 import { toast } from "react-hot-toast";
 import { Camera, Clock, MapPin, UserCheck, UserPlus, X } from "lucide-react";
@@ -8,6 +8,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 	
     const [isEditing, setIsEditing] = useState(false);
 	const [editedData, setEditedData] = useState({});
+	const [isFollower, setIsFollower] = useState(false);
 	const queryClient = useQueryClient();
     
 	const { data: authUser } = useQuery({ queryKey: ["authUser"] });
@@ -72,7 +73,32 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 		},
 	});
 
-    
+    const {mutate:followUser} = useMutation({
+		mutationFn: async () =>{
+			const res = await axiosInstance.post(`/connections/follow/${userData._id}`);
+			return res;
+		},
+		onSuccess:()=>{
+			toast.success(res.data || "Followed");
+		},
+		onError:(err)=>{
+			toast.error(err.message || "Something went wrong Please try again later")
+		}
+
+	})
+
+	const {mutate:unFollowUser} = useMutation({
+		mutationFn: async ()=>{
+			const res = await axiosInstance.post(`/connections/unfollow/${userData._id}`);
+			return res;
+		},
+		onSuccess:()=>{
+			toast.success(res.data || "UnFollowed");
+		},
+		onError:(err)=>{
+			toast.error(err.message || "Something went wrong Please try again later")
+		}
+	});
     console.log("connectionStatus",connectionStatus);
 
     
@@ -134,6 +160,20 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
         }
     };
     
+	useEffect(()=>{
+		setIsFollower(authUser.following.some(followingId => followingId.toString() === userData._id.toString()));
+	},[unFollowUser,followUser])
+
+	const renderFollowButton = () =>{
+
+		if(isFollower){
+			return <button onClick={unFollowUser}>Following</button>  //give a toast first ha
+		}else{
+			return <button onClick={followUser}>Follow</button>
+		}
+		
+
+	}
     //yeh just is toast ke liye likha hai
     const handleRemoveConnection = ()=>{
         toast((t) => (
@@ -179,6 +219,12 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 		onSave(editedData);
 		setIsEditing(false);
 	};
+
+	console.log("authUser.following",authUser.following);
+	
+	// Follow
+
+
 
 
     //Now in return for every part we are seeing if isEditing is true and if it is true then show  a small icon which is acting as form and taking edited data and updating the ui and if we click save then sending to backend etc 
@@ -286,7 +332,11 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 						</button>
 					)
 				) : (
+					<div>
 					<div className='flex justify-center'>{renderConnectionButton()}</div>
+					<div className='flex justify-center'>{renderFollowButton()}</div>
+					</div>
+
 				)}
 			</div>
 		</div>

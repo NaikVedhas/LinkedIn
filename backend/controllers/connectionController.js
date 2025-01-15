@@ -244,11 +244,12 @@ const followUser = async (req,res) =>{
         }
 
         const user = await User.findByIdAndUpdate(id,{$push:{followers:req.user._id}},{new:true});
+        const me = await User.findByIdAndUpdate(req.user._id,{$push:{following:id}},{new:true});
 
-        if(!user){
+        if(!user || !me){
             return res.status(404).json({message:"No user found"});
         }
-
+        
         res.status(200).json({message:`You started following ${user.name}` })
     } catch (error) {
         console.log("Error in followUser",error);
@@ -257,6 +258,29 @@ const followUser = async (req,res) =>{
 
 }
 
+
+const unFollowUser = async (req,res)=>{
+
+    try {
+        const {id} = req.params;  
+
+        if(id.toString()===req.user._id.toString()){
+            return res.status(400).json({message:"Cant unfollow yourself"});
+        }
+
+        const user = await User.findByIdAndUpdate(id,{$pull:{followers:req.user._id}},{new:true});
+        const me = await User.findByIdAndUpdate(req.user._id,{$pull:{following:id}},{new:true});
+
+        if(!user || !me){
+            return res.status(404).json({message:"No user found"});
+        }
+
+        res.status(200).json({message:`You unfollowed ${user.name}` })
+    } catch (error) {
+        console.log("Error in unfollowUser",error);
+        res.status(500).json({message:"Server Error, Please try again later"});
+    }
+}
 module.exports = {
     getUserConnections,
     sendConnectionRequest,
@@ -265,5 +289,6 @@ module.exports = {
     getConnectionRequest,
     removeConnection,
     getConnectionStatus,
-    followUser
+    followUser,
+    unFollowUser
 }

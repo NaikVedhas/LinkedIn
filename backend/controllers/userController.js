@@ -7,7 +7,7 @@ const getSuggestedConnections = async (req,res) =>{
         
         const currentUser = await User.findById(req.user._id).select("connections");
 
-        //Finf users who are not connections and also dont find ourself
+        //Find users who are not connections and also dont find ourself
 
         const suggestedUser = await User.find({
             _id:{

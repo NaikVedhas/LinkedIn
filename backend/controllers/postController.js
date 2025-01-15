@@ -12,7 +12,7 @@ const getFeedPosts = async (req,res)=>{
         //we are in post model only storing id of author so we need to go in ref model and find the other details that is done using populate method. Same for comments mein user pe (id)
         //only connections,self and main jisko follw karta hu unke post dikhaenge
 
-        const posts = await Post.find({author:{$in: [...req.user.connections, req.user._id]}})
+        const posts = await Post.find({author:{$in: [...req.user.connections, req.user._id,...req.user.following]}})
         .populate('author',"name username profilePicture headline")
         .populate('comments.user',"name profilePicture")
         .sort({createdAt:-1});
