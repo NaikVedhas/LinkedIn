@@ -234,6 +234,29 @@ const getConnectionStatus = async (req,res) =>{
 }
 
 
+const followUser = async (req,res) =>{
+
+    try {
+        const {id} = req.params;           //we have to follow this user
+
+        if(id.toString()===req.user._id.toString()){
+            return res.status(400).json({message:"Cant send follow request to yourself"});
+        }
+
+        const user = await User.findByIdAndUpdate(id,{$push:{followers:req.user._id}},{new:true});
+
+        if(!user){
+            return res.status(404).json({message:"No user found"});
+        }
+
+        res.status(200).json({message:`You started following ${user.name}` })
+    } catch (error) {
+        console.log("Error in followUser",error);
+        res.status(500).json({message:"Server Error, Please try again later"});
+    }
+
+}
+
 module.exports = {
     getUserConnections,
     sendConnectionRequest,
@@ -241,5 +264,6 @@ module.exports = {
     rejectConnectionRequest,
     getConnectionRequest,
     removeConnection,
-    getConnectionStatus
+    getConnectionStatus,
+    followUser
 }

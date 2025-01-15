@@ -7,7 +7,8 @@ const {
     getUserConnections,
     getConnectionRequest,
     removeConnection,
-    getConnectionStatus
+    getConnectionStatus,
+    followUser
 
 } = require('../controllers/connectionController');
 
@@ -21,8 +22,8 @@ router.put('/accept/:requestId',protectRoute,acceptConnectionRequest);
 router.put('/reject/:requestId',protectRoute,rejectConnectionRequest);
  
 router.get('/requests',protectRoute,getConnectionRequest);
-router.delete('/:id',protectRoute,removeConnection);
 router.get('/status/:id',protectRoute,getConnectionStatus);
-
+router.post('/follow/:id',protectRoute,followUser);
+router.delete('/:id',protectRoute,removeConnection);
 
 module.exports = router;

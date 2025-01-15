@@ -62,6 +62,9 @@ const userSchema = new mongoose.Schema({
     connections:[{     //we willstore the id of the connections
         type:mongoose.Schema.Types.ObjectId, ref:"User"
     }],
+    followers:[{
+        type:mongoose.Schema.Types.ObjectId, ref:"User"
+    }],
     profileViewers :[
         {
             user:{type:mongoose.Schema.Types.ObjectId, ref:"User"},
