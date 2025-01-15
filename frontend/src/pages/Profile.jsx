@@ -11,6 +11,7 @@ import Sidebar from "../component/Sidebar";
 import RecommendedUser from "../component/RecommendedUser";
 import { Link } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
+import PeopleSimilar from "../component/PeopleSimilar"
 const Profile = () => {
     
     //So we have 2 cases that we are viewing our own profile or other profile in our own profile we want edit option too. So in every section we will pass a isUser, userdata(which will again depend on isuser) and saveupdate function which will take the updated data and just update it from here
@@ -80,7 +81,7 @@ const Profile = () => {
               </div>
         <div className='col-span-1 lg:col-span-2 order-first lg:order-none'>
 			<ProfileHeader userData={userData} isOwnProfile={isOwnProfile} onSave={handleSave} />
-      PEOPLE SIMILAR TO XYZ SHOW THEIR CONNECTIONS HERE
+      <PeopleSimilar userData={userData} isOwnProfile={isOwnProfile}/>
 			<AboutSection userData={userData} isOwnProfile={isOwnProfile} onSave={handleSave} />
 			<ExperienceSection userData={userData} isOwnProfile={isOwnProfile} onSave={handleSave} />
 			<EducationSection userData={userData} isOwnProfile={isOwnProfile} onSave={handleSave} />
