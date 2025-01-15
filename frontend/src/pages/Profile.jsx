@@ -9,7 +9,7 @@ import AboutSection from "../component/AboutSection"
 import SkillsSection from "../component/SkillSection"
 import Sidebar from "../component/Sidebar";
 import RecommendedUser from "../component/RecommendedUser";
-import { Link } from "lucide-react";
+import { Link } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
 const Profile = () => {
     
@@ -97,9 +97,10 @@ const Profile = () => {
                 to="/search" 
                 className="flex items-center p-2 space-x-1 text font-medium text-gray-600 hover:text-primary"
               >
-                <span>See all suggestions</span>
+                <span>See all suggestions </span>
                 <ExternalLink size={18} className="hover:text-primary" />
               </Link>
+             
               </div>
             </div>
           </div>
