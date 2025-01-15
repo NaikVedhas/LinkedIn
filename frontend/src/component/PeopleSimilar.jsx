@@ -1,27 +1,46 @@
 import { Link } from "react-router-dom";
 
-const PeopleSimilar = ({ userData, isOwnProfile }) => {
+const PeopleSimilar = ({ userData, isOwnProfile,authUser }) => {
   const totalProfiles = userData?.connections?.length || 0;
+  
+  // Filter out the current user from the list of connections
+  const filteredConnections = userData?.connections?.filter(
+    (u) => u._id !== authUser._id
+  );
 
   return (
     <div>
       {!isOwnProfile && userData && totalProfiles > 0 && (
-         <div className="bg-white shadow rounded-lg mb-6 overflow-x-scroll scrollbar"> {/*due to overflow-x-scroll scrollbar we got that scrollbar and we have it style in index.css*/}
-          <div className="flex space-x-4 min-w-max p-4">
-            {userData?.connections?.map((u) => (
+        <div className="bg-white shadow rounded-lg mb-6 p-4">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+            People similar to {userData.name}
+          </h2>
+
+          {/* Profiles Container with Scroll */}
+          <div
+            className="flex overflow-x-auto space-x-4"
+            style={{
+              scrollbarWidth: "thin",
+              scrollbarColor: "#E5E7EB",
+            }}
+          >
+            {/* Profiles */}
+            {filteredConnections?.map((u) => (
               <Link
                 key={u._id}
                 to={`/profile/${u.username}`}
-                className="flex flex-col items-center border border-gray-300 p-4 rounded-lg"
+                className="flex flex-col items-center border border-gray-300 p-4 rounded-lg min-w-[150px] max-w-[200px] shadow-lg hover:shadow-xl transition-shadow duration-300"
               >
                 <img
                   src={u.profilePicture || "/avatar.png"}
                   alt={u.name}
-                  className="h-24 w-24 rounded-full object-cover mb-2"
+                  className="h-20 w-20 rounded-full object-cover mb-2"
                 />
-                <p className="text-sm text-center">{u.name}</p>
-                <p className="text-sm text-center">{u.headline}</p>
-                <p className="text-sm text-center">{u.connections?.length} Connections</p>
+                <p className="text-sm text-center font-semibold text-gray-800">{u.name}</p>
+                <p className="text-sm text-center text-gray-500">{u.headline}</p>
+                <p className="text-sm text-center text-gray-400">
+                  {u.connections?.length} Connections
+                </p>
               </Link>
             ))}
           </div>
@@ -32,3 +51,8 @@ const PeopleSimilar = ({ userData, isOwnProfile }) => {
 };
 
 export default PeopleSimilar;
+
+
+
+ //due to overflow-x-auto we got a silider directly from chrome 
+//We are showing the connections of the user

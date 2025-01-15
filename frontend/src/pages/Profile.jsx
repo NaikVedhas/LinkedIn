@@ -81,7 +81,7 @@ const Profile = () => {
               </div>
         <div className='col-span-1 lg:col-span-2 order-first lg:order-none'>
 			<ProfileHeader userData={userData} isOwnProfile={isOwnProfile} onSave={handleSave} />
-      <PeopleSimilar userData={userData} isOwnProfile={isOwnProfile}/>
+      <PeopleSimilar userData={userData} isOwnProfile={isOwnProfile} authUser={authUser}/>
 			<AboutSection userData={userData} isOwnProfile={isOwnProfile} onSave={handleSave} />
 			<ExperienceSection userData={userData} isOwnProfile={isOwnProfile} onSave={handleSave} />
 			<EducationSection userData={userData} isOwnProfile={isOwnProfile} onSave={handleSave} />
