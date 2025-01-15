@@ -51,9 +51,29 @@ const Home = () => {
 
 			<div className='col-span-1 lg:col-span-2 order-first lg:order-none'>
 				<PostCreation user={authUser} />
-        {posts?.map((post) => (
-					<Post key={post._id} post={post} />
-				))}
+        {posts && posts?.length>0 ? (
+          <div>
+            {posts?.map((post) => (
+              <Post key={post._id} post={post} />
+            ))}
+          </div>
+        ):(
+        <div className="text-center my-10">
+          <div className="text-gray-600 text-3xl font-semibold mb-3">
+            Follow or Connect with people to see their posts
+          </div>
+          <div className="text-gray-500 text-xl flex items-center justify-center gap-1">
+            <Link
+              to={`/search`}
+              className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+            >
+              Find people
+            </Link>
+            <ExternalLink size={20} className="text-blue-600 hover:text-blue-800" />
+          </div>
+        </div>
+        )}
+        
 
       </div>
         {recommendedUsers?.length > 0 && (
