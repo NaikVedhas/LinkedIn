@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { axiosInstance } from "../lib/axios";
 import { toast } from "react-hot-toast";
 import { Camera, Clock, MapPin, UserCheck, UserPlus, X } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 	
@@ -264,7 +265,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
                 {/* Profile Picture  */}
 				<div className='relative -mt-20 mb-4'>
 					<img
-						className='w-32 h-32 rounded-full mx-auto object-cover'
+						className='w-44 h-44 mx-3 rounded-full  object-cover'
 						src={editedData.profilePicture || userData.profilePicture || "/avatar.png"}
 						alt={userData.name}
 					/>
@@ -284,7 +285,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 				</div>
                 {/* jaha pe text hai vaha pe agar edit true hai toh instead of value directly form dikha rahe hai */}
                 {/* Name  */}
-				<div className='text-center mb-4'>
+				<div className='text-left mx-5 mb-4'>
 					{isEditing ? (
 						<input
 							type='text'
@@ -293,7 +294,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 							className='text-2xl font-bold mb-2 text-center w-full'
 						/>
 					) : (
-						<h1 className='text-2xl font-bold mb-2'>{userData.name}</h1>
+						<h1 className='text-2xl font-bold '>{userData.name}</h1>
 					)}
 
 					{isEditing ? (
@@ -307,7 +308,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 						<p className='text-gray-600'>{userData.headline}</p>
 					)}
 
-					<div className='flex justify-center items-center mt-2'>
+					<div className='flex  items-center '>
 						<MapPin size={16} className='text-gray-500 mr-1' />
 						{isEditing ? (
 							<input
@@ -319,6 +320,11 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 						) : (
 							<span className='text-gray-600'>{userData.location}</span>
 						)}
+					</div>
+					<div className="text-blue-500 font-semibold">
+						<Link to="/network">
+						{userData.connections?.length}+ Connections
+						</Link>
 					</div>
 				</div>
                 {/* First check karre if its our profile then edit button show karo or else connection buttons is enabled */}
@@ -341,9 +347,9 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 						</button>
 					)
 				) : (
-					<div className="flex flex-col items-center gap-4">
-					<div >{renderConnectionButton()}</div>
+					<div className=" mx-4 flex gap-4">
 					<div >{renderFollowButton()}</div>
+					<div >{renderConnectionButton()}</div>
 					</div>
 
 				)}
