@@ -4,6 +4,7 @@ import { axiosInstance } from "../lib/axios";
 import { toast } from "react-hot-toast";
 import { Camera, Clock, MapPin, UserCheck, UserPlus, X } from "lucide-react";
 import { Link } from "react-router-dom";
+import MutualConnections from "./MutualConnections";
 
 const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 	
@@ -101,7 +102,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 	});
   
     const renderConnectionButton = () => {
-        const baseClass = "text-white py-2 px-4 rounded-full transition duration-300 flex items-center justify-center";
+        const baseClass = "text-white py-1 px-4 rounded-full transition duration-300 flex items-center justify-center";
         switch (connectionStatus?.status) {
             case "connected":
                 return (
@@ -160,13 +161,13 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
     
 
 	const renderFollowButton = () => {
-		const baseClass = "text-white py-2 px-4 rounded-full transition duration-300 flex items-center justify-center";
+		const baseClass = "text-white py-1 px-4 rounded-full transition duration-300 flex items-center justify-center";
 	
 		if (isFollower) {
 			return (
 				<button
 					onClick={unFollowUser}
-					className={`${baseClass} bg-red-500 hover:bg-red-600 text-sm`}
+					className={`${baseClass} bg-red-500 hover:bg-red-600 `}
 				>
 					<X size={20} className="mr-2" />
 					Unfollow
@@ -176,7 +177,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 			return (
 				<button
 					onClick={followUser}
-					className={`${baseClass} bg-blue-500 hover:bg-blue-600 text-sm`}
+					className={`${baseClass} bg-blue-500 hover:bg-blue-600 `}
 				>
 					<UserPlus size={20} className="mr-2" />
 					Follow
@@ -229,13 +230,6 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 		onSave(editedData);
 		setIsEditing(false);
 	};
-
-	console.log("authUser.following",authUser.following);
-	
-	// Follow
-
-
-
 
     //Now in return for every part we are seeing if isEditing is true and if it is true then show  a small icon which is acting as form and taking edited data and updating the ui and if we click save then sending to backend etc 
 	return (
@@ -326,6 +320,15 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 						{userData.connections?.length}+ Connections
 						</Link>
 					</div>
+					<div>
+						{isOwnProfile ? (
+							<></>
+						):(
+							<div className="mt-2">
+								<MutualConnections user={userData}/> 
+							</div>
+						)}
+					</div>
 				</div>
                 {/* First check karre if its our profile then edit button show karo or else connection buttons is enabled */}
 				{isOwnProfile ? (
@@ -348,8 +351,8 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 					)
 				) : (
 					<div className=" mx-4 flex gap-4">
-					<div >{renderFollowButton()}</div>
-					<div >{renderConnectionButton()}</div>
+					<div>{renderFollowButton()}</div>
+					<div>{renderConnectionButton()}</div>
 					</div>
 
 				)}

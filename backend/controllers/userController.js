@@ -43,7 +43,8 @@ const getPublicProfile = async (req,res) => {
                 }
             },
             {new:true})
-            .select("-password");
+            .select("-password")
+            .populate("connections");
 
         if(!user){
             return res.status(404).json({message:"User not found"});
