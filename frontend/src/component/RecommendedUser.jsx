@@ -127,7 +127,7 @@ const RecommendedUser = ({user}) => { //this is the recommended user
             <img
                 src={user.profilePicture || "/avatar.png"}
                 alt={user.name}
-                className='w-12 h-12 rounded-full mr-3'
+                className='w-12 h-12 rounded-full mr-3 object-cover'
             />
             <div>
                 <h3 className='font-semibold text-sm'>{user.name}</h3>

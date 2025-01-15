@@ -27,7 +27,7 @@ const protectRoute = async (req,res,next) =>{
     } catch (error) {
         
         console.log("Error in protected route:",error.message);
-        return res.status(500).json({message:"Internal Server error"});
+        return res.status(500).json({message:"Internal Server error,Please try again later"});
         
     }
 }
