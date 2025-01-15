@@ -1,4 +1,4 @@
-
+import MutualConnections from "./MutualConnections"
 import { Link } from "react-router-dom";
 
 function UserCard({ user, isConnection }) {
@@ -17,6 +17,7 @@ function UserCard({ user, isConnection }) {
 			{/* <button className='mt-4 bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark transition-colors w-full'>
 				{isConnection ? "Connected" : "Connect"}
 			</button> */}
+			<MutualConnections user={user}/>
 		</div>
 	);
 }
