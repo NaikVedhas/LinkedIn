@@ -1,100 +1,77 @@
-// const {mailtrapClient,sender} = require('../lib/mailTrap')
-// const {
-//     createWelcomeEmailTemplate,
-//     createCommentNotificationEmailTemplate,
-//     createConnectionAcceptedEmailTemplate 
-//     } = require('./emailTemplates')
 
-// const sendWelcomeEmail = async (email,name,profileUrl) =>{
+const {transporter,sender} = require('../lib/nodemailer')
 
-//     const recipients  = [{email}];      //this 
-
-//     try {
-//         const response = await mailtrapClient.send({
-//             from:sender,
-//             to:recipients,
-//             subject:"Welcome to LinkedIn 2.0",
-//             html:createWelcomeEmailTemplate(name,profileUrl),
-//             category: "welcome",
-//         })
-//         console.log("Welcome email sent");
-        
-//     } catch (error) {
-//         console.log(error.message);
-        
-//         // throw error;
-//     }
-// }
+const {createWelcomeEmailTemplate,
+    createConnectionAcceptedEmailTemplate,
+    createCommentNotificationEmailTemplate} = require('./emailTemplates');
 
 
-// const sendCommentNotificationEmail = async (recipientEmail,recipientName,commenterName,postUrl,commentContent) =>{
-
-//     const recipients  = [{recipientEmail}];  
-
-//     try {
-//         const response= await mailtrapClient.send({
-//             from:sender,
-//             to: recipients,
-//             subject:"New Comment on your Post",
-//             html:createCommentNotificationEmailTemplate(recipientName,commenterName,postUrl,commentContent),
-//             category:"comment_notification"
-//         });
-//         console.log("Notification sent successfully");
-        
-//     } catch (error) {
-//         console.log("Error:",error.message);
-        
-//     }
-
-// }
-
-// const sendConnectionAcceptedEmail = async (senderName,recipientName, profileUrl,senderEmail) =>{
+const sendWelcomeEmail = async (email,name,profileUrl) =>{
     
-//     const recipients  = [{senderEmail}];  
+    const  mailOptions = {
+        from: sender,  
+        to: email,  
+        subject: 'Welcome to LinkedIn',  
+        html: createWelcomeEmailTemplate(name,profileUrl)  //todo
+    };
     
-//     try {
-//         const response = await mailtrapClient.send({
-//             from:sender,
-//             to:recipients,
-//             subject:`${recipientName} accepted your connection request`,
-//             html:createConnectionAcceptedEmailTemplate(senderName,recipientName, profileUrl),
-//             category:"connection_accepted"
-//         })
-//         console.log("Acceptance email sent successfully");
+    
+    // Send the email
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+        console.log('Error occurred:', error);
+        } else {
+        console.log('Email sent:', info.response);
+        }
+    });
+    
+}
 
-//     } catch (error) {
-//         console.log("Error:",error.message);
-        
-//     }
-// } 
+//order of argumnets matter argument names dont matter (for all these functions)
+const sendCommentNotificationEmail = async (email,recipientName, commenterName, postUrl, commentContent) =>{
 
-// module.exports = {
-//     sendWelcomeEmail,
-//     sendCommentNotificationEmail,
-//     sendConnectionAcceptedEmail
-// }
+    const  mailOptions = {
+        from: sender,  
+        to: email,  
+        subject: `${commenterName}  commented on your post `,   
+        html: createCommentNotificationEmailTemplate(recipientName, commenterName, postUrl, commentContent) 
+    };
+    
+    
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+        console.log('Error occurred:', error);
+        } else {
+        console.log('Email sent:', info.response);
+        }
+    });
+    
+
+}
+
+const sendConnectionAcceptedEmail = async () =>{
+    const  mailOptions = {
+        from: sender,  
+        to: email,  
+        subject: ' user accepted ur connection request ',   //todo
+        html: createConnectionAcceptedEmailTemplate() //todo
+    };
+    
+    
+    // Send the email
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+        console.log('Error occurred:', error);
+        } else {
+        console.log('Email sent:', info.response);
+        }
+    });
+    
+}
 
 
-
-
-
-
-
-
-
-//yeh mailtrap ka setup code is coming from https://mailtrap.io/sending/domains/7e213cdb-de60-42fe-b278-4232e957af7e?current_tab=smtp_settings&stream=transactional   in here select api and then nodejs mein SDK
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+module.exports = {
+    sendWelcomeEmail,
+    sendCommentNotificationEmail,
+    sendConnectionAcceptedEmail
+}

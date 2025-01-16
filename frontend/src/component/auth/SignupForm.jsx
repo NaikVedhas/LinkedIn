@@ -23,6 +23,9 @@ const SignupForm = () => {
         },
         onSuccess:()=>{
             toast.success("Account created successfully");
+            setTimeout(() => {
+                toast.success("Check your email to complete profile");
+            }, 3000);
             queryClient.invalidateQueries({queryKey:["authUser"]}); //so basically this will refetch the authUser and as we have logged in now we will be redirected to home page without refreshing just like react context
             
         },

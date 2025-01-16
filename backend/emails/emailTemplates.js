@@ -14,7 +14,7 @@
     </div>
     <div style="background-color: #ffffff; padding: 30px; border-radius: 0 0 10px 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
       <p style="font-size: 18px; color: #0077B5;"><strong>Hello ${name},</strong></p>
-      <p>We're thrilled to have you join our professional community! UnLinked is your platform to connect, learn, and grow in your career.</p>
+      <p>We're thrilled to have you join our professional community! LinkedIN is your platform to connect, learn, and grow in your career.</p>
       <div style="background-color: #f3f6f8; padding: 20px; border-radius: 8px; margin: 20px 0;">
         <p style="font-size: 16px; margin: 0;"><strong>Here's how to get started:</strong></p>
         <ul style="padding-left: 20px;">
@@ -28,7 +28,7 @@
         <a href="${profileUrl}" style="background-color: #0077B5; color: white; padding: 14px 28px; text-decoration: none; border-radius: 30px; font-weight: bold; font-size: 16px; transition: background-color 0.3s;">Complete Your Profile</a>
       </div>
       <p>If you have any questions or need assistance, our support team is always here to help.</p>
-      <p>Best regards,<br>The UnLinked Team</p>
+      <p>Best regards,<br>Vedhas Naik</p>
     </div>
   </body>
   </html>
