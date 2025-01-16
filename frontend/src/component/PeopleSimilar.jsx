@@ -32,7 +32,7 @@ const PeopleSimilar = ({ userData, isOwnProfile,authUser }) => {
               <Link
                 key={u._id}
                 to={`/profile/${u.username}`}
-                className="flex flex-col items-center border border-gray-300 p-4 rounded-lg min-w-[150px] max-w-[200px] shadow-lg hover:shadow-xl transition-shadow duration-300"
+                className="flex flex-col items-center border border-gray-300 p-4 rounded-lg min-w-[150px] max-w-[200px] shadow-lg hover:shadow-2xl transition-shadow duration-300"
               >
                 <img
                   src={u.profilePicture || "/avatar.png"}
