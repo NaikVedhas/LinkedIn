@@ -1,4 +1,3 @@
-
 const {transporter,sender} = require('../lib/nodemailer')
 
 const {createWelcomeEmailTemplate,
@@ -49,16 +48,18 @@ const sendCommentNotificationEmail = async (email,recipientName, commenterName, 
 
 }
 
-const sendConnectionAcceptedEmail = async () =>{
+const sendConnectionAcceptedEmail = async (senderName,recipientName, profileUrl,email) =>{
+    
+    //this recipientName is the one who has accepted the request and so we need to send email to senderName that receipnet accepted ur request
+
     const  mailOptions = {
         from: sender,  
         to: email,  
-        subject: ' user accepted ur connection request ',   //todo
-        html: createConnectionAcceptedEmailTemplate() //todo
-    };
+        subject: `Congratulations ${recipientName} accepted your connection request !`,   
+        html: createConnectionAcceptedEmailTemplate(senderName,recipientName,profileUrl); 
+        };
     
     
-    // Send the email
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
         console.log('Error occurred:', error);
