@@ -14,9 +14,9 @@ const Post = ({post}) => {
 
     const [showComments,setShowComments] = useState(false);
     const [newComment,setNewComment] = useState('');
-    const [comments,setComments]= useState(post.comments ||[]);
-    const isOwner = authUser._id===post.author._id;
-    const isLiked = post.likes.includes(authUser._id);
+    const [comments,setComments]= useState(post?.comments ||[]);
+    const isOwner = authUser?._id===post.author?._id;
+    const isLiked = post?.likes?.includes(authUser._id);
 
     const queryClient = useQueryClient();
     
@@ -123,19 +123,19 @@ const Post = ({post}) => {
 					<div className='flex items-center'>
 						<Link to={`/profile/${post?.author?.username}`}>
 							<img
-								src={post.author.profilePicture || "/avatar.png"}
-								alt={post.author.name}
+								src={post?.author?.profilePicture || "/avatar.png"}
+								alt={post?.author?.name}
 								className='size-10 rounded-full mr-3 object-cover'
 							/>
 						</Link>
 
 						<div>
 							<Link to={`/profile/${post?.author?.username}`}>
-								<h3 className='font-semibold'>{post.author.name}</h3>
+								<h3 className='font-semibold'>{post?.author?.name}</h3>
 							</Link>
-							<p className='text-xs text-info'>{post.author.headline}</p>
+							<p className='text-xs text-info'>{post?.author?.headline}</p>
 							<p className='text-xs text-info'>
-								{formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}
+								{formatDistanceToNow(new Date(post?.createdAt), { addSuffix: true })}
 							</p>
 						</div>
 					</div>
@@ -145,15 +145,15 @@ const Post = ({post}) => {
 						</button>
 					)}
 				</div>
-				<Link to={`/posts/${post._id}`} >
-				<p className='mb-4'>{post.content}</p>
-				{post.image && <img src={post.image} alt='Post content' className='rounded-lg w-full mb-4' />}
+				<Link to={`/posts/${post?._id}`} >
+				<p className='mb-4'>{post?.content}</p>
+				{post?.image && <img src={post?.image} alt='Post content' className='rounded-lg w-full mb-4' />}
 				</Link>
 
 				<div className='flex justify-between text-info'>
 					<PostAction
 						icon={<ThumbsUp size={18} className={isLiked ? "text-blue-500  fill-blue-300" : ""} />}
-						text={`Like (${post.likes.length})`}
+						text={`Like (${post?.likes?.length})`}
 						onClick={handleLikePost}
 					/>
 
@@ -172,18 +172,18 @@ const Post = ({post}) => {
 						{comments.map((comment) => (
 							<div key={comment._id} className='mb-2 bg-base-100 p-2 rounded flex items-start'>
 								<img
-									src={comment.user.profilePicture || "/avatar.png"}
-									alt={comment.user.name}
+									src={comment?.user?.profilePicture || "/avatar.png"}
+									alt={comment?.user?.name}
 									className='w-8 h-8 rounded-full mr-2 flex-shrink-0'
 								/>
 								<div className='flex-grow'>
 									<div className='flex items-center mb-1'>
-										<span className='font-semibold mr-2'>{comment.user.name}</span>
+										<span className='font-semibold mr-2'>{comment?.user?.name}</span>
 										<span className='text-xs text-info'>
-											{formatDistanceToNow(new Date(comment.createdAt))}
+											{formatDistanceToNow(new Date(comment?.createdAt))}
 										</span>
 									</div>
-									<p>{comment.content}</p>
+									<p>{comment?.content}</p>
 								</div>
 							</div>
 						))}
