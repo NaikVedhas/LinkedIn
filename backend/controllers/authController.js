@@ -1,8 +1,11 @@
 const User = require('../models/userModel')
+const OTP = require('../models/otpModel')
 const validator =  require('validator');
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const {sendWelcomeEmail} = require('../emails/emailHandlers')
+const {sendWelcomeEmail,sendOTP} = require('../emails/emailHandlers')
+const otpGenerator = require('otp-generator');
+
 
 const signup =async (req,res)=>{
     
@@ -28,6 +31,7 @@ const signup =async (req,res)=>{
         if(!validator.isEmail(email)){
             return res.status(400).json({message:"Invalid Email"})
         }
+
 
         const salt = await bcrypt.genSalt(10);
         const hashedPassoword = await bcrypt.hash(password,salt);
