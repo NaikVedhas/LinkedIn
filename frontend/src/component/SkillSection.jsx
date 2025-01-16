@@ -3,7 +3,7 @@ import { useState } from "react";
 
 const SkillsSection = ({ userData, isOwnProfile, onSave }) => {
 	const [isEditing, setIsEditing] = useState(false);
-	const [skills, setSkills] = useState(userData.skills || []);
+	const [skills, setSkills] = useState(userData?.skills || []);
 	const [newSkill, setNewSkill] = useState("");
 
 	const handleAddSkill = () => {
@@ -26,7 +26,7 @@ const SkillsSection = ({ userData, isOwnProfile, onSave }) => {
 		<div className='bg-white shadow rounded-lg p-6'>
 			<h2 className='text-xl font-semibold mb-4'>Skills</h2>
 			<div className='flex flex-wrap'>
-				{skills.map((skill, index) => (
+				{skills?.map((skill, index) => (
 					<span
 						key={index}
 						className='bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm mr-2 mb-2 flex items-center'

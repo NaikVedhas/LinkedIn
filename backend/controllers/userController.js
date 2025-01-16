@@ -31,25 +31,24 @@ const getPublicProfile = async (req,res) => {
     try {
 
         const isSelfProfile = req.user.username.toString()===req.params.username.toString();
-        const user = await User.findOneAndUpdate(
-            {username:req.params.username},
-            isSelfProfile?{}:
-            {$push:
-                {
-                    profileViewers: {
-                    user: req.user._id,
-                    createdAt: new Date(),
-                    },
-                }
-            },
-            {new:true})
-            .select("-password")
-            .populate("connections");
+        const user = await User.findOne({username:req.params.username})  //the new:true is an property used when find and update or delete is performed and not on normal find if u use it there then its getting some incomeplete data from mongoose 
+        .select("-password")
+        .populate("connections");
+
 
         if(!user){
             return res.status(404).json({message:"User not found"});
         }
-        //add the profile in profileViewers too 
+
+        //Now check for 2 conditions - isSelfProfile and the last person to view is same or not as of current person
+       
+       const lastViewer = user.profileViewers?.length ? user.profileViewers[user.profileViewers.length - 1]
+       : null;
+       //lastViewr myabe undefined if the array is empty ha 
+       if(!isSelfProfile && (!lastViewer || lastViewer.user.toString() !== req.user._id.toString())){
+            user.profileViewers.push({user: req.user._id,createdAt: new Date()});
+            await user.save();
+        }
         
         res.status(200).json(user)
 
