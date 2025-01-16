@@ -265,7 +265,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 					/>
 
 					{isEditing && (
-						<label className='absolute bottom-0 right-1/2 transform translate-x-16 bg-white p-2 rounded-full shadow cursor-pointer'>
+						<label className='absolute bottom-0 ml-20 transform translate-x-16 bg-white p-2 rounded-full shadow cursor-pointer'>
 							<Camera size={20} />
 							<input
 								type='file'
@@ -285,7 +285,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 							type='text'
 							value={editedData.name ?? userData.name}
 							onChange={(e) => setEditedData({ ...editedData, name: e.target.value })}
-							className='text-2xl font-bold mb-2 text-center w-full'
+							className='text-2xl font-bold mb-2  hover:cursor-pointer w-full'
 						/>
 					) : (
 						<h1 className='text-2xl font-bold '>{userData.name}</h1>
@@ -296,7 +296,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 							type='text'
 							value={editedData.headline ?? userData.headline}
 							onChange={(e) => setEditedData({ ...editedData, headline: e.target.value })}
-							className='text-gray-600 text-center w-full'
+							className='text-gray-600  w-full hover:cursor-pointer'
 						/>
 					) : (
 						<p className='text-gray-600'>{userData.headline}</p>
@@ -309,7 +309,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 								type='text'
 								value={editedData.location ?? userData.location}
 								onChange={(e) => setEditedData({ ...editedData, location: e.target.value })}
-								className='text-gray-600 text-center'
+								className='text-gray-600 hover:cursor-pointer'
 							/>
 						) : (
 							<span className='text-gray-600'>{userData.location}</span>
