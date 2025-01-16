@@ -2,7 +2,7 @@ const  ConnectionRequest  = require("../models/connectionModel");
 const User = require("../models/userModel")
 const Notification = require('../models/notificationModel')
 require('dotenv').config();
-
+const {sendConnectionAcceptedEmail} = require('../emails/emailHandlers');
 
 const sendConnectionRequest = async (req,res)=>{
     

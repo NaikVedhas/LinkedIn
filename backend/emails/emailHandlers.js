@@ -56,7 +56,7 @@ const sendConnectionAcceptedEmail = async (senderName,recipientName, profileUrl,
         from: sender,  
         to: email,  
         subject: `Congratulations ${recipientName} accepted your connection request !`,   
-        html: createConnectionAcceptedEmailTemplate(senderName,recipientName,profileUrl); 
+        html: createConnectionAcceptedEmailTemplate(senderName,recipientName,profileUrl)
         };
     
     

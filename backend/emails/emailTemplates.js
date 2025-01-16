@@ -10,7 +10,7 @@
   <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
     <div style="background: linear-gradient(to right, #0077B5, #00A0DC); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
       <img src="https://img.freepik.com/premium-vector/linkedin-logo_578229-227.jpg" alt="LinkedIn Logo" style="width: 150px; margin-bottom: 20px;border-radius: 10px;">
-      <h1 style="color: white; margin: 0; font-size: 28px;">Welcome to UnLinked!</h1>
+      <h1 style="color: white; margin: 0; font-size: 28px;">Welcome to LinkedIn!</h1>
     </div>
     <div style="background-color: #ffffff; padding: 30px; border-radius: 0 0 10px 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
       <p style="font-size: 18px; color: #0077B5;"><strong>Hello ${name},</strong></p>
@@ -42,6 +42,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Connection Request Accepted</title>
+  <style>
+    /* Responsive styles for the "View Profile" button */
+    @media (max-width: 600px) {
+      .view-profile-btn {
+        width: 100%;  /* Make button full-width on small screens */
+        padding: 12px 24px;  /* Adjust padding for smaller screens */
+        font-size: 14px;  /* Adjust font size */
+        text-align: center;  /* Ensure text is centered */
+      }
+    }
+  </style>
 </head>
 <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
   <div style="background: linear-gradient(to right, #0077B5, #00A0DC); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
@@ -60,7 +71,7 @@
       </ul>
     </div>
     <div style="text-align: center; margin: 30px 0;">
-      <a href="${profileUrl}" style="background-color: #0077B5; color: white; padding: 14px 28px; text-decoration: none; border-radius: 30px; font-weight: bold; font-size: 16px; transition: background-color 0.3s;">View ${recipientName}'s Profile</a>
+      <a href="${profileUrl}" class="view-profile-btn" style="background-color: #0077B5; color: white; padding: 14px 28px; text-decoration: none; border-radius: 30px; font-weight: bold; font-size: 16px; transition: background-color 0.3s;">View ${recipientName}'s Profile</a>
     </div>
     <p>Expanding your professional network opens up new opportunities. Keep connecting!</p>
     <p>Best regards,<br>Vedhas Naik</p>
