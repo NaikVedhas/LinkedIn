@@ -107,7 +107,7 @@ const login = async (req,res)=>{
     }
 };
 
-const logout = (req,res)=>{
+const logout = async (req,res)=>{
     res.clearCookie('jwt-linkedin');
     res.json({message:"Logged out successfully"});
 };
@@ -122,6 +122,20 @@ const getCurrentUser = async (req,res)=>{
     }
 }
 
+
+const generateOTP = async(req,res) =>{
+    //We will generate OTP from scratch 
+
+    try {
+        
+    } catch (error) {
+        
+    }
+}
+
+const verifyOTP = async (req,res) =>{
+
+}
 
 module.exports = {
     signup,
