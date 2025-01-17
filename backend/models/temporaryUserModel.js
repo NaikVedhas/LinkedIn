@@ -22,7 +22,7 @@ const tempUser = new  mongoose.Schema({
     },
     createdAt:{
         type:Date,
-        default:Date.now(),
+        default:Date.now,
         expires:60*2               //todo: Do the time 30 minutes not 2 
     }
 },{timestamps:true});

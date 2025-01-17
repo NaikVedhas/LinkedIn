@@ -101,8 +101,9 @@ const signup1 = async (req,res)=>{
         const salt = await bcrypt.genSalt(10);
         const hashedPassoword = await bcrypt.hash(password,salt);
 
-        const tempUser = await TempUser.create({email,name,username,password:hashedPassoword})
+        const tempUser = await TempUser.create({email,name,username,password:hashedPassoword});
 
+        
         //Generating OTP - We will use Otpgenerator package 
         
         let otp = otpGenerator.generate(6, {
@@ -146,10 +147,10 @@ const signup2 = async (req,res)=>{
     const tempUser =  await TempUser.findById(id);
 
     if(!tempUser){      //means tempUser expired so navigate him to signup again and create a new tempUser
-        return res.status(404).json({message:"Validation timeed out. Please signup again"})
+        return res.status(404).json({message:"Validation timed out. Please signup again"})
     }
 
-    const otpUser = await OTP.find({email:tempUser.email});
+    const otpUser = await OTP.findOne({email:tempUser.email});
 
     if(!otpUser){
         return res.status(400).json({message:"OTP expired"});
@@ -158,7 +159,11 @@ const signup2 = async (req,res)=>{
     const saltedOTP = await bcrypt.genSalt(10);
     const hashedOTP = await  bcrypt.hash(otp,saltedOTP);
 
-    if(hashedOTP.toString()!==otpUser.otp.toString()){
+    console.log("otpUser",otpUser.otp);
+    console.log("otp",hashedOTP);
+    
+    const isOTPValid = await bcrypt.compare(otp, otpUser.otp);
+    if(!isOTPValid){
         return res.status(401).json("Incorrect OTP");
     }
 
@@ -189,8 +194,6 @@ const signup2 = async (req,res)=>{
 
     res.status(201).json({message:"User successfully registered"});
 }
-
-
 
 
 const login = async (req,res)=>{
@@ -249,22 +252,9 @@ const getCurrentUser = async (req,res)=>{
 }
 
 
-const generateOTP = async(req,res) =>{
-    //We will generate OTP from scratch 
-
-    try {
-        
-    } catch (error) {
-        
-    }
-}
-
-const verifyOTP = async (req,res) =>{
-
-}
-
 module.exports = {
-    signup,
+    signup1,
+    signup2,
     login,
     logout,
     getCurrentUser
