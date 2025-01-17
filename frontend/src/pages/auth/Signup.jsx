@@ -13,20 +13,12 @@ const SignUpPage = () => {
 	};
 
 	return (
-		<div className='min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8'>
+		<div className='min-h-screen flex flex-col justify-center sm:px-6 lg:px-8'>
 			<div className='sm:mx-auto sm:w-full sm:max-w-md'>
 				<img className='mx-auto h-36 w-auto' src='/logo.svg' alt='LinkedIn' />
-				<h2 className='text-center text-3xl font-extrabold text-gray-900'>
-					{!showOTP?
-					<>
+				<h1 className='text-center text-3xl font-extrabold text-gray-900'>
 					Make the most of your professional life
-					</>
-					:
-					<>
-					OTP verification
-					</>
-					}
-				</h2>
+				</h1>
 			</div>
 			<div className='mt-8 sm:mx-auto sm:w-full sm:max-w-md shadow-md'>
 				<div className='bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10'>

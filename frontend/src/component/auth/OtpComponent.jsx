@@ -82,8 +82,8 @@ const OtpComponent = ({id}) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-md">
+    <div className="flex flex-col items-center justify-center bg-white p-4">
+      <div className="bg-white shadow-2xl rounded-lg p-6 w-full max-w-md">
         <h2 className="text-2xl font-bold text-center mb-4 text-gray-800">
           Verify OTP
         </h2>
