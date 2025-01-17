@@ -1,16 +1,27 @@
 import { Link } from "react-router-dom";
 import SignupForm from "../../component/auth/SignupForm";
 import OtpComponent from "../../component/auth/OtpComponent"
-import { useState } from "react";
+import { useState,useEffect } from "react";
 const SignUpPage = () => {
 	
+	//We need to store the showOTP state in localstorage because if we refresh page then well see signup again instead of otp
+
 	const [showOTP, setShowOTP] = useState(false); // Step 1: Signup Form, Step 2: OTP
 	const [tempUserId, setTempUserId] = useState(null); // To store the user ID from the signup form response
 
 	const handleSignupSuccess = (id) => {
+		localStorage.setItem('signupComplete', 'true');
 		setTempUserId(id); 
 		setShowOTP(true); 
 	};
+
+	//Wehenver we refresh signup route then check 
+	useEffect(() => {
+		const isSignupComplete = localStorage.getItem('signupComplete');
+		if (isSignupComplete === 'true') {
+		  setShowOTP(true);
+		}
+	  }, []);
 
 	return (
 		<div className='min-h-screen flex flex-col justify-center sm:px-6 lg:px-8'>
