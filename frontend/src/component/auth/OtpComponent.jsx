@@ -1,12 +1,33 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { useState, useEffect, useRef } from "react";
 import toast from "react-hot-toast";
+import { axiosInstance } from "../../lib/axios";
 
-const OtpComponent = () => {
+const OtpComponent = ({id}) => {
   const [timeLeft, setTimeLeft] = useState(120); // 2 minutes = 120 seconds
   const [otp, setOtp] = useState(Array(6).fill(""));
   const [isResendEnabled, setIsResendEnabled] = useState(false);
 
+  const queryClient = useQueryClient();
   const inputRefs = useRef([]);
+
+  const {mutate:verifyOTP} = useMutation({
+    mutationFn:async ()=>{
+      const res = await axiosInstance.post('/auth/signup2',{id,otp:otp.join("")});//Combine the digits into a single string
+    },
+    onSuccess: ()=>{
+      toast.success("Account created successfully")
+      setTimeout(() => {
+        toast.success("Check your email to complete profile");
+      }, 3000);
+
+      queryClient.invalidateQueries({queryKey:["authUser"]}); //so basically this will refetch the authUser and as we have logged in now we will be redirected to home page without refreshing just like react context
+    },
+    onError:  (err)=>{
+      toast.error(err.response.data.message || "Something went wrong")
+    }
+  })
+
 
   // Countdown timer
   useEffect(() => {
@@ -45,9 +66,9 @@ const OtpComponent = () => {
   };
 
   const handleVerifyOtp = () => {
-    const enteredOtp = otp.join(""); // Combine the digits into a single string
-    if (enteredOtp.length === 6) {
-      console.log("OTP Verified:", enteredOtp);
+    
+    if (otp.join("").length === 6) {
+      verifyOTP();
     } else {
       toast.error("OTP must be 6 characters long");
     }
