@@ -11,25 +11,13 @@ const SignUpPage = () => {
 
 	const [showOTP, setShowOTP] = useState(false); // Step 1: Signup Form, Step 2: OTP
 
-	const handleSignupSuccess = () => {
-		setShowOTP(true); 
-	};
-
 	//Wehenver we refresh signup route then check 
 	useEffect(() => {
 		const isSignupComplete = localStorage.getItem('signupComplete');
 		if (isSignupComplete === 'true') {
 		  setShowOTP(true);
 		}
-
-		// Check if the temporary user has expired
-		const tempUserExpirationTime = localStorage.getItem('tempUserExpirationTime');
-		if (tempUserExpirationTime && Date.now() > parseInt(tempUserExpirationTime)) {
-		  localStorage.clear(); // Clear all temp user data
-		  setShowOTP(false); // Redirect to signupform page if expired
-		  toast.error("Credentials expired");
-		}
-	  }, [localStorage.getItem('tempUserExpirationTime')]);
+	  }, []);
 
 	return (
 		<div className='min-h-screen flex flex-col justify-center sm:px-6 lg:px-8'>
