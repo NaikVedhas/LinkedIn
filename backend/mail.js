@@ -1,8 +1,3 @@
-
-
-
-
-
 // Set mail options
 let mailOptions = {
   from: process.env.SENDER_MAIL,  // Sender's email
@@ -12,10 +7,11 @@ let mailOptions = {
 };
 
 // Send the email
-transporter.sendMail(mailOptions, (error, info) => {
+transporter.sendMail(mailOptions, (error) => {
   if (error) {
     console.log('Error occurred:', error);
-  } else {
-    console.log('Email sent:', info.response);
+  }else{
+    console.log("Email sent");
+    
   }
 });

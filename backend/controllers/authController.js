@@ -159,9 +159,7 @@ const signup2 = async (req,res)=>{
     const saltedOTP = await bcrypt.genSalt(10);
     const hashedOTP = await  bcrypt.hash(otp,saltedOTP);
 
-    console.log("otpUser",otpUser.otp);
-    console.log("otp",hashedOTP);
-    
+   
     const isOTPValid = await bcrypt.compare(otp, otpUser.otp);
     if(!isOTPValid){
         return res.status(401).json({message:"Incorrect OTP"});

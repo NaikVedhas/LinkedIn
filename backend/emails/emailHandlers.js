@@ -16,11 +16,11 @@ const {createWelcomeEmailTemplate,
         
         
         // Send the email
-        transporter.sendMail(mailOptions, (error, info) => {
+        transporter.sendMail(mailOptions, (error) => {
             if (error) {
             console.log('Error occurred:', error);
             } else {
-            console.log('Email sent:', info.response);
+            console.log('Email sent');
             }
         });
     }
@@ -36,11 +36,11 @@ const {createWelcomeEmailTemplate,
     
     
     // Send the email
-    transporter.sendMail(mailOptions, (error, info) => {
+    transporter.sendMail(mailOptions, (error) => {
         if (error) {
         console.log('Error occurred:', error);
         } else {
-        console.log('Email sent:', info.response);
+        console.log('Email sent');
         }
     });
     
@@ -57,11 +57,11 @@ const {createWelcomeEmailTemplate,
         };
         
         
-        transporter.sendMail(mailOptions, (error, info) => {
+        transporter.sendMail(mailOptions, (error) => {
             if (error) {
             console.log('Error occurred:', error);
             } else {
-            console.log('Email sent:', info.response);
+            console.log('Email sent');
             }
         });
         
@@ -80,11 +80,11 @@ const {createWelcomeEmailTemplate,
             };
         
         
-        transporter.sendMail(mailOptions, (error, info) => {
+        transporter.sendMail(mailOptions, (error) => {
             if (error) {
             console.log('Error occurred:', error);
             } else {
-            console.log('Email sent:', info.response);
+            console.log('Email sent');
             }
         });
         
