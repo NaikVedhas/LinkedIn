@@ -46,7 +46,7 @@ const Post = ({post}) => {
             queryClient.invalidateQueries({queryKey:["posts"]});
         },
         onError:(err)=>{
-            toast.error(err.response.data.message || "Failed to add comment");
+            toast.error(err?.response?.data?.message || "Failed to add comment");
         }
     })
 
@@ -59,7 +59,7 @@ const Post = ({post}) => {
             queryClient.invalidateQueries({queryKey:["posts"]});
         },
         onError:(err)=>{
-            toast.error(err.response.data.message||"Failed to like");
+            toast.error(err?.response?.data?.message||"Failed to like");
         }
     })
     
@@ -106,9 +106,9 @@ const Post = ({post}) => {
 				{
 					content: newComment,
 					user: {
-						_id: authUser._id,
-						name: authUser.name,
-						profilePicture: authUser.profilePicture,
+						_id: authUser?._id,
+						name: authUser?.name,
+						profilePicture: authUser?.profilePicture,
 					},
 					createdAt: new Date(),
 				},
@@ -159,7 +159,7 @@ const Post = ({post}) => {
 
 					<PostAction
 						icon={<MessageCircle size={18} />}
-						text={`Comment (${comments.length})`}
+						text={`Comment (${comments?.length})`}
 						onClick={() => setShowComments(!showComments)}
 					/>
 					<PostAction icon={<Share2 size={18} />} text='Share' />
@@ -169,7 +169,7 @@ const Post = ({post}) => {
 			{showComments && (
 				<div className='px-4 pb-4'>
 					<div className='mb-4 max-h-60 overflow-y-auto'>
-						{comments.map((comment) => (
+						{comments?.map((comment) => (
 							<div key={comment._id} className='mb-2 bg-base-100 p-2 rounded flex items-start'>
 								<img
 									src={comment?.user?.profilePicture || "/avatar.png"}

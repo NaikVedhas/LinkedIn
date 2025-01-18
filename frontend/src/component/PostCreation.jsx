@@ -31,7 +31,7 @@ const PostCreation = ({user}) => {
             queryClient.invalidateQueries({queryKey:["posts"]});    //so that we re fetch it
         },
         onError:(err)=>{
-            toast.error(err.response.data.message || "Failed to create Post");
+            toast.error(err?.response?.data?.message || "Failed to create Post");
         }
 
     })
@@ -67,12 +67,12 @@ const PostCreation = ({user}) => {
 	};
 
     {/* Image Upload */}
-                {/* Even though the input is hidden as it is in label field so when we click on the Image icon so the label gets hits and input is triggered and we can upload a file  */}
+    {/* Even though the input is hidden as it is in label field so when we click on the Image icon so the label gets hits and input is triggered and we can upload a file  */}
 
     return (
 		<div className='bg-secondary rounded-lg shadow mb-4 p-4'>
 			<div className='flex space-x-3'>
-				<img src={user.profilePicture || "/avatar.png"} alt={user.name} className='size-12 rounded-full object-cover' />
+				<img src={user?.profilePicture || "/avatar.png"} alt={user?.name} className='size-12 rounded-full object-cover' />
 				<textarea
 					placeholder="What's on your mind?"
 					className='w-full p-3 rounded-lg bg-base-100 hover:bg-base-200 focus:bg-base-200 focus:outline-none resize-none transition-colors duration-200 min-h-[100px]'

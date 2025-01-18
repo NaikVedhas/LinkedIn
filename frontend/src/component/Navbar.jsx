@@ -34,11 +34,11 @@ const Navbar = () => {
       queryClient.invalidateQueries({ queryKey: ["authUser"] }); // so it will refresh this and authUser is null we will be redirected to login pages without refreshing
     },
     onError: (error) => {
-      toast.error("Something went wrong");
+      toast.error(error?.response?.data?.message || "Something went wrong");
     },
   });
 
-  const unreadNotificationCount = notifications?.data.filter(
+  const unreadNotificationCount = notifications?.data?.filter(
     (notif) => !notif.read
   ).length;
   const unreadConnectionRequestsCount = connectionRequests?.data?.length;
@@ -142,7 +142,7 @@ const Navbar = () => {
 
 
                 <NavLink
-                  to={`/profile/${authUser.username}`}
+                  to={`/profile/${authUser?.username}`}
                   className={({ isActive }) =>
                     isActive
                       ? "text-primary flex flex-col items-center font-bold" // active icon becomes bold and colored

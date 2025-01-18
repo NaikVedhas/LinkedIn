@@ -11,11 +11,11 @@ const RecommendedUser = ({user}) => { //this is the recommended user
     const queryClient = useQueryClient();
 
     const {data:connectionStatus,isLoading} = useQuery({
-        queryKey:["connectionStatus",user._id],
+        queryKey:["connectionStatus",user?._id],
         queryFn: async ()=>{
             const res = await axiosInstance.get(`/connections/status/${user._id}`);
             return res.data;
-        },
+        }
     })
     
     
@@ -30,7 +30,7 @@ const RecommendedUser = ({user}) => { //this is the recommended user
             queryClient.invalidateQueries({ queryKey: ["connectionStatus", user._id] });
         },
         onError:(err)=>{
-            toast.error(err.response.data.message || "Error occured");
+            toast.error(err?.response?.data?.message || "Error occured");
         }
     });
 
@@ -44,7 +44,7 @@ const RecommendedUser = ({user}) => { //this is the recommended user
             queryClient.invalidateQueries({queryKey:["posts"]});     //so that we immediately see connections post
         },
         onError:()=>{
-            toast.error(err.response.data.message||"Error Occured");
+            toast.error(err?.response?.data?.message||"Error Occured");
         }
     });
 
@@ -57,13 +57,10 @@ const RecommendedUser = ({user}) => { //this is the recommended user
             queryClient.invalidateQueries({queryKey:["connectionStatus",user._id]})
         },
         onError:(err)=>{
-            toast.error(err.response.data.message||"Error occured");
+            toast.error(err?.response?.data?.message||"Error occured");
         }
     })
 
-    console.log("ConnectionStatus",connectionStatus?.requestId);
-    
-    
     const handleConnect = () =>{
         if (connectionStatus?.status === "not_connected") {
 			sendConnectionRequest();
@@ -94,13 +91,13 @@ const RecommendedUser = ({user}) => { //this is the recommended user
 				return (
 					<div className='flex gap-2 justify-center'>
 						<button
-							onClick={()=> acceptConnectionRequest(connectionStatus.requestId)}
+							onClick={()=> acceptConnectionRequest(connectionStatus?.requestId)}
 							className={`rounded-full p-1 flex items-center justify-center bg-green-500 hover:bg-green-600 text-white`}
 						>
 							<Check size={16} />
 						</button>
 						<button
-							onClick={()=> rejectConnectionRequest(connectionStatus.requestId)}
+							onClick={()=> rejectConnectionRequest(connectionStatus?.requestId)}
 							className={`rounded-full p-1 flex items-center justify-center bg-red-500 hover:bg-red-600 text-white`}
 						>
 							<X size={16} />
@@ -123,15 +120,15 @@ const RecommendedUser = ({user}) => { //this is the recommended user
 
   return (
     <div className="flex items-center justify-between mb-4">
-    <Link to={`/profile/${user.username}`} className="flex items-center flex-grow">
+    <Link to={`/profile/${user?.username}`} className="flex items-center flex-grow">
         <img
             src={user.profilePicture || "/avatar.png"}
             alt={user.name}
             className="w-12 h-12 rounded-full mr-3 object-cover flex-shrink-0"
         />
         <div className="flex flex-col min-w-0">
-            <h3 className="font-semibold text-sm">{user.name}</h3>
-            <p className="text-xs text-info break-words">{user.headline}</p>
+            <h3 className="font-semibold text-sm">{user?.name}</h3>
+            <p className="text-xs text-info break-words">{user?.headline}</p>
         </div>
     </Link>
     <div className="flex-shrink-0">

@@ -250,7 +250,7 @@ const followUser = async (req,res) =>{
             return res.status(404).json({message:"No user found"});
         }
         
-        res.status(200).json({message:`You started following ${user.name}` })
+        res.status(200).json({message:`You started following ${user?.name}` })
     } catch (error) {
         console.log("Error in followUser",error);
         res.status(500).json({message:"Server Error, Please try again later"});
