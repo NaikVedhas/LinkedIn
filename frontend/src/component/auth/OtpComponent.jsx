@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { axiosInstance } from "../../lib/axios";
 
 const OtpComponent = ({setShowOTP}) => {
+
   const [timeLeft, setTimeLeft] = useState(120); // 2 minutes 
   const [otp, setOtp] = useState(Array(6).fill(""));   // OTP array of 6 digits
   const [isResendEnabled, setIsResendEnabled] = useState(false); // Flag for enabling resend button
@@ -28,13 +29,10 @@ const OtpComponent = ({setShowOTP}) => {
     },
     onError: (err) => {
       if(err?.response?.data?.message === "Validation timed out. Please signup again"){
-        console.log("iNSIDE 1");
         
         localStorage.clear(); // Clear all temp user data
-		    
         setShowOTP(false); // Redirect to signupform page if expired IMPORT THEN THIS
 		    toast.error("Credentials expired");
-        console.log("iNSIDE 2");
       }
       else toast.error(err?.response?.data?.message || "Something went wrong");
     }
@@ -45,22 +43,12 @@ const OtpComponent = ({setShowOTP}) => {
     mutationFn: async ()=> await axiosInstance.post('/auth/signup2/resendotp',{id}),
     onSuccess: ()=>{
       toast.success("OTP successfully sent");
-
     },
     onError:async (err)=>{
-      // const e = await ;
-      console.log(err.response.data.message);
-      // console.log("e",e);
-
-      
       if(err?.response?.data?.message === "Validation timed out. Please signup again"){
-        console.log("iNSIDE 1");
-        
         localStorage.clear(); // Clear all temp user data
-		    
         setShowOTP(false); // Redirect to signupform page if expired IMPORT THEN THIS
 		    toast.error("Credentials expired");
-        console.log("iNSIDE 2");
       }
       else{
        toast.error(err.response.data.message || "Something went wrong please try again later")
@@ -160,7 +148,8 @@ const OtpComponent = ({setShowOTP}) => {
           Verify OTP
         </h2>
         <p className="text-gray-600 text-center mb-6">
-          Enter the OTP sent to your email. The OTP is valid for 2 minutes only.
+          Enter the OTP sent to your email. 
+          The OTP is valid for 2 minutes only.
         </p>
         <div className="flex justify-center gap-2 mb-6">
           {otp.map((digit, index) => (

@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import SignupForm from "../../component/auth/SignupForm";
 import OtpComponent from "../../component/auth/OtpComponent"
 import { useState,useEffect } from "react";
-import toast from "react-hot-toast";
 
 const SignUpPage = () => {
 	
