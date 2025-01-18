@@ -37,11 +37,6 @@ const Home = () => {
     },
   });
 
-  console.log("posts",posts);
-  console.log("recommendedUsers",recommendedUsers);
-  
-
- 
  
   return (
     <div className='grid grid-cols-1 lg:grid-cols-4 gap-6'>
