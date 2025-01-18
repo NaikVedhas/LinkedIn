@@ -43,7 +43,6 @@ const Myactivity = () => {
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
   const [isProfileViewersOpen, setIsProfileViewersOpen] = useState(false);
 
-  console.log(comments);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 bg-gray-100 ">
@@ -73,29 +72,28 @@ const Myactivity = () => {
 
           {isLikesOpen && (
             <div className="space-y-4">
-              {likes && likes.length > 0 ? (
+              {likes && likes?.length > 0 ? (
                 <ul>
-                  {likes.map((l) => (
+                  {likes?.map((l) => (
                     <div
                       key={l._id}
                       className="p-4 my-3 border border-gray-200 bg-gray-50 rounded-lg hover:bg-gray-50"
                     >
                       <Link
-                        to={`/post/${l._id}`}
+                        to={`/post/${l?._id}`}
                         className="flex items-center space-x-4"
                       >
-                        {l.image && (
+                        {l?.image && (
                           <img
-                            src={l.image}
+                            src={l?.image}
                             alt="Post"
-                            className="w-16 h-16 object-cover rounded-md" // Increased image size
+                            className="w-16 h-16 object-cover rounded-md" 
                           />
                         )}
                         <div className="flex-1">
                           <p className="text-lg text-gray-600 truncate">
                             {" "}
-                            {/* Bigger text */}
-                            {l.content}
+                            {l?.content}
                           </p>
                         </div>
                         <ExternalLink size={16} className="text-gray-400" />
@@ -127,36 +125,36 @@ const Myactivity = () => {
 
           {isCommentsOpen && (
             <div className="space-y-4">
-              {comments && comments.length > 0 ? (
+              {comments && comments?.length > 0 ? (
                 <ul>
-                  {comments.map((c) => (
+                  {comments?.map((c) => (
                     <div
-                      key={c._id}
+                      key={c?._id}
                       className="p-4 my-3 border border-gray-300 bg-gray-100 rounded-lg" // Added gray border
                     >
                       <div className="relative mb-4 space-y-3">
                         <h1>Your Comments:</h1>
-                        {c.comments
-                          .filter((ce) => ce.user === authUser?._id) // Filter comments by logged-in user
+                        {c?.comments
+                          ?.filter((ce) => ce.user === authUser?._id) // Filter comments by logged-in user
                           .map((userComment) => (
                             <div
-                              key={userComment._id}
+                              key={userComment?._id}
                               className="p-2 bg-white rounded-lg flex items-start space-x-3"
                             >
                               <p className="text-sm font-semibold text-gray-700">
-                                {userComment.content}
+                                {userComment?.content}
                               </p>{" "}
                             </div>
                           ))}
                       </div>
 
                       <Link
-                        to={`/posts/${c._id}`}
+                        to={`/posts/${c?._id}`}
                         className="flex items-center space-x-6 bg-gray-100 rounded-lg p-4" // Added padding for better alignment
                       >
-                        {c.image && (
+                        {c?.image && (
                           <img
-                            src={c.image}
+                            src={c?.image}
                             alt="Post"
                             className="w-16 h-16 object-cover rounded-md" // Increased size
                           />
@@ -164,8 +162,7 @@ const Myactivity = () => {
                         <div className="flex-1">
                           <p className="text-lg text-gray-600 truncate">
                             {" "}
-                            {/* Bigger text */}
-                            {c.content}
+                            {c?.content}
                           </p>
                         </div>
                         <ExternalLink size={16} className="text-gray-400" />
@@ -182,7 +179,6 @@ const Myactivity = () => {
           )}
         </div>
 
-        {/* Profile Viewers Section */}
         {/* Profile Viewers Section */}
         <div className="p-6 rounded-lg shadow-md">
           <div className="flex justify-between items-center mb-4">
@@ -202,28 +198,28 @@ const Myactivity = () => {
 
           {isProfileViewersOpen && (
             <div className="space-y-4">
-              {myProfileViewers && myProfileViewers.length > 0 ? (
-                myProfileViewers.map((p) => (
+              {myProfileViewers && myProfileViewers?.length > 0 ? (
+                myProfileViewers?.map((p) => (
                   <div
-                    key={p._id}
+                    key={p?._id}
                     className="flex items-center border rounded-lg p-3 space-x-4 bg-gray-50 border-b border-gray-200 pb-4 hover:bg-gray-100"
                   >
                     <Link
-                      to={`/profile/${p.username}`}
+                      to={`/profile/${p?.username}`}
                       className="flex items-center space-x-4"
                     >
                       <img
-                        src={p.profilePicture || "/avatar.png"}
+                        src={p?.profilePicture || "/avatar.png"}
                         alt="Profile"
                         className="w-12 h-12 rounded-full object-cover"
                       />
                       <div className="flex flex-col">
                         <div className="text-lg font-bold hover:underline flex items-center gap-1">
 
-                        <p className="font-semibold text-gray-800">{p.name}</p>
+                        <p className="font-semibold text-gray-800">{p?.name}</p>
                         <ExternalLink size={14} className="text-gray-400" />
                         </div>
-                        <p className="text-sm text-gray-600">{p.headline}</p>
+                        <p className="text-sm text-gray-600">{p?.headline}</p>
                       </div>
                     </Link>
                   </div>

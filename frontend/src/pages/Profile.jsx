@@ -12,6 +12,7 @@ import RecommendedUser from "../component/RecommendedUser";
 import { Link } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
 import PeopleSimilar from "../component/PeopleSimilar"
+
 const Profile = () => {
     
     //So we have 2 cases that we are viewing our own profile or other profile in our own profile we want edit option too. So in every section we will pass a isUser, userdata(which will again depend on isuser) and saveupdate function which will take the updated data and just update it from here
@@ -28,7 +29,7 @@ const Profile = () => {
           const res = await axiosInstance.get("/users/suggestions");
           return res.data;
           } catch (error) {
-            toast.error(error.response.data.message || "Unable to fetch recommended users");        
+            toast.error("Unable to fetch recommended users");        
           }
         },
       });
@@ -54,7 +55,7 @@ const Profile = () => {
 
         },
         onError: (err)=>{
-            toast.error(err.response.data.message||"An error occured");
+            toast.error(err?.response?.data?.message||"An error occured");
         }
 
     })
@@ -64,7 +65,7 @@ const Profile = () => {
         return <div>Loading</div>
     }
 
-    const isOwnProfile = authUser.username === userProfile?.username; //This is a boolean
+    const isOwnProfile = authUser?.username === userProfile?.username; //This is a boolean
 	const userData = isOwnProfile ? authUser : userProfile; 
 
 

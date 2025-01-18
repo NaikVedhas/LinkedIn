@@ -41,16 +41,16 @@ const ProfileViewers = () => {
                         <ul>
                             {profile?.data?.profileViewers?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map((viewer) => (
                                 <li
-                                    key={viewer._id}
+                                    key={viewer?._id}
                                     className='bg-white border rounded-lg p-4 my-4 transition-all hover:shadow-md'
                                 >
                                     <div className='flex items-center justify-between'>
                                         <div className='flex items-center space-x-4'>
                                             {/* Profile Picture */}
-                                            <Link to={`/profile/${viewer.user.username}`}>
+                                            <Link to={`/profile/${viewer?.user?.username}`}>
                                                 <img
-                                                    src={viewer.user.profilePicture || "/avatar.png"}
-                                                    alt={viewer.user.name}
+                                                    src={viewer?.user?.profilePicture || "/avatar.png"}
+                                                    alt={viewer?.user?.name}
                                                     className='w-12 h-12 rounded-full object-cover'
                                                 />
                                             </Link>
@@ -58,20 +58,20 @@ const ProfileViewers = () => {
                                             {/* User Info */}
                                             <div>
                                             <Link
-                                                to={`/profile/${viewer.user.username}`}
+                                                to={`/profile/${viewer?.user?.username}`}
                                                 className="text-lg font-bold hover:underline flex items-center gap-1"
                                                 >
-                                                {viewer.user.name}
+                                                {viewer?.user?.name}
                                                 <ExternalLink size={14} className="text-gray-400" />
                                             </Link>
-                                                <p className='text-sm text-gray-600'>{viewer.user.headline}</p>
+                                                <p className='text-sm text-gray-600'>{viewer?.user?.headline}</p>
                                             </div>
                                         </div>
 
                                         {/* Time of view */}
                                         <div className='text-sm text-gray-500'>
-                                            {viewer.createdAt &&
-                                                formatDistanceToNow(new Date(viewer.createdAt), {
+                                            {viewer?.createdAt &&
+                                                formatDistanceToNow(new Date(viewer?.createdAt), {
                                                     addSuffix: true,
                                                 })}
                                         </div>

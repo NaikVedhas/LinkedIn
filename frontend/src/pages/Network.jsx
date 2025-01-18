@@ -32,8 +32,8 @@ const NetworkPage = () => {
 						<div className='mb-8'>
 							<h2 className='text-xl font-semibold mb-2'>Connection Request</h2>
 							<div className='space-y-4'>
-								{connectionRequests.data.map((request) => (
-									<FriendRequest key={request.id} request={request} />
+								{connectionRequests?.data.map((request) => (
+									<FriendRequest key={request?.id} request={request} />
 								))}
 							</div>
 						</div>
@@ -53,8 +53,8 @@ const NetworkPage = () => {
 						<div className='mb-8'>
 							<h2 className='text-xl font-semibold mb-4'>My Connections</h2>
 							<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-								{connections.data.map((connection) => (
-									<UserCard key={connection._id} user={connection} isConnection={true} />
+								{connections?.data?.map((connection) => (
+									<UserCard key={connection?._id} user={connection} isConnection={true} />
 								))}
 							</div>
 						</div>

@@ -27,10 +27,10 @@ function App() {
         const res = await axiosInstance.get("/auth/me");
         return res.data;        //now this res.data will be stored in data:authUser
       } catch (error) {
-         if(error?.response && error.response?.status===401){
+         if(error && error?.status===401){
           return null;
          }
-         toast.error(error?.response?.data?.message || "Something went wrong");        
+         toast.error("Something went wrong please try again later");        
       }
     }
   });
