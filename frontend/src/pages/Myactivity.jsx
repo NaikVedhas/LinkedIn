@@ -80,7 +80,7 @@ const Myactivity = () => {
                       className="p-4 my-3 border border-gray-200 bg-gray-50 rounded-lg hover:bg-gray-50"
                     >
                       <Link
-                        to={`/post/${l?._id}`}
+                        to={`/posts/${l?._id}`}
                         className="flex items-center space-x-4"
                       >
                         {l?.image && (
