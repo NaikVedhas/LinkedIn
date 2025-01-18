@@ -20,7 +20,7 @@ const Home = () => {
       const res = await axiosInstance.get("/users/suggestions");
       return res.data;
       } catch (error) {
-        toast.error(error.response.data.message || "Unable to fetch recommended users");        
+        toast.error("Unable to fetch recommended users");        
       }
     },
   });
@@ -32,7 +32,7 @@ const Home = () => {
       const res = await axiosInstance.get("/posts");
       return res.data;
       } catch (error) {
-        toast.error(error.response.data.message || "Unable to fetch posts");        
+        toast.error("Unable to fetch posts");        
       }
     },
   });
