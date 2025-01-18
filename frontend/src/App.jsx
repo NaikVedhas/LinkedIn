@@ -4,7 +4,7 @@ import Signup from "./pages/auth/Signup";
 import Home from "./pages/Home"
 import NotFound  from "./pages/NotFound";
 import { createBrowserRouter,Route,createRoutesFromElements,RouterProvider, Navigate } from "react-router"
-import toast, { Toaster } from "react-hot-toast";   //for that ui notifications
+import toast, { Toaster } from "react-hot-toast";   
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "./lib/axios";
 import Notifications from "./pages/Notifications";

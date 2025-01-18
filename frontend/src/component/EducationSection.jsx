@@ -3,7 +3,7 @@ import { useState } from "react";
 
 const EducationSection = ({ userData, isOwnProfile, onSave }) => {
 	const [isEditing, setIsEditing] = useState(false);
-	const [educations, setEducations] = useState(userData.education || []);
+	const [educations, setEducations] = useState(userData?.education || []);
 	const [newEducation, setNewEducation] = useState({
 		school: "",
 		fieldOfStudy: "",
@@ -24,7 +24,7 @@ const EducationSection = ({ userData, isOwnProfile, onSave }) => {
 	};
 
 	const handleDeleteEducation = (id) => {
-		setEducations(educations.filter((edu) => edu._id !== id));
+		setEducations(educations?.filter((edu) => edu._id !== id));
 	};
 
 	const handleSave = () => {
@@ -35,7 +35,7 @@ const EducationSection = ({ userData, isOwnProfile, onSave }) => {
 	return (
 		<div className='bg-white shadow rounded-lg p-6 mb-6'>
 			<h2 className='text-xl font-semibold mb-4'>Education</h2>
-			{educations.map((edu) => (
+			{educations?.map((edu) => (
 				<div key={edu._id} className='mb-4 flex justify-between items-start'>
 					<div className='flex items-start'>
 						<School size={20} className='mr-2 mt-1' />

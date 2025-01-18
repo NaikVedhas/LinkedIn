@@ -56,7 +56,7 @@ const OtpComponent = ({setShowOTP}) => {
  
   useEffect(() => {
 
-    //Fetching Id
+    
     const storedId = localStorage.getItem('otpId');
     if (storedId) {
       setId(storedId); // Set the id state if it exists in localStorage
