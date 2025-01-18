@@ -9,29 +9,27 @@ const OtpComponent = ({setShowOTP}) => {
   const [otp, setOtp] = useState(Array(6).fill(""));   // OTP array of 6 digits
   const [isResendEnabled, setIsResendEnabled] = useState(false); // Flag for enabling resend button
   const [id, setId] = useState(null);
-
+  const [resendCounter,setResendCounter] = useState(0)   //  Track resend actions. Actually when we resend otp then we wantthe frontend timer to reset and start now we are resetting but the start logic is in useeffect so to run that we useethis
   const queryClient = useQueryClient();
   const inputRefs = useRef([]); // Refs for OTP input fields
 
   const { mutate: verifyOTP } = useMutation({
-    mutationFn: async () => {
-      const res = await axiosInstance.post("/auth/signup2", { id, otp: otp.join("") }); // Combine the digits into a single string
-    },
+    mutationFn: async () => await axiosInstance.post("/auth/signup2", { id, otp: otp.join("") }), // Combine the digits into a single string
+
     onSuccess: () => {
       toast.success("Account created successfully");
       setTimeout(() => {
         toast.success("Check your email to complete profile");
       }, 3000);
 
-      localStorage.clear(); // Clear all data after successful verification
-      
+      localStorage.clear(); 
       queryClient.invalidateQueries({ queryKey: ["authUser"] }); // Refetch authUser and redirect to home page
     },
     onError: (err) => {
       if(err?.response?.data?.message === "Validation timed out. Please signup again"){
         
         localStorage.clear(); // Clear all temp user data
-        setShowOTP(false); // Redirect to signupform page if expired IMPORT THEN THIS
+        setShowOTP(false); // Redirect to signupform page if tempuser expired 
 		    toast.error("Credentials expired");
       }
       else toast.error(err?.response?.data?.message || "Something went wrong");
@@ -46,8 +44,8 @@ const OtpComponent = ({setShowOTP}) => {
     },
     onError:async (err)=>{
       if(err?.response?.data?.message === "Validation timed out. Please signup again"){
-        localStorage.clear(); // Clear all temp user data
-        setShowOTP(false); // Redirect to signupform page if expired IMPORT THEN THIS
+        localStorage.clear(); 
+        setShowOTP(false); 
 		    toast.error("Credentials expired");
       }
       else{
@@ -95,7 +93,9 @@ const OtpComponent = ({setShowOTP}) => {
       localStorage.setItem("otpExpirationTime", newExpirationTime.toString());
       setTimeLeft(120); // Start from 120 seconds
     }
-  }, []);
+
+     // Cleanup interval on component unmount or when timeLeft changes
+  }, [resendCounter]);
 
   const handleOtpChange = (e, index) => {
     const value = e.target.value.slice(0, 1); // Allow only one character
@@ -120,7 +120,7 @@ const OtpComponent = ({setShowOTP}) => {
     resendOTP();
     setTimeLeft(120); // Reset timer
     setIsResendEnabled(false); // Disable resend button
-
+    setResendCounter((prev) => prev + 1); // Increment resend counter ie just change resendCounter
     // Update expiration time in localStorage when OTP is resent
     const newExpirationTime = Date.now() + 120 * 1000; // 2 minutes from now
     localStorage.setItem("otpExpirationTime", newExpirationTime.toString());
@@ -149,7 +149,9 @@ const OtpComponent = ({setShowOTP}) => {
         </h2>
         <p className="text-gray-600 text-center mb-6">
           Enter the OTP sent to your email. 
-          The OTP is valid for 2 minutes only.
+          <p>
+          The OTP is valid for 2 minutes only!
+          </p>
         </p>
         <div className="flex justify-center gap-2 mb-6">
           {otp.map((digit, index) => (
