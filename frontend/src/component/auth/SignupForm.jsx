@@ -2,8 +2,9 @@ import { useState } from "react"
 import {useMutation} from "@tanstack/react-query"
 import { axiosInstance } from "../../lib/axios.js"  //as we are not exporting default from axios we need to use {}
 import { toast } from "react-hot-toast";
-import {Loader} from "lucide-react";  // Icon from Lucide
-const SignupForm = ({navigateToOTP}) => {
+import {Loader} from "lucide-react";  
+
+const SignupForm = ({setShowOTP}) => {
     
 
     const [name,setName]= useState('');
@@ -19,21 +20,27 @@ const SignupForm = ({navigateToOTP}) => {
             const res = await axiosInstance.post("/auth/signup1",data); //we can use fetch method also inside react qurey but axios is better than fetch method. As u can see react qurey is just replacing the try catch, if(!data) etc etc things for us but we use fetch/axios method only inside this
             return res.data;   //we are returing the data property of this response
         },
-        onSuccess:(data)=>{
+        onSuccess:(id)=>{
             toast.success("OPT sent successfully");
-        
+            
+            // TO handle refresh issues we will use localstorage
+            const otpExpirationTime = Date.now() + 2 * 60 * 1000; // 2 minutes
+
+            localStorage.setItem('otpId', id); 
+            localStorage.setItem('otpExpirationTime', otpExpirationTime.toString());
+            localStorage.setItem('signupComplete', 'true'); // Set the flag
             //Naviagte to otp component
-            navigateToOTP(data);    
+            setShowOTP(true);    
         },
         onError:(err)=>{
             toast.error(err.response.data.message || "Something went wrong"); //if thet err is not availble then show this error
         }
 
     })
+
     const handleSubmit = (e) =>{
         e.preventDefault();
         signupMutation({name,username,email,password});
-
     }
     return (
     <div>

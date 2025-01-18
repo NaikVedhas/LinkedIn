@@ -3,41 +3,111 @@ import React, { useState, useEffect, useRef } from "react";
 import toast from "react-hot-toast";
 import { axiosInstance } from "../../lib/axios";
 
-const OtpComponent = ({id}) => {
-  const [timeLeft, setTimeLeft] = useState(120); // 2 minutes = 120 seconds
-  const [otp, setOtp] = useState(Array(6).fill(""));
-  const [isResendEnabled, setIsResendEnabled] = useState(false);
+const OtpComponent = ({setShowOTP}) => {
+  const [timeLeft, setTimeLeft] = useState(120); // 2 minutes 
+  const [otp, setOtp] = useState(Array(6).fill(""));   // OTP array of 6 digits
+  const [isResendEnabled, setIsResendEnabled] = useState(false); // Flag for enabling resend button
+  const [id, setId] = useState(null);
 
   const queryClient = useQueryClient();
-  const inputRefs = useRef([]);
+  const inputRefs = useRef([]); // Refs for OTP input fields
 
-  const {mutate:verifyOTP} = useMutation({
-    mutationFn:async ()=>{
-      const res = await axiosInstance.post('/auth/signup2',{id,otp:otp.join("")});//Combine the digits into a single string
+  const { mutate: verifyOTP } = useMutation({
+    mutationFn: async () => {
+      const res = await axiosInstance.post("/auth/signup2", { id, otp: otp.join("") }); // Combine the digits into a single string
     },
-    onSuccess: ()=>{
-      toast.success("Account created successfully")
+    onSuccess: () => {
+      toast.success("Account created successfully");
       setTimeout(() => {
         toast.success("Check your email to complete profile");
       }, 3000);
-      localStorage.removeItem('signupComplete'); // Clear after successful verification
-      queryClient.invalidateQueries({queryKey:["authUser"]}); //so basically this will refetch the authUser and as we have logged in now we will be redirected to home page without refreshing just like react context
+
+      localStorage.clear(); // Clear all data after successful verification
+      
+      queryClient.invalidateQueries({ queryKey: ["authUser"] }); // Refetch authUser and redirect to home page
     },
-    onError:  (err)=>{
-      toast.error(err.response.data.message || "Something went wrong")
+    onError: (err) => {
+      if(err?.response?.data?.message === "Validation timed out. Please signup again"){
+        console.log("iNSIDE 1");
+        
+        localStorage.clear(); // Clear all temp user data
+		    
+        setShowOTP(false); // Redirect to signupform page if expired IMPORT THEN THIS
+		    toast.error("Credentials expired");
+        console.log("iNSIDE 2");
+      }
+      else toast.error(err?.response?.data?.message || "Something went wrong");
     }
+  });
+
+
+  const {mutate:resendOTP} =useMutation({
+    mutationFn: async ()=> await axiosInstance.post('/auth/signup2/resendotp',{id}),
+    onSuccess: ()=>{
+      toast.success("OTP successfully sent");
+
+    },
+    onError:async (err)=>{
+      // const e = await ;
+      console.log(err.response.data.message);
+      // console.log("e",e);
+
+      
+      if(err?.response?.data?.message === "Validation timed out. Please signup again"){
+        console.log("iNSIDE 1");
+        
+        localStorage.clear(); // Clear all temp user data
+		    
+        setShowOTP(false); // Redirect to signupform page if expired IMPORT THEN THIS
+		    toast.error("Credentials expired");
+        console.log("iNSIDE 2");
+      }
+      else{
+       toast.error(err.response.data.message || "Something went wrong please try again later")
+      }
+  }
   })
-
-
-  // Countdown timer
+ 
   useEffect(() => {
-    if (timeLeft > 0) {
-      const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
-      return () => clearTimeout(timer); // Cleanup the timer
-    } else {
-      setIsResendEnabled(true);
+
+    //Fetching Id
+    const storedId = localStorage.getItem('otpId');
+    if (storedId) {
+      setId(storedId); // Set the id state if it exists in localStorage
     }
-  }, [timeLeft]);
+
+    // Countdown timer
+    const otpExpirationTime = localStorage.getItem("otpExpirationTime");
+
+    if (otpExpirationTime) {
+      const expirationTime = parseInt(otpExpirationTime, 10);
+      const currentTime = Date.now();
+      const timeLeft = expirationTime - currentTime;
+
+      if (timeLeft > 0) {
+        setTimeLeft(Math.floor(timeLeft / 1000)); // Set remaining time in seconds
+        const timer = setInterval(() => {
+          setTimeLeft((prevTime) => {
+            if (prevTime <= 1) {
+              clearInterval(timer);
+              setIsResendEnabled(true); // Enable resend when time is up
+              return 0;
+            }
+            return prevTime - 1;
+          });
+        }, 1000);
+        return () => clearInterval(timer); // Cleanup interval
+      } else {
+        setIsResendEnabled(true); // OTP expired, enable resend button
+        setTimeLeft(0);
+      }
+    } else {
+      // If no expiration time exists, set a new timer and save it in localStorage
+      const newExpirationTime = Date.now() + 120 * 1000; // 2 minutes from now
+      localStorage.setItem("otpExpirationTime", newExpirationTime.toString());
+      setTimeLeft(120); // Start from 120 seconds
+    }
+  }, []);
 
   const handleOtpChange = (e, index) => {
     const value = e.target.value.slice(0, 1); // Allow only one character
@@ -59,14 +129,16 @@ const OtpComponent = ({id}) => {
   };
 
   const handleResendOtp = () => {
+    resendOTP();
     setTimeLeft(120); // Reset timer
     setIsResendEnabled(false); // Disable resend button
-    // Add logic to resend the OTP here
-    console.log("Resending OTP...");
+
+    // Update expiration time in localStorage when OTP is resent
+    const newExpirationTime = Date.now() + 120 * 1000; // 2 minutes from now
+    localStorage.setItem("otpExpirationTime", newExpirationTime.toString());
   };
 
   const handleVerifyOtp = () => {
-    
     if (otp.join("").length === 6) {
       verifyOTP();
     } else {

@@ -2,16 +2,16 @@ import { Link } from "react-router-dom";
 import SignupForm from "../../component/auth/SignupForm";
 import OtpComponent from "../../component/auth/OtpComponent"
 import { useState,useEffect } from "react";
+import toast from "react-hot-toast";
+
 const SignUpPage = () => {
 	
 	//We need to store the showOTP state in localstorage because if we refresh page then well see signup again instead of otp
+	//Also we will store the timer of otp in localstorage because when we refresh the otpcomponent the timer is reset na so it will not show the correct time 
 
 	const [showOTP, setShowOTP] = useState(false); // Step 1: Signup Form, Step 2: OTP
-	const [tempUserId, setTempUserId] = useState(null); // To store the user ID from the signup form response
 
-	const handleSignupSuccess = (id) => {
-		localStorage.setItem('signupComplete', 'true');
-		setTempUserId(id); 
+	const handleSignupSuccess = () => {
 		setShowOTP(true); 
 	};
 
@@ -21,7 +21,15 @@ const SignUpPage = () => {
 		if (isSignupComplete === 'true') {
 		  setShowOTP(true);
 		}
-	  }, []);
+
+		// Check if the temporary user has expired
+		const tempUserExpirationTime = localStorage.getItem('tempUserExpirationTime');
+		if (tempUserExpirationTime && Date.now() > parseInt(tempUserExpirationTime)) {
+		  localStorage.clear(); // Clear all temp user data
+		  setShowOTP(false); // Redirect to signupform page if expired
+		  toast.error("Credentials expired");
+		}
+	  }, [localStorage.getItem('tempUserExpirationTime')]);
 
 	return (
 		<div className='min-h-screen flex flex-col justify-center sm:px-6 lg:px-8'>
@@ -35,9 +43,9 @@ const SignUpPage = () => {
 				<div className='bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10'>
 					
 					{!showOTP ? 
-					<SignupForm navigateToOTP={handleSignupSuccess}/>
+					<SignupForm setShowOTP={setShowOTP}/>
 					:
-					<OtpComponent id={tempUserId}/>
+					<OtpComponent setShowOTP={setShowOTP}/>
 					}
 
 					<div className='mt-6'>

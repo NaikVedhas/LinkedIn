@@ -106,7 +106,7 @@ const signup1 = async (req,res)=>{
         
         //Generating OTP - We will use Otpgenerator package 
         
-        let otp = otpGenerator.generate(6, {
+        const otp = otpGenerator.generate(6, {
             upperCaseAlphabets: true,  
             lowerCaseAlphabets: true,
             specialChars: false,
@@ -127,7 +127,7 @@ const signup1 = async (req,res)=>{
 
         //So we have associated email and otp together 
 
-        res.status(200).json(tempUser._id);   //dont send the tenmmpuser send only id and then in signup2 retrive that tempuser using id 
+        res.status(200).json(tempUser._id);   //dont send the tempuser send only id and then in signup2 retrive that tempuser using id 
 
     } catch (error) {
         console.log("Error in Signup1 function",error);
@@ -164,7 +164,7 @@ const signup2 = async (req,res)=>{
     
     const isOTPValid = await bcrypt.compare(otp, otpUser.otp);
     if(!isOTPValid){
-        return res.status(401).json("Incorrect OTP");
+        return res.status(401).json({message:"Incorrect OTP"});
     }
 
     //Now user is verified so create a account 
@@ -193,6 +193,44 @@ const signup2 = async (req,res)=>{
         }
 
     res.status(201).json({message:"User successfully registered"});
+}
+
+const reSendOtp = async (req,res) =>{
+    try {
+        const {id}= req.body;
+
+        const tempUser = await TempUser.findById(id);
+
+        if(!tempUser){
+            return res.status(404).json({message:"Validation timed out. Please signup again"});
+        }
+
+        const otp = otpGenerator.generate(6, {
+            upperCaseAlphabets: true,  
+            lowerCaseAlphabets: true,
+            specialChars: false,
+        });
+
+        // Send otp in model encrpt it first
+        const saltOTP = await bcrypt.genSalt(10);
+        const hashedOTP = await bcrypt.hash(otp,saltOTP);
+        
+        await OTP.create({
+            otp:hashedOTP,
+            email:tempUser.email,
+        });
+        
+        //Send otp on email
+        
+        await sendOTP(tempUser.email,tempUser.name,otp,"verificationUrl");
+
+        res.status(200).json({message:"OTP send successfully"});
+
+    } catch (error) {
+        console.log("Error in resend otp function",error);
+        res.status(500).json({message:"Server Error please try again later"})
+        
+    }
 }
 
 
@@ -257,5 +295,6 @@ module.exports = {
     signup2,
     login,
     logout,
-    getCurrentUser
+    getCurrentUser,
+    reSendOtp
 }
