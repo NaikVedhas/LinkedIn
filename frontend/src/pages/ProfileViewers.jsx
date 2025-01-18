@@ -3,7 +3,7 @@ import { axiosInstance } from "../lib/axios";
 import { Link } from "react-router-dom";
 import Sidebar from "../component/Sidebar";
 import { formatDistanceToNow } from "date-fns";
-import {ExternalLink} from "lucide-react"
+import {ExternalLink,Loader} from "lucide-react"
 
 const ProfileViewers = () => {
     const { data: authUser } = useQuery({ queryKey: ["authUser"] });
@@ -16,9 +16,12 @@ const ProfileViewers = () => {
         },
     });
 
-    if (isLoading) {
-        return <p>Loading profile viewers...</p>;
-    }
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="flex flex-col items-center">
+        <Loader className="animate-spin text-blue-500  text-5xl w-24 h-24 mb-4" />
+        <p className="text-2xl text-gray-700">Loading...</p>
+      </div>
+    </div>
 
     const totalViewers = profile?.data?.profileViewers?.length || 0;
 

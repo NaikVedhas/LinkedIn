@@ -3,6 +3,7 @@ import Post from "../component/Post";
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../lib/axios";
 import Sidebar from "../component/Sidebar";
+import {Loader} from "lucide-react"
 
 const PostPage = () => {
 
@@ -17,11 +18,11 @@ const PostPage = () => {
 
     if (isLoading){
       return (
-        <div className="flex flex-col items-center justify-center h-screen">
-        <div className="spinner-border text-blue-500" role="status">
-          <span className="sr-only">Loading...</span>
+        <div className="flex items-center justify-center min-h-screen">
+        <div className="flex flex-col items-center">
+          <Loader className="animate-spin text-blue-500  text-5xl w-24 h-24 mb-4" />
+          <p className="text-2xl text-gray-700">Loading...</p>
         </div>
-        <p className="text-2xl font-semibold mt-4 text-blue-500">Loading post...</p>
       </div>
       );
     } 

@@ -10,7 +10,7 @@ import SkillsSection from "../component/SkillSection"
 import Sidebar from "../component/Sidebar";
 import RecommendedUser from "../component/RecommendedUser";
 import { Link } from "react-router-dom";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink,Loader  } from "lucide-react";
 import PeopleSimilar from "../component/PeopleSimilar"
 
 const Profile = () => {
@@ -62,11 +62,18 @@ const Profile = () => {
 
 
     if(isLoading || isUserProfileLoading) {
-        return <div>Loading</div>
+        return  (
+          <div className="flex items-center justify-center min-h-screen">
+          <div className="flex flex-col items-center">
+            <Loader className="animate-spin text-blue-500  text-5xl w-24 h-24 mb-4" />
+            <p className="text-2xl text-gray-700">Loading...</p>
+          </div>
+        </div>
+        );
     }
 
     const isOwnProfile = authUser?.username === userProfile?.username; //This is a boolean
-	const userData = isOwnProfile ? authUser : userProfile; 
+	  const userData = isOwnProfile ? authUser : userProfile; 
 
 
     const handleSave = (updatedData) => {  //whichever component we will updatewe want to call this function from here

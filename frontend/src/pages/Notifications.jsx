@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "../lib/axios";
 import { toast } from "react-hot-toast";
-import { ExternalLink, Eye, MessageSquare, ThumbsUp, Trash2, UserPlus } from "lucide-react";
+import { ExternalLink, Eye, MessageSquare, ThumbsUp, Trash2, UserPlus,Loader } from "lucide-react";
 import { Link } from "react-router-dom";
 import Sidebar from "../component/Sidebar";
 
@@ -108,7 +108,12 @@ const NotificationsPage = () => {
 					<h1 className='text-2xl font-bold mb-6'>Notifications</h1>
 
 					{isLoading ? (
-						<p>Loading notifications...</p>
+						<div className="flex items-center justify-center min-h-screen">
+						<div className="flex flex-col items-center">
+						  <Loader className="animate-spin text-blue-500  text-5xl w-24 h-24 mb-4" />
+						  <p className="text-2xl text-gray-700">Loading...</p>
+						</div>
+					  </div>
 					) : notifications && notifications?.data?.length > 0 ? (
 						<ul>
 							{notifications?.data?.map((notification) => (
