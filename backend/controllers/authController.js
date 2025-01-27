@@ -122,8 +122,8 @@ const signup1 = async (req,res)=>{
         });
         
         //Send otp on email
-        
-        await sendOTP(email,name,otp,"verificationUrl");
+        const verificationUrl = process.env.CLIENT_URL + '/signup'
+        await sendOTP(email,name,otp,verificationUrl);
 
         //So we have associated email and otp together 
 
@@ -155,9 +155,6 @@ const signup2 = async (req,res)=>{
     if(!otpUser){
         return res.status(400).json({message:"OTP expired"});
     }
-
-    const saltedOTP = await bcrypt.genSalt(10);
-    const hashedOTP = await  bcrypt.hash(otp,saltedOTP);
 
    
     const isOTPValid = await bcrypt.compare(otp, otpUser.otp);
@@ -219,8 +216,8 @@ const reSendOtp = async (req,res) =>{
         });
         
         //Send otp on email
-        
-        await sendOTP(tempUser.email,tempUser.name,otp,"verificationUrl");
+        const verificationUrl = process.env.CLIENT_URL + '/signup'
+        await sendOTP(tempUser.email,tempUser.name,otp,verificationUrl);
 
         res.status(200).json({message:"OTP send successfully"});
 
