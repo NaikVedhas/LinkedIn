@@ -2,7 +2,15 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { axiosInstance } from "../lib/axios";
 import { toast } from "react-hot-toast";
-import { Camera, Clock, MapPin, UserCheck, UserPlus, X } from "lucide-react";
+import {
+  Camera,
+  Clock,
+  MapPin,
+  UserCheck,
+  UserPlus,
+  X,
+  CalendarPlus,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import MutualConnections from "./MutualConnections";
 import { format } from "date-fns";
@@ -314,9 +322,6 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
           {/* Username on the left, Member since on the right */}
           <div className="flex justify-between text-gray-600 mb-1">
             <p>@{userData.username}</p>
-            <p>
-              Member since {format(new Date(userData.createdAt), "MMMM yyyy")}
-            </p>
           </div>
 
           {isEditing ? (
@@ -332,19 +337,31 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
             <p>{userData?.headline}</p>
           )}
 
-          <div className="flex items-center">
-            <MapPin size={16} className="text-gray-500 mr-1" />
-            {isEditing ? (
-              <input
-                type="text"
-                value={editedData?.location ?? userData?.location}
-                onChange={(e) =>
-                  setEditedData({ ...editedData, location: e.target.value })
-                }
-                className="text-gray-600 hover:cursor-pointer"
-              />
-            ) : (
-              <span className="text-gray-600">{userData?.location}</span>
+          <div className="flex items-center justify-between text-gray-600 mb-1">
+            <div className="flex items-center">
+              <MapPin size={16} className="text-gray-500 mr-1" />
+              {isEditing ? (
+                <input
+                  type="text"
+                  value={editedData?.location ?? userData?.location}
+                  onChange={(e) =>
+                    setEditedData({ ...editedData, location: e.target.value })
+                  }
+                  className="text-gray-600 hover:cursor-pointer"
+                />
+              ) : (
+                <p className="mr-5">{userData?.location}</p>
+              )}
+            </div>
+
+            {!isEditing && (
+              <div className="flex items-center">
+                <CalendarPlus size={17} className="text-gray-500 mr-1" />
+                <p>
+                  Member since{" "}
+                  {format(new Date(userData.createdAt), "MMMM yyyy")}
+                </p>
+              </div>
             )}
           </div>
 
