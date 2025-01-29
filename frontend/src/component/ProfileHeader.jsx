@@ -377,7 +377,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
             </div>
           )}
         </div>
-        ;
+        
         {/* First check karre if its our profile then edit button show karo or else connection buttons is enabled */}
         {isOwnProfile ? (
           isEditing ? (
