@@ -4,6 +4,7 @@ const userRoute = require('./routes/userRoute')
 const postRoute = require('./routes/postRoute')
 const notificationRoute = require('./routes/notificationRoutes');
 const connectionRoute = require('./routes/connectionRoute');
+const messageRoute = require('./routes/messageRoute');
 require('dotenv').config();    
 const app = express();
 const mongoose  = require('mongoose');
@@ -25,6 +26,7 @@ app.use('/api/v1/users',userRoute);
 app.use('/api/v1/posts',postRoute);
 app.use('/api/v1/notifications',notificationRoute)
 app.use('/api/v1/connections',connectionRoute);
+app.use('/api/v1/messages',messageRoute);
 
 
 
