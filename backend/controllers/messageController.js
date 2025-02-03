@@ -57,9 +57,6 @@ const sendMessages = async (req,res) =>{
         const {id} = req.params;  //we will send message to this person
         const {text,image} = req.body;
 
-        console.log("receiverId",id);
-        console.log("sender",req.user._id);
-        
         let imageURL;
 
         if(image){
