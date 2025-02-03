@@ -68,7 +68,9 @@ const sendMessages = async (req,res) =>{
             imageURL=result.secure_url;
         }
         
-        const message = await Message.create({senderId:req.user._id,receiverId:id,text:text,image:imageURL},{new:true}); 
+
+        
+        const message = await Message.create({senderId:req.user._id,receiverId:id,text:text,image:imageURL}); //We dont write {new:true} in this create method it will give us error  
         //if there is image then it will store ulr or else it will store undefined
         
         if(!message){
