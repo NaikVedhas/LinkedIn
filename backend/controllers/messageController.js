@@ -3,9 +3,9 @@ const User = require('../models/userModel');
 
 const getSidebarUsers = async (req,res)=>{
 
-    //We will how all connections here 
+    //We will show all connections here 
     try {
-        const user = User.find({_id:{
+        const user = await User.find({_id:{
             $ne:req.user._id,$in:req.user.connections
         }}).select("-password");
 
