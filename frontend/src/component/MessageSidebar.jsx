@@ -1,9 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../lib/axios";
 import { Loader } from "lucide-react";
+import { useMessageUserContext } from "../context/MessageUserContext";
 
 const MessageSidebar = () => {
   const { data: authUser } = useQuery({ queryKey: ["authUser"] });
+
+  const messageContext = useMessageUserContext();
+
 
   const { data: SidebarMessages, isLoading } = useQuery({
     queryKey: ["SidebarMessages", authUser],
@@ -15,9 +19,14 @@ const MessageSidebar = () => {
 
 
   const onlineUsers = [];      
-  
+
   console.log("sidebarmessage", SidebarMessages);
 
+
+  const handleClick = (user) =>{
+    messageContext?.setSelectedUser(user._id); //set the user 
+  }
+  
   return (
     <div className="w-72 bg-white border-r border-gray-300 h-screen p-4">
       <h1 className="text-xl font-semibold text-gray-800 mb-4">Message Them</h1>
@@ -29,9 +38,10 @@ const MessageSidebar = () => {
       ) : SidebarMessages?.length > 0 ? (
         <div className="space-y-3 overflow-y-auto max-h-[80vh]">
           {SidebarMessages.map((m) => (
-            <div
+            <button
               key={m._id}
               className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 transition"
+              onClick={()=>handleClick(m)}
             >
               <img
                 src={m.profilePicture || "./avatar.png"}
@@ -39,7 +49,7 @@ const MessageSidebar = () => {
                 className="w-10 h-10 rounded-full object-cover border border-gray-300"
               />
               <h2 className="text-gray-700 font-medium">{m.name}</h2>
-            </div>
+            </button>
           ))}
         </div>
       ) : (
