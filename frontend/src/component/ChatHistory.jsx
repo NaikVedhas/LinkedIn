@@ -15,32 +15,43 @@ const ChatHistory = () => {
   });
 
   return (
-    <div className="flex flex-col h-[60vh] overflow-y-auto p-4 bg-gray-50 rounded-lg shadow-inner">
+    <div className="flex flex-col  overflow-y-auto p-4 bg-white border rounded-lg shadow-md">
       {isLoading ? (
         <div className="flex justify-center items-center h-full text-gray-500">
           Loading messages...
         </div>
       ) : chats && chats.length > 0 ? (
         <div className="space-y-4">
-          {chats.map((c, index) => (
-            <div
-              key={index}
-              className={`flex items-end ${
-                c.senderId === authUser?._id ? "justify-start" : "justify-end"
-              }`}
-            >
+          {chats.map((c, index) => {
+            const isSentByUser = c.senderId === authUser?._id;
+            return (
               <div
-                className={`max-w-xs p-3 rounded-lg shadow-md text-white ${
-                  c.senderId === authUser?._id ? "bg-grayue-500" : "bg-sky-500"
-                }`}
+                key={index}
+                className={`flex ${isSentByUser ? "justify-start" : "justify-end"}`}
               >
-                <p className="text-sm">{c.text}</p>
-                <p className="text-xs text-gray-200 mt-1 text-right">
-                  {new Date(c.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-                </p>
+                <div
+                  className={`max-w-xs p-3 rounded-lg shadow-md ${
+                    isSentByUser ? "bg-gray-200 text-black" :"bg-blue-500 text-white"
+                  }`}
+                >
+                  {c?.image && (
+                    <img
+                      src={c.image}
+                      alt="Sent Image"
+                      className="w-40 h-40 rounded-lg shadow-md mb-2"
+                    />
+                  )}
+                  <p className="text-sm">{c.text}</p>
+                  <p className="text-xs text-gray-300 mt-1 text-right">
+                    {new Date(c.createdAt).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       ) : (
         <div className="flex justify-center items-center h-full text-gray-500">
