@@ -14,6 +14,7 @@ import Profile from "./pages/Profile";
 import ProfileViewers from "./pages/ProfileViewers";
 import Myactivity from "./pages/Myactivity";
 import SearchUser from "./pages/SearchUser";
+import Message from "./pages/Message";
 
 function App() {
 
@@ -49,6 +50,7 @@ function App() {
         <Route path="/network" element={authUser? <Network/>:<Navigate to={"/login"}/>} />
         <Route path="/posts/:postId" element={authUser? <PostPage/>:<Navigate to={"/login"}/>} />
         <Route path="/profile/:username" element={authUser? <Profile/>:<Navigate to={"/login"}/>} />
+        <Route path={"/message"} element={ authUser? <Message/> : <Navigate to={"/login"} />} />
         <Route path="/profileViewers" element={authUser? <ProfileViewers/>:<Navigate to={"/login"}/>} />
         <Route path="/search" element={authUser? <SearchUser/>:<Navigate to={"/login"}/>} />
         <Route path="/myactivity" element={authUser? <Myactivity/>:<Navigate to={"/login"}/>} />
