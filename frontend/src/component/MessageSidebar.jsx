@@ -21,7 +21,8 @@ const MessageSidebar = () => {
   console.log("sidebarmessage", SidebarMessages);
 
   const handleClick = (user) => {
-    messageContext?.setSelectedUser(user._id); // Set the user
+    messageContext?.setSelectedUser(user); // Set the user
+    
   };
 
   return (

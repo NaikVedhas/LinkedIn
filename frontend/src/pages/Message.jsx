@@ -7,6 +7,8 @@ import { useMessageUserContext } from "../context/MessageUserContext"
 const Message = () => {
   
   const messageContext = useMessageUserContext();
+  console.log(messageContext.selectedUser);
+  
   
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
@@ -14,8 +16,8 @@ const Message = () => {
       <MessageSidebar/>
       </div>
       <div className="bg-white m-2   border rounded-lg p-2">
-        {messageContext?.selectedUser ? messageContext?.selectedUser : "Select a person to chat with"}
-    
+        {messageContext?.selectedUser ? messageContext?.selectedUser.name : "Select a person to chat with"}
+        
       <div>
         <ChatHeader />
         <ChatHistory />
