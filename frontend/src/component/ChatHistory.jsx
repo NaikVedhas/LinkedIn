@@ -31,7 +31,7 @@ const ChatHistory = () => {
             >
               <div
                 className={`max-w-xs p-3 rounded-lg shadow-md text-white ${
-                  c.senderId === authUser?._id ? "bg-blue-500" : "bg-gray-700"
+                  c.senderId === authUser?._id ? "bg-grayue-500" : "bg-sky-500"
                 }`}
               >
                 <p className="text-sm">{c.text}</p>
