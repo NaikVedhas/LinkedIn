@@ -26,7 +26,7 @@ const MessageSidebar = () => {
   };
 
   return (
-    <div className="w-72 bg-white border-r border-gray-300 p-4 rounded-lg my-2 ml-5 ">
+    <div className="w-72 bg-white border border-gray-300 p-4 rounded-lg shadow-lg ml-5 ">
       <h1 className="text-xl justify-center flex items-center font-semibold text-gray-800 mb-4">Message Them</h1>
 
       {isLoading ? (
@@ -40,8 +40,8 @@ const MessageSidebar = () => {
               key={m._id}
               onClick={() => handleClick(m)}
               className={`flex items-center space-x-3 p-3 rounded-lg w-full border transition ${
-                messageContext?.selectedUser === m._id
-                  ? "bg-gray-200 text-white" 
+                messageContext?.selectedUser?._id === m._id
+                  ? "bg-gray-100 text-white" 
                   : "hover:bg-gray-100"
               }`}
             >
