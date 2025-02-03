@@ -8,7 +8,6 @@ const MessageSidebar = () => {
 
   const messageContext = useMessageUserContext();
 
-
   const { data: SidebarMessages, isLoading } = useQuery({
     queryKey: ["SidebarMessages", authUser],
     queryFn: async () => {
@@ -17,19 +16,17 @@ const MessageSidebar = () => {
     },
   });
 
-
-  const onlineUsers = [];      
+  const onlineUsers = [];
 
   console.log("sidebarmessage", SidebarMessages);
 
+  const handleClick = (user) => {
+    messageContext?.setSelectedUser(user._id); // Set the user
+  };
 
-  const handleClick = (user) =>{
-    messageContext?.setSelectedUser(user._id); //set the user 
-  }
-  
   return (
-    <div className="w-72 bg-white border-r border-gray-300 h-screen p-4">
-      <h1 className="text-xl font-semibold text-gray-800 mb-4">Message Them</h1>
+    <div className="w-72 bg-white border-r border-gray-300 p-4 rounded-lg my-2 ml-5 ">
+      <h1 className="text-xl justify-center flex items-center font-semibold text-gray-800 mb-4">Message Them</h1>
 
       {isLoading ? (
         <div className="flex justify-center items-center h-20">
@@ -40,15 +37,30 @@ const MessageSidebar = () => {
           {SidebarMessages.map((m) => (
             <button
               key={m._id}
-              className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 transition"
-              onClick={()=>handleClick(m)}
+              onClick={() => handleClick(m)}
+              className={`flex items-center space-x-3 p-3 rounded-lg w-full border transition ${
+                messageContext?.selectedUser === m._id
+                  ? "bg-gray-200 text-white" 
+                  : "hover:bg-gray-100"
+              }`}
             >
               <img
                 src={m.profilePicture || "./avatar.png"}
                 alt="Profile"
-                className="w-10 h-10 rounded-full object-cover border border-gray-300"
+                className="w-10 h-10 rounded-full object-cover "
               />
-              <h2 className="text-gray-700 font-medium">{m.name}</h2>
+              <div className="flex flex-col w-full">
+                <h2 className="text-gray-700 font-medium">{m.name}</h2>
+                <div
+                  className={`text-sm mt-1 ${
+                    onlineUsers.includes(m._id)
+                      ? "text-green-500"
+                      : "text-red-500"
+                  }`}
+                >
+                  {onlineUsers.includes(m._id) ? "Online" : "Offline"}
+                </div>
+              </div>
             </button>
           ))}
         </div>
