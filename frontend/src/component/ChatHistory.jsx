@@ -14,6 +14,9 @@ const ChatHistory = () => {
     },
   });
 
+  console.log(chats);
+  
+
   return (
     <div className="flex flex-col  overflow-y-auto p-4 bg-white border rounded-lg shadow-md">
       {isLoading ? (

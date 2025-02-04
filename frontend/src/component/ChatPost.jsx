@@ -17,6 +17,11 @@ const ChatPost = () => {
     },
     onError: (e) => {
       toast.error(e.response.data.message || "Error sending message");
+    },
+    onSuccess : () =>{
+      setText("");
+      setImage(null);
+      if (fileInputRef.current) fileInputRef.current.value = "";
     }
   });
 
@@ -39,14 +44,12 @@ const ChatPost = () => {
     reader.readAsDataURL(file);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit =  (e) => {
     e.preventDefault();
     if (!text.trim() && !image) return;
     toast.success("efbbyewfv")
-    await mutate();
-    setText("");
-    setImage(null);
-    if (fileInputRef.current) fileInputRef.current.value = "";
+    mutate();
+    
   };
 
   return (
