@@ -6,10 +6,13 @@ const notificationRoute = require('./routes/notificationRoutes');
 const connectionRoute = require('./routes/connectionRoute');
 const messageRoute = require('./routes/messageRoute');
 require('dotenv').config();    
-const app = express();
+// const app = express();      we dont need as we are using socket
 const mongoose  = require('mongoose');
 const cookieParser = require('cookie-parser');
 const cors = require('cors')
+
+
+const {app,server} = require('./lib/socket');
 
 
 app.use(cors({      //we are usong this to handle cors error
@@ -32,7 +35,7 @@ app.use('/api/v1/messages',messageRoute);
 
 mongoose.connect(process.env.MONGODBURI)
 .then(()=>{
-    app.listen(process.env.PORT,()=>{
+    server.listen(process.env.PORT,()=>{
         console.log("Database connected and Server running on ",process.env.PORT);
     })
 })
