@@ -20,6 +20,7 @@ const LoginForm = () => {
         },
         onSuccess:()=>{
             toast.success("Logged in Successfully");
+            //cONNECT TO SOCKET
             queryClient.invalidateQueries({queryKey:["authUser"]});
         },
         onError:(err)=>{

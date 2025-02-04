@@ -18,6 +18,8 @@ import Message from "./pages/Message";
 
 function App() {
 
+  //So whenver we refresh the website then our authUser is runned again and we check the user now we dont have to put the function in useffect of app.jsx bec react query automatically fetched this.
+  // Usequery fetches the data when reload,Cache Expiration (Stale Time),On Network Reconnect,On Window Focus (Default Behavior) ie switching tabs(You can disable this by setting refetchOnWindowFocus: false.) and ofc on component mount. If we dont use this then we have manually add fetching in useffect 
 
   //We want the info of user who has logged in becasuse in login function in backedn we are sending just a message thet user has loggedin successfully and not his data. So we have createda  additional function called getme
 
@@ -26,6 +28,8 @@ function App() {
     queryFn:async () =>{
       try {
         const res = await axiosInstance.get("/auth/me");
+        //connect the user to socket again
+        
         return res.data;        //now this res.data will be stored in data:authUser
       } catch (error) {
          if(error && error?.status===401){
