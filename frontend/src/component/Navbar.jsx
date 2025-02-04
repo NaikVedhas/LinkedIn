@@ -3,11 +3,11 @@ import { axiosInstance } from "../lib/axios";
 import toast from "react-hot-toast";
 import { Link, NavLink } from "react-router-dom";
 import { Bell, Home, LogOut, User, Users,Activity,Shield, Search,MessagesSquare,MessageCircle   } from "lucide-react";
+import socket from "../lib/socket";
 
 const Navbar = () => {
   const { data: authUser } = useQuery({ queryKey: ["authUser"] });
   const queryClient = useQueryClient();
-
   // Now we want to get notifications and connections only when we have authUser
   const { data: notifications } = useQuery({
     queryKey: ["notifications"],
@@ -31,6 +31,7 @@ const Navbar = () => {
     mutationFn: async () => axiosInstance.post("/auth/logout"),
     onSuccess: () => {
       toast.success("Logged Out");
+      socket.disconnect();  // Disconnect immediately
       queryClient.invalidateQueries({ queryKey: ["authUser"] }); // so it will refresh this and authUser is null we will be redirected to login pages without refreshing
     },
     onError: (error) => {

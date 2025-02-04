@@ -15,6 +15,7 @@ import ProfileViewers from "./pages/ProfileViewers";
 import Myactivity from "./pages/Myactivity";
 import SearchUser from "./pages/SearchUser";
 import Message from "./pages/Message";
+import socket  from "./lib/socket";
 
 function App() {
 
@@ -29,7 +30,9 @@ function App() {
       try {
         const res = await axiosInstance.get("/auth/me");
         //connect the user to socket again
-        
+        if(!socket?.connected){
+          socket.connect();
+        }
         return res.data;        //now this res.data will be stored in data:authUser
       } catch (error) {
          if(error && error?.status===401){
@@ -38,11 +41,12 @@ function App() {
          toast.error("Something went wrong please try again later");        
       }
     }
+    
   });
 
   if(isLoading) return null;    //we send null in user when we are getting the user info bec if he is not login and goes on home page and website is taking time to check the user is login or not at that loading time also he doesnt see the home page  
 
-
+ 
 
   const router = createBrowserRouter(
     createRoutesFromElements(

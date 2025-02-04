@@ -11,17 +11,17 @@ const app = express();
 const server = http.createServer(app);
 
 const io= new Server(server,{
-    cors:({      //we are usong this to handle cors error
+    cors:{      //we are usong this to handle cors error
         origin:"http://localhost:5173",
         credentials:true    // this means that allow origin to sned cookies along with response
-    })
+    }
 })
 
 io.on("connection",(socket)=>{
 
     console.log("A user connected",socket.id);
 
-    socket.disconnect("disconnect",()=>{
+    socket.on("disconnect",()=>{
         console.log("A user disconnected",socket.id);
     })
     
