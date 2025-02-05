@@ -25,9 +25,15 @@ io.on("connection",(socket)=>{
 
     console.log("A user connected",socket.id);
 
-
     const userId = socket.handshake.query.userId;     // this userId will come from frontend
-    if(userId) userSocketMap[userId] = socket.id;    //add to map
+    if(userId){
+        userSocketMap[userId] = socket.id;    //add to map
+        console.log("got it");
+        console.log(userSocketMap);
+        console.log(userId);
+        
+    } 
+        
 
 
     //emit an event as soon as a usr is connected

@@ -3,13 +3,14 @@ import {Loader} from "lucide-react";  // Icon from Lucide
 import { useState } from "react";
 import { axiosInstance } from "../../lib/axios";
 import toast from "react-hot-toast";
-import socket from "../../lib/Socket"
+import socketConnect from "../../lib/Socket"
 
 const LoginForm = () => {
 
 
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
+    const socket = socketConnect();
 
     const queryClient = useQueryClient();
     const {mutate:loginMutation,isLoading} = useMutation({
@@ -23,6 +24,7 @@ const LoginForm = () => {
             // Connect to socket
             if (!socket.connected) {
                 socket.connect();
+                console.log("called login");
             }
         },
         onError:(err)=>{

@@ -15,25 +15,23 @@ import ProfileViewers from "./pages/ProfileViewers";
 import Myactivity from "./pages/Myactivity";
 import SearchUser from "./pages/SearchUser";
 import Message from "./pages/Message";
-import socket from "./lib/Socket";
+import socketConnect from "./lib/Socket";
+import { useEffect } from "react";
 
 
 function App() {
-
+  
+  const socket = socketConnect();
   //So whenver we refresh the website then our authUser is runned again and we check the user now we dont have to put the function in useffect of app.jsx bec react query automatically fetched this.
   // Usequery fetches the data when reload,Cache Expiration (Stale Time),On Network Reconnect,On Window Focus (Default Behavior) ie switching tabs(You can disable this by setting refetchOnWindowFocus: false.) and ofc on component mount. If we dont use this then we have manually add fetching in useffect 
 
   //We want the info of user who has logged in becasuse in login function in backedn we are sending just a message thet user has loggedin successfully and not his data. So we have createda  additional function called getme
-
+  
   const {data:authUser,isLoading} = useQuery({  //in usequery we dont have the onSuccess and Onerror prop so we do try catch inside. and in useMutation we have that 
     queryKey:["authUser"],    //by this key we can fetch this same data in any component by just writing - const {data:authUser,isLoading} = useQuery({queryKey:["authUser"]}); and now we hot the same data in authUser. querykey meinkcuh bhi likh sakte hai ha. in usequrey we have data as the default variable 
     queryFn:async () =>{
       try {
         const res = await axiosInstance.get("/auth/me");
-        //connect the user to socket again
-        if(!socket?.connected){
-          socket.connect();
-        }
         return res.data;        //now this res.data will be stored in data:authUser
       } catch (error) {
          if(error && error?.status===401){
@@ -44,9 +42,15 @@ function App() {
     }
     
   });
+      
 
-  if(isLoading) return null;    //we send null in user when we are getting the user info bec if he is not login and goes on home page and website is taking time to check the user is login or not at that loading time also he doesnt see the home page  
-
+  useEffect(() => {
+    if (authUser) {
+      if (!socket?.connected) {
+        socket.connect();
+      }
+    }
+  }, [authUser]); // Runs when authUser changes and then connect to socket
  
 
   const router = createBrowserRouter(
@@ -71,10 +75,11 @@ function App() {
 
   return (
     <>
-    <RouterProvider router={router}/>
+    {isLoading ? null :<RouterProvider router={router}/>} 
     <Toaster /> 
     </>
   )
+  //we send null in user when we are getting the user info bec if he is not login and goes on home page and website is taking time to check the user is login or not at that loading time also he doesnt see the home page  
 }
 
 export default App
