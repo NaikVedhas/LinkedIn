@@ -44,7 +44,6 @@ const LoginForm = () => {
             value={username}
             onChange={(e)=>setUsername(e.target.value)}
             className="input input-bordered w-full"
-            required            
             />
             <input 
             type="password"
@@ -52,7 +51,6 @@ const LoginForm = () => {
             value={password}
             onChange={(e)=>setPassword(e.target.value)}
             className="input input-bordered w-full"
-            required            
             />
             <button 
             disabled={isLoading}

@@ -51,7 +51,6 @@ const SignupForm = ({setShowOTP}) => {
             value={name}
             onChange={(e)=>setName(e.target.value)}
             className="input input-bordered w-full"            
-            required
             />
             
             <input 
@@ -60,7 +59,6 @@ const SignupForm = ({setShowOTP}) => {
             value={username}
             onChange={(e)=>setUsername(e.target.value)}
             className="input input-bordered w-full"
-            required            
             />
             <input 
             type="email"
@@ -68,7 +66,6 @@ const SignupForm = ({setShowOTP}) => {
             value={email}
             onChange={(e)=>setEmail(e.target.value)}
             className="input input-bordered w-full"
-            required          
             />
             <input 
             type="password"
@@ -76,7 +73,6 @@ const SignupForm = ({setShowOTP}) => {
             value={password}
             onChange={(e)=>setPassword(e.target.value)}
             className="input input-bordered w-full"
-            required            
             />
             <button 
             disabled={isLoading}
