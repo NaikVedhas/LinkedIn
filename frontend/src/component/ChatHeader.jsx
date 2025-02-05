@@ -4,6 +4,9 @@ const ChatHeader = ({ onlineUsers }) => {
   const messageContext = useMessageUserContext();
   const selectedUser = messageContext?.selectedUser;
 
+  
+
+
   return (
     <div className="bg-gray-100 border-b flex items-center p-3 shadow-sm">
       <img

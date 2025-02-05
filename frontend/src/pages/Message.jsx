@@ -3,12 +3,20 @@ import ChatHistory from "../component/ChatHistory";
 import ChatHeader from "../component/ChatHeader";
 import ChatPost from "../component/ChatPost";
 import { useMessageUserContext } from "../context/MessageUserContext";
+import socket from "../lib/Socket";
+import { useState } from "react";
 
 const Message = () => {
   const messageContext = useMessageUserContext();
   console.log(messageContext.selectedUser);
+  const [onlineUsers,setOnlineUsers] = useState([]);
+  socket.on("getOnlineUsers",(userId)=>{
+    setOnlineUsers(userId);
+    console.log("called me ");
+    console.log(onlineUsers);
+    
+  })
 
-  const onlineUsers = [];
 
   return (
     <div className="flex h-screen p-2">

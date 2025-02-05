@@ -3,7 +3,8 @@ import {Loader} from "lucide-react";  // Icon from Lucide
 import { useState } from "react";
 import { axiosInstance } from "../../lib/axios";
 import toast from "react-hot-toast";
-import socket from "../../lib/socket"
+import socket from "../../lib/Socket"
+
 const LoginForm = () => {
 
 
@@ -19,7 +20,7 @@ const LoginForm = () => {
         onSuccess:()=>{
             toast.success("Logged in Successfully");
             queryClient.invalidateQueries({queryKey:["authUser"]});
-            //Connect to socket
+            // Connect to socket
             if (!socket.connected) {
                 socket.connect();
             }

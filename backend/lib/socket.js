@@ -17,12 +17,27 @@ const io= new Server(server,{
     }
 })
 
+//used to store online users a mpan which has key as useriod and value as socketid
+
+const userSocketMap = {}  // {userId:socketId}
+
 io.on("connection",(socket)=>{
 
     console.log("A user connected",socket.id);
 
+
+    const userId = socket.handshake.query.userId;     // this userId will come from frontend
+    if(userId) userSocketMap[userId] = socket.id;    //add to map
+
+
+    //emit an event as soon as a usr is connected
+    io.emit("getOnlineUsers",Object.keys(userSocketMap))      //we will send only the userid to frontend(this will show which users are online)
+
+
     socket.on("disconnect",()=>{
         console.log("A user disconnected",socket.id);
+        // delete userSocketMap(userId);
+        io.emit("getOnlineUsers",Object.keys(userSocketMap)); //send the updated data to frontend
     })
     
 

@@ -2,8 +2,8 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "../lib/axios";
 import toast from "react-hot-toast";
 import { Link, NavLink } from "react-router-dom";
-import { Bell, Home, LogOut, User, Users,Activity,Shield, Search,MessagesSquare,MessageCircle   } from "lucide-react";
-import socket from "../lib/socket";
+import { Bell, Home, LogOut, User, Users,Activity,Shield, Search,MessagesSquare} from "lucide-react";
+import socket from "../lib/Socket";
 
 const Navbar = () => {
   const { data: authUser } = useQuery({ queryKey: ["authUser"] });

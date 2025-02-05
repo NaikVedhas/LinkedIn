@@ -15,7 +15,8 @@ import ProfileViewers from "./pages/ProfileViewers";
 import Myactivity from "./pages/Myactivity";
 import SearchUser from "./pages/SearchUser";
 import Message from "./pages/Message";
-import socket  from "./lib/socket";
+import socket from "./lib/Socket";
+
 
 function App() {
 
