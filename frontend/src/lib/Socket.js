@@ -1,8 +1,10 @@
 import {io} from "socket.io-client";
 //create the socket
+import { useSockeetIoContext } from "../context/SocketIoContext";
 import { useQuery } from "@tanstack/react-query";
 
 const socketConnect = () =>{
+    const sock = useSockeetIoContext();
 
     const {data:authUser} = useQuery({queryKey:["authUser"]});
     if(authUser){
@@ -13,6 +15,8 @@ const socketConnect = () =>{
             autoConnect:false,
             withCredentials:true
         });
+
+        sock.setSocket(socket);
         return socket;   
     }
     return ;
