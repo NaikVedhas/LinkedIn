@@ -15,14 +15,9 @@ import ProfileViewers from "./pages/ProfileViewers";
 import Myactivity from "./pages/Myactivity";
 import SearchUser from "./pages/SearchUser";
 import Message from "./pages/Message";
-// import socketConnect from "./lib/Socket";
-import { useEffect } from "react";
-import {io} from "socket.io-client";
-
 
 function App() {
   
-  // const socket = socketConnect();
   //So whenver we refresh the website then our authUser is runned again and we check the user now we dont have to put the function in useffect of app.jsx bec react query automatically fetched this.
   // Usequery fetches the data when reload,Cache Expiration (Stale Time),On Network Reconnect,On Window Focus (Default Behavior) ie switching tabs(You can disable this by setting refetchOnWindowFocus: false.) and ofc on component mount. If we dont use this then we have manually add fetching in useffect 
 
@@ -44,27 +39,6 @@ function App() {
     
   });
       
-
-  useEffect(() => {
-    if (authUser) {
-      console.log("authUser");
-      if (!socket?.connected) {
-        socket.connect();
-      }else{
-        const socket =  io(import.meta.env.VITE_BACKEND_URL,{
-          query:{
-              userId:authUser?._id     //we will send the connected userId to backend
-          },
-          autoConnect:false,
-          withCredentials:true
-        });
-
-        
-      }
-    }
-  }, [authUser]); // Runs when authUser changes and then connect to socket
- 
-  
 
   const router = createBrowserRouter(
     createRoutesFromElements(

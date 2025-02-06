@@ -3,46 +3,18 @@ import ChatHistory from "../component/ChatHistory";
 import ChatHeader from "../component/ChatHeader";
 import ChatPost from "../component/ChatPost";
 import { useMessageUserContext } from "../context/MessageUserContext";
-import socketConnect from "../lib/Socket";
 import { useState,useEffect } from "react";
+import { useSockeetIoContext } from "../context/SocketIoContext";
 
 const Message = () => {
   const messageContext = useMessageUserContext();
   console.log("messageContext.selectedUser",messageContext.selectedUser);
   const [onlineUsers,setOnlineUsers] = useState([]);
-  const socket = socketConnect();
+  const socket = useSockeetIoContext();
   
   console.log("in message");
-  // if(socket?.connected){
-  //   console.log("ehyyy");
-    
-  // }
-
-  // socket.on("getOnlineUsers",(userId)=>{
-  //   console.log("backdata",userId);
-    
-  //   // setOnlineUsers(userId);
-  //   console.log("called me ");
-  //   // console.log(onlineUsers);
-    
-  // })
-
-  useEffect(() => {
-    if (socket && socket.connected) {
-      socket.on("getOnlineUsers", (userId) => {
-        console.log("backdata", userId);
-        setOnlineUsers(userId);
-      });
+  console.log("socketbro",socket?.socket);
   
-      return () => {
-        socket.off("getOnlineUsers"); // Unsubscribe from event when component unmounts
-      };
-    }else{
-      console.log("nono");
-      
-    }
-  }, [socket]);
-
 
   return (
     <div className="flex h-screen p-2">

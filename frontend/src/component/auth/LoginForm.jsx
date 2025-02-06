@@ -3,16 +3,17 @@ import {Loader} from "lucide-react";  // Icon from Lucide
 import { useState } from "react";
 import { axiosInstance } from "../../lib/axios";
 import toast from "react-hot-toast";
-import socketConnect from "../../lib/Socket"
+import { useSockeetIoContext } from "../../context/SocketIoContext";
 
 const LoginForm = () => {
 
 
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
-    const socket = socketConnect();
-
+    
+    const socket = useSockeetIoContext();
     const queryClient = useQueryClient();
+   
     const {mutate:loginMutation,isLoading} = useMutation({
         mutationFn: async (data) =>{
             const res = await axiosInstance.post('/auth/login',data);
@@ -22,8 +23,8 @@ const LoginForm = () => {
             toast.success("Logged in Successfully");
             queryClient.invalidateQueries({queryKey:["authUser"]});
             // Connect to socket
-            if (!socket.connected) {
-                socket.connect();
+            if (!socket?.socket?.connected) {
+                socket?.socket?.connect();
                 console.log("called login");
             }
         },
