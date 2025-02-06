@@ -4,19 +4,44 @@ import ChatHeader from "../component/ChatHeader";
 import ChatPost from "../component/ChatPost";
 import { useMessageUserContext } from "../context/MessageUserContext";
 import socketConnect from "../lib/Socket";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 const Message = () => {
   const messageContext = useMessageUserContext();
-  console.log(messageContext.selectedUser);
+  console.log("messageContext.selectedUser",messageContext.selectedUser);
   const [onlineUsers,setOnlineUsers] = useState([]);
   const socket = socketConnect();
-  socket.on("getOnlineUsers",(userId)=>{
-    setOnlineUsers(userId);
-    console.log("called me ");
-    console.log(onlineUsers);
+  
+  console.log("in message");
+  // if(socket?.connected){
+  //   console.log("ehyyy");
     
-  })
+  // }
+
+  // socket.on("getOnlineUsers",(userId)=>{
+  //   console.log("backdata",userId);
+    
+  //   // setOnlineUsers(userId);
+  //   console.log("called me ");
+  //   // console.log(onlineUsers);
+    
+  // })
+
+  useEffect(() => {
+    if (socket && socket.connected) {
+      socket.on("getOnlineUsers", (userId) => {
+        console.log("backdata", userId);
+        setOnlineUsers(userId);
+      });
+  
+      return () => {
+        socket.off("getOnlineUsers"); // Unsubscribe from event when component unmounts
+      };
+    }else{
+      console.log("nono");
+      
+    }
+  }, [socket]);
 
 
   return (

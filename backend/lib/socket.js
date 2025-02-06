@@ -28,16 +28,14 @@ io.on("connection",(socket)=>{
     const userId = socket.handshake.query.userId;     // this userId will come from frontend
     if(userId){
         userSocketMap[userId] = socket.id;    //add to map
-        console.log("got it");
         console.log(userSocketMap);
-        console.log(userId);
         
     } 
         
 
 
     //emit an event as soon as a usr is connected
-    io.emit("getOnlineUsers",Object.keys(userSocketMap))      //we will send only the userid to frontend(this will show which users are online)
+    io.emit("getOnlineUsers","Object.keys(userSocketMap)")      //we will send only the userid to frontend(this will show which users are online)
 
 
     socket.on("disconnect",()=>{
