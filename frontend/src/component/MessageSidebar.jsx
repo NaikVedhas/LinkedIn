@@ -16,14 +16,16 @@ const MessageSidebar = ({onlineUsers}) => {
     },
   });
 
-  // const onlineUsers = [];
-
   console.log("sidebarmessage", SidebarMessages);
 
   const handleClick = (user) => {
     messageContext?.setSelectedUser(user); // Set the user
-    
   };
+
+  // useEffect(() => {
+  //   console.log("Online users updated in Sidebar:", onlineUsers);
+  // }, [onlineUsers]); // This ensures Sidebar updates whenever online users change
+  
 
   return (
     <div className="w-72 bg-white border border-gray-300 p-4 rounded-lg shadow-lg ml-5 ">
@@ -54,12 +56,12 @@ const MessageSidebar = ({onlineUsers}) => {
                 <h2 className="text-gray-700 font-medium">{m.name}</h2>
                 <div
                   className={`text-sm mt-1 ${
-                    onlineUsers.includes(m._id)
+                    onlineUsers.includes(m?._id)
                       ? "text-green-500"
                       : "text-red-500"
                   }`}
                 >
-                  {onlineUsers.includes(m._id) ? "Online" : "Offline"}
+                  {onlineUsers.includes(m?._id) ? "Online" : "Offline"}
                 </div>
               </div>
             </button>

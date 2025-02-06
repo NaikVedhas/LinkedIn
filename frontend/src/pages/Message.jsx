@@ -4,23 +4,22 @@ import ChatHeader from "../component/ChatHeader";
 import ChatPost from "../component/ChatPost";
 import { useMessageUserContext } from "../context/MessageUserContext";
 import { useSockeetIoContext } from "../context/SocketIoContext";
+import { useEffect } from "react";
 
 const Message = () => {
   const messageContext = useMessageUserContext();
   console.log("messageContext.selectedUser",messageContext.selectedUser);
   const socketContext = useSockeetIoContext();
   
-  console.log("in message");
-  console.log("socketbro",socketContext?.socket);
-  
-
-  socketContext?.socket?.on("getOnlineUsers",(data)=>{
-    console.log("data",data);
-    socketContext?.setOnlineUsers(data);
-    console.log("onlineUsers",socketContext?.onlineUsers);
-    
-  })
-
+  //Get Online Users
+  useEffect(()=>{
+    socketContext?.socket?.on("getOnlineUsers",(data)=>{
+      console.log("data",data);
+      socketContext?.setOnlineUsers(data);
+      console.log("onlineUsers",socketContext?.onlineUsers);
+      
+    })
+  },[socketContext?.socket])
   
   return (
     <div className="flex h-screen p-2">
