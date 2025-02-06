@@ -3,7 +3,7 @@ import { axiosInstance } from "../lib/axios";
 import { Loader } from "lucide-react";
 import { useMessageUserContext } from "../context/MessageUserContext";
 
-const MessageSidebar = () => {
+const MessageSidebar = ({onlineUsers}) => {
   const { data: authUser } = useQuery({ queryKey: ["authUser"] });
 
   const messageContext = useMessageUserContext();
@@ -16,7 +16,7 @@ const MessageSidebar = () => {
     },
   });
 
-  const onlineUsers = [];
+  // const onlineUsers = [];
 
   console.log("sidebarmessage", SidebarMessages);
 

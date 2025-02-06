@@ -3,31 +3,37 @@ import ChatHistory from "../component/ChatHistory";
 import ChatHeader from "../component/ChatHeader";
 import ChatPost from "../component/ChatPost";
 import { useMessageUserContext } from "../context/MessageUserContext";
-import { useState,useEffect } from "react";
 import { useSockeetIoContext } from "../context/SocketIoContext";
 
 const Message = () => {
   const messageContext = useMessageUserContext();
   console.log("messageContext.selectedUser",messageContext.selectedUser);
-  const [onlineUsers,setOnlineUsers] = useState([]);
-  const socket = useSockeetIoContext();
+  const socketContext = useSockeetIoContext();
   
   console.log("in message");
-  console.log("socketbro",socket?.socket);
+  console.log("socketbro",socketContext?.socket);
   
 
+  socketContext?.socket?.on("getOnlineUsers",(data)=>{
+    console.log("data",data);
+    socketContext?.setOnlineUsers(data);
+    console.log("onlineUsers",socketContext?.onlineUsers);
+    
+  })
+
+  
   return (
     <div className="flex h-screen p-2">
       {/* Sidebar */}
       <div className="w-80">
-        <MessageSidebar onlineUsers={onlineUsers} />
+        <MessageSidebar onlineUsers={socketContext?.onlineUsers} />
       </div>
 
       {/* Chat Section */}
       <div className="flex flex-col  flex-grow bg-white border border-gray-300 rounded-lg p-4 ml-2 shadow-lg">
         {messageContext?.selectedUser ? (
           <>
-            <ChatHeader onlineUsers={onlineUsers} />
+            <ChatHeader onlineUsers={socketContext?.onlineUsers} />
             <div className="flex flex-col flex-grow overflow-hidden">
               <ChatHistory />
             </div>

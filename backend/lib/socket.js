@@ -35,7 +35,7 @@ io.on("connection",(socket)=>{
 
 
     //emit an event as soon as a usr is connected
-    io.emit("getOnlineUsers","Object.keys(userSocketMap)")      //we will send only the userid to frontend(this will show which users are online)
+    io.emit("getOnlineUsers",Object.keys(userSocketMap))      //we will send only the userid to frontend(this will show which users are online)
 
 
     socket.on("disconnect",()=>{

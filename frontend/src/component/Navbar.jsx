@@ -8,7 +8,7 @@ import { useSockeetIoContext } from "../context/SocketIoContext";
 const Navbar = () => {
   const { data: authUser } = useQuery({ queryKey: ["authUser"] });
   const queryClient = useQueryClient();
-  const socket = useSockeetIoContext();
+  const socketContext = useSockeetIoContext();
   
   // Now we want to get notifications and connections only when we have authUser
   const { data: notifications } = useQuery({
@@ -33,7 +33,7 @@ const Navbar = () => {
     mutationFn: async () => axiosInstance.post("/auth/logout"),
     onSuccess: () => {
       toast.success("Logged Out");
-      socket?.socket?.disconnect();  // Disconnect immediately
+      socketContext?.socket?.disconnect();  // Disconnect immediately
       queryClient.invalidateQueries({ queryKey: ["authUser"] }); // so it will refresh this and authUser is null we will be redirected to login pages without refreshing
     },
     onError: (error) => {

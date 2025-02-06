@@ -11,7 +11,7 @@ const LoginForm = () => {
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
     
-    const socket = useSockeetIoContext();
+    const socketContext = useSockeetIoContext();
     const queryClient = useQueryClient();
    
     const {mutate:loginMutation,isLoading} = useMutation({
@@ -23,8 +23,8 @@ const LoginForm = () => {
             toast.success("Logged in Successfully");
             queryClient.invalidateQueries({queryKey:["authUser"]});
             // Connect to socket
-            if (!socket?.socket?.connected) {
-                socket?.socket?.connect();
+            if (!socketContext?.socket?.connected) {
+                socketContext?.socket?.connect();
                 console.log("called login");
             }
         },
