@@ -30,7 +30,7 @@ const createPost = async (req,res)=>{
 
     try {
         const {content,image} = req.body;
-
+        
         let post;
         if(image){
             const result = await cloudinary.uploader.upload(image);
