@@ -32,15 +32,13 @@ io.on("connection",(socket)=>{
         
     } 
         
-
-
     //emit an event as soon as a usr is connected
     io.emit("getOnlineUsers",Object.keys(userSocketMap))      //we will send only the userid to frontend(this will show which users are online)
 
 
     socket.on("disconnect",()=>{
         console.log("A user disconnected",socket.id);
-        delete userSocketMap(userId);
+        // delete userSocketMap(userId);
         io.emit("getOnlineUsers",Object.keys(userSocketMap)); //send the updated data to frontend
     })
     

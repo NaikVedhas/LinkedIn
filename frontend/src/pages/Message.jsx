@@ -11,15 +11,24 @@ const Message = () => {
   console.log("messageContext.selectedUser",messageContext.selectedUser);
   const socketContext = useSockeetIoContext();
   
+  
   //Get Online Users
-  useEffect(()=>{
-    socketContext?.socket?.on("getOnlineUsers",(data)=>{
-      console.log("data",data);
-      socketContext?.setOnlineUsers(data);
-      console.log("onlineUsers",socketContext?.onlineUsers);
-      
-    })
-  },[socketContext?.socket])
+  useEffect(() => {
+    
+    if (socketContext?.socket) {
+      socketContext?.socket.on("getOnlineUsers", (data) => {
+        console.log("data", data);
+        socketContext?.setOnlineUsers(data);
+        console.log("onlineUsers", socketContext?.onlineUsers);
+      });
+    }
+    return () => {
+      // Clean up the event listener when the component unmounts
+      if (socketContext?.socket) {
+        socketContext?.socket.off("getOnlineUsers");
+      }
+    };
+  }, [socketContext?.socket]); // Dependency on socket
   
   return (
     <div className="flex h-screen p-2">

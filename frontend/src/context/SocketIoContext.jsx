@@ -34,9 +34,6 @@ export const SocketIoContextProvider = (props) => {
         
     },[authUser])
 
-
-    
-    
     
     return <SocketIoContext.Provider value={{socketId,setSocketId,socket,setSocket,onlineUsers,setOnlineUsers}}>
         {props.children}
