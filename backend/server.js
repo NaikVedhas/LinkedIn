@@ -16,7 +16,7 @@ const {app,server} = require('./lib/socket');
 
 
 app.use(cors({      //we are usong this to handle cors error
-    origin:"http://localhost:5173",
+origin:["http://localhost:5173","http://localhost:5174"],
     credentials:true    // this means that allow origin to sned cookies along with response
 }))
 app.use(express.json({limit:"5mb"}));     //parse json. We addded limit bec if or imag is in mbs then we can get error from frontendt that payload is too large but now we wont get that error and will be able to handle images upto 5mb

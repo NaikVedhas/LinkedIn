@@ -99,7 +99,7 @@ const Navbar = () => {
                     </span>
                   )}
                 </NavLink>
-                <NavLink
+                {/* <NavLink
                   to="/message"
                   className={({ isActive }) =>
                     isActive
@@ -109,7 +109,7 @@ const Navbar = () => {
                 >
                   <MessagesSquare size={20}/>
                   <span className="text-xs hidden md:block">Messages</span>
-                </NavLink>
+                </NavLink> */}
                 <NavLink
                   to="/notifications"
                   className={({ isActive }) =>
