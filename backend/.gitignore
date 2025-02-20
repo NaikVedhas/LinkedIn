@@ -1,2 +1,12 @@
 node_modules
 .env
+
+
+controllers/
+emails/
+lib/socket.js
+lib/nodemailer.js
+package.json
+models/otpModel.js
+models/userModel.js
+models/connectionModel.js

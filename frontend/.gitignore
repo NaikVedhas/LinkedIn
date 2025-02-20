@@ -30,7 +30,7 @@ src/pages/SearchUser.jsx
 src/pages/ProfileViewer.jsx
 src/pages/Notifications.jsx
 src/App.jsx
-
+package.json
 
 # Editor directories and files
 .vscode/*
