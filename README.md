@@ -1,6 +1,5 @@
-# 🔗 LinkedIn Clone ✨
+# 🔗 <img src="https://raw.githubusercontent.com/NaikVedhas/l/49d3681772835ac2dc439ec69fcedd11dd53b78d/frontend/public/logo.svg" alt="LinkedIn Clone" width="150" height="50"> ✨
 
-<!-- ![LinkedIn Clone Dark Theme Banner](https://raw.githubusercontent.com/NaikVedhas/l/49d3681772835ac2dc439ec69fcedd11dd53b78d/frontend/public/logo.svg) -->
 
 ## 🚀 Overview
 
@@ -54,8 +53,8 @@ A sophisticated LinkedIn clone featuring a sleek dark UI theme, built with cutti
   - 📦 Smart caching for reduced network requests
   - 🎯 Simplified state management across components
 - **🎨 Styling**: 
-  - 🌈 Tailwind CSS with custom dark theme configuration
-  - 💅 Styled Components for complex UI elements
+  - 🌈 Tailwind CSS for rapid styling
+  - 🌼 DaisyUI for pre-built components and themes
 
 ### Backend
 - **🟢 Runtime**: Node.js
