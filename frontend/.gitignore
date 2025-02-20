@@ -15,6 +15,22 @@ dist-ssr
 
 
 src/component/auth
+src/component/Navbar.jsx
+src/component/Post.jsx
+src/component/ProfileHeader.jsx
+src/component/PostAction.jsx
+src/component/ChatHistory.jsx
+src/component/ChatPost.jsx
+src/component/FriendRequest.jsx
+
+src/pages/Home.jsx
+src/pages/Message.jsx
+src/pages/Profile.jsx
+src/pages/SearchUser.jsx
+src/pages/ProfileViewer.jsx
+src/pages/Notifications.jsx
+src/App.jsx
+
 
 # Editor directories and files
 .vscode/*
