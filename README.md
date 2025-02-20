@@ -1,4 +1,4 @@
-# 🔗 <img src="https://github.com/NaikVedhas/l/blob/main/frontend/public/logo.png?raw=true" alt="LinkedIn Clone" width="450" height="150"> 
+#  <img src="https://github.com/NaikVedhas/l/blob/main/frontend/public/logo.png?raw=true" alt="LinkedIn Clone" width="450" height="150"> 
 
 
 ## 🚀 Overview
