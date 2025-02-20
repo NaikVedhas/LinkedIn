@@ -13,15 +13,15 @@ A sophisticated LinkedIn clone featuring a sleek dark UI theme, built with cutti
 ## 🖥️ UI Preview Showcase
 
 <div align="center">
-  <img src="/api/placeholder/800/450" alt="Login Screen Dark Theme" width="45%" />
+  <img src="https://github.com/NaikVedhas/l/blob/main/frontend/public/small-logo.png?raw=true" alt="Login Screen Dark Theme" width="45%" />
   &nbsp;&nbsp;
-  <img src="/api/placeholder/800/450" alt="Feed Dark Theme" width="45%" />
+  <img src="https://github.com/NaikVedhas/l/blob/main/frontend/public/small-logo.png?raw=true" alt="Feed Dark Theme" width="45%" />
 </div>
 
 <div align="center">
-  <img src="/api/placeholder/800/450" alt="Profile Dark Theme" width="45%" />
+  <img src="https://github.com/NaikVedhas/l/blob/main/frontend/public/small-logo.png?raw=true" alt="Profile Dark Theme" width="45%" />
   &nbsp;&nbsp;
-  <img src="/api/placeholder/800/450" alt="Messaging Dark Theme" width="45%" />
+  <img src="https://github.com/NaikVedhas/l/blob/main/frontend/public/small-logo.png?raw=true" alt="Messaging Dark Theme" width="45%" />
 </div>
 
 ## ✨ Key Features
