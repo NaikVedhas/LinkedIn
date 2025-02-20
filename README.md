@@ -1,6 +1,6 @@
 # 🔗 LinkedIn Clone ✨
 
-![LinkedIn Clone Dark Theme Banner](https://github.com/NaikVedhas/l/blob/main/frontend/public/banner.png?raw=true)
+![LinkedIn Clone Dark Theme Banner](https://raw.githubusercontent.com/NaikVedhas/l/49d3681772835ac2dc439ec69fcedd11dd53b78d/frontend/public/logo.svg)
 
 ## 🚀 Overview
 
@@ -35,7 +35,7 @@ A sophisticated LinkedIn clone featuring a sleek dark UI theme, built with cutti
 - **🔍 Professional Network Tools**
   - 🔎 Advanced user search with filters
   - 🤝 Connect/Follow system with different relationship levels
-  - 💌 Real-time messaging system
+  - 📱 Real-time messaging system
   
 - **🔐 Security & Authentication**
   - 🔑 JWT-based authentication
@@ -43,7 +43,6 @@ A sophisticated LinkedIn clone featuring a sleek dark UI theme, built with cutti
   
 - **🔔 Notifications & Engagement**
   - 📧 Custom email notification system for connection accept, comments and welcome emails
-  - 🎯 Personalized engagement triggers
 
 ## 🛠️ Tech Stack
 
@@ -62,7 +61,7 @@ A sophisticated LinkedIn clone featuring a sleek dark UI theme, built with cutti
 - **🟢 Runtime**: Node.js
 - **🚂 Framework**: Express.js
 - **🗄️ Database**: MongoDB with Mongoose
-- **🔒 Authentication**: JWT with refresh token rotation
+- **🔒 Authentication**: JWT 
 - **⚡ Real-time Communication**: Socket.io
 - **📨 Email Service**: Nodemailer with custom templates
 
@@ -72,31 +71,15 @@ TanStack Query provides exceptional scalability benefits:
 - 🚀 **Reduced Server Load**: Intelligent caching minimizes redundant API calls
 - ⏱️ **Stale-While-Revalidate Pattern**: Shows cached data instantly while fetching updates
 - 🔄 **Automatic Query Invalidation**: Ensures data consistency across components
-- 🧠 **Smart Prefetching**: Anticipates user actions for seamless experiences
-- 📉 **Bandwidth Optimization**: Deduplicates identical requests in flight
 
-## 🔧 Performance Optimizations
-
-- 🏎️ Implemented lazy loading for feed content
-- 🖼️ Image optimization pipeline with WebP conversion
-- ⚡ Server-side rendering for critical pages
-- 🔄 Optimistic UI updates using TanStack Query mutations
-- 📊 Redis caching layer for frequently accessed data
 
 ## 🔮 Future Enhancements
 
 - 📈 Content analytics dashboard
 - ✨ Premium subscription features
-- 📱 Mobile application with cross-platform support
-- 🤖 AI-powered recommendation engine
-
-## 📜 License
-
-MIT License - See [LICENSE](LICENSE) for details.
 
 ---
 
 <p align="center">
-  <strong>Designed & Developed by Vedhas Naik</strong><br>
-  🌟 Building the future of professional networking 🌟
+  🌟 <strong>Designed & Developed by Vedhas Naik</strong> 🌟
 </p>
