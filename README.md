@@ -1,6 +1,6 @@
 # 🔗 LinkedIn Clone ✨
 
-![LinkedIn Clone Dark Theme Banner](https://raw.githubusercontent.com/NaikVedhas/l/49d3681772835ac2dc439ec69fcedd11dd53b78d/frontend/public/logo.svg)
+<!-- ![LinkedIn Clone Dark Theme Banner](https://raw.githubusercontent.com/NaikVedhas/l/49d3681772835ac2dc439ec69fcedd11dd53b78d/frontend/public/logo.svg) -->
 
 ## 🚀 Overview
 
