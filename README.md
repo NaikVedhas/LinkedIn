@@ -1,4 +1,4 @@
-# 🔗 <img src="https://raw.githubusercontent.com/NaikVedhas/l/49d3681772835ac2dc439ec69fcedd11dd53b78d/frontend/public/logo.svg" alt="LinkedIn Clone" width="150" height="50"> ✨
+# 🔗 <img src="https://raw.githubusercontent.com/NaikVedhas/l/49d3681772835ac2dc439ec69fcedd11dd53b78d/frontend/public/logo.svg" alt="LinkedIn Clone" width="250" height="150"> ✨
 
 
 ## 🚀 Overview
