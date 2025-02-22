@@ -12,9 +12,9 @@ A sophisticated LinkedIn clone featuring a light UI theme, built with cutting-ed
 ## 🖥️ UI Preview Showcase
 
 <div align="center">
-  <img src="https://github.com/NaikVedhas/LinkedIn/blob/main/frontend/public/1.png?raw=true" alt="Login Screen Dark Theme" width="45%" />
-  &nbsp;&nbsp;
   <img src="https://github.com/NaikVedhas/LinkedIn/blob/main/frontend/public/2.png?raw=true" alt="Feed Dark Theme" width="45%" />
+  &nbsp;&nbsp;
+  <img src="https://github.com/NaikVedhas/LinkedIn/blob/main/frontend/public/1.png?raw=true" alt="Login Screen Dark Theme" width="45%" />
 </div>
 
 <div align="center">
