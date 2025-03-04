@@ -29,8 +29,13 @@ src/pages/Profile.jsx
 src/pages/SearchUser.jsx
 src/pages/ProfileViewer.jsx
 src/pages/Notifications.jsx
+src/component/MutualConnections.jsx
+src/component/RecommendedUser.jsx
+src/pages/ProfileViewers.jsx
+src/ScrollToTop.jsx
 src/App.jsx
 package.json
+package-lock.json
 
 # Editor directories and files
 .vscode/*

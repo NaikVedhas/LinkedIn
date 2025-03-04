@@ -57,7 +57,6 @@ A sophisticated LinkedIn clone featuring a light UI theme, built with cutting-ed
 - **⚛️ Framework**: React
 - **🔄 Data Fetching**: TanStack Query (React Query)
   - ⚡ Automatic background refetching
-  - 🔄 Optimistic updates for instant UI feedback
   - 📦 Smart caching for reduced network requests
   - 🎯 Simplified state management across components
 - **🎨 Styling**: 
