@@ -9,7 +9,7 @@ A sophisticated LinkedIn clone featuring a light UI theme, built with cutting-ed
 
 [✨ View Live Project](https://linkedinv.vercel.app)
 
-> **⚠️ Security Notice**: If you encounter a security warning when visiting the site, please click "Show Details" and then "Visit Unsafe Website" to proceed. My LinkedIn clone is so authentic that Google Chrome's security features sometimes flag it as a potential phishing attempt! This is actually a good sign - it means the UI is impressively similar to the real LinkedIn. Rest assured, this is just an educational project with no data collection.
+> **⚠️ Security Notice**: If you encounter a security warning when visiting the site, please click <br/>"Show Details"<br/> and then "Visit Unsafe Website" to proceed. My LinkedIn clone is so authentic that Google Chrome's security features sometimes flag it as a potential phishing attempt! This is actually a good sign - it means the UI is impressively similar to the real LinkedIn. Rest assured, this is just an educational project with no data collection.
 
 ## 🖥️ UI Preview Showcase
 <div align="center">
