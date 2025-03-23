@@ -1,6 +1,6 @@
 #  <img src="https://github.com/NaikVedhas/l/blob/main/frontend/public/logo.png?raw=true" alt="LinkedIn Clone" width="450" height="150"> 
 ## 🚀 Overview
-A sophisticated LinkedIn clone featuring a light UI theme, built with cutting-edge web technologies. Remarkably, 70% of this project was developed independently without following tutorials or YouTube lectures, showcasing original implementation and problem-solving. This platform replicates LinkedIn's core functionality while adding custom features and optimizations for an exceptional user experience.
+A sophisticated LinkedIn clone featuring a light UI theme, built with cutting-edge web technologies. <b>Remarkably, 70% of this project was developed independently without following tutorials or YouTube lectures</b>, showcasing original implementation and problem-solving. This platform replicates LinkedIn's core functionality while adding custom features and optimizations for an exceptional user experience.
 
 ## 🌐 Live Demo
 [✨ View Live Project](https://linkedinv.vercel.app)
@@ -37,7 +37,6 @@ A sophisticated LinkedIn clone featuring a light UI theme, built with cutting-ed
   - 📝 Post creation and management
   - 💬 Comment and like system
   - 👁️ Profile viewer analytics
-  - 📊 Activity feed with custom algorithms
   
 - **🔍 Professional Network Tools**
   - 🔎 Advanced user search with filters
@@ -50,11 +49,6 @@ A sophisticated LinkedIn clone featuring a light UI theme, built with cutting-ed
   
 - **🔔 Notifications & Engagement**
   - 📧 Custom email notification system for connection accept, comments and welcome emails
-
-- **⚡ Advanced Networking Features**
-  - 👥 Build professional relationships by connecting and following others
-  - 📈 Track profile viewers and analyze engagement metrics
-  - 🔍 Find people and posts efficiently with advanced search filters
 
 - **💬 Enhanced Messaging System**
   - ✅ Real-time messaging with seen/unseen ticks
