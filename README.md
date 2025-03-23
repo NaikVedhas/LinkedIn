@@ -23,10 +23,10 @@ A sophisticated LinkedIn clone featuring a light UI theme, built with cutting-ed
   </tr>
   <tr>
     <td align="center" width="50%">
-      <img src="https://github.com/NaikVedhas/LinkedIn/blob/main/frontend/public/4.png?raw=true" alt="Profile Dark Theme" width="100%" style="display: block; max-width: 100%;" />
+      <img src="https://github.com/NaikVedhas/LinkedIn/blob/main/frontend/public/5.png?raw=true" alt="Profile Dark Theme" width="100%" style="display: block; max-width: 100%;" />
     </td>
     <td align="center" width="50%">
-      <img src="https://github.com/NaikVedhas/LinkedIn/blob/main/frontend/public/3.png?raw=true" alt="Messaging Dark Theme" width="100%" style="display: block; max-width: 100%;" />
+      <img src="https://github.com/NaikVedhas/LinkedIn/blob/main/frontend/public/4.png?raw=true" alt="Messaging Dark Theme" width="100%" style="display: block; max-width: 100%;" />
     </td>
   </tr>
 </table>
