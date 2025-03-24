@@ -6,7 +6,6 @@ const notificationRoute = require('./routes/notificationRoutes');
 const connectionRoute = require('./routes/connectionRoute');
 const messageRoute = require('./routes/messageRoute');
 require('dotenv').config();    
-// const app = express();      we dont need as we are using socket
 const mongoose  = require('mongoose');
 const cookieParser = require('cookie-parser');
 const cors = require('cors')

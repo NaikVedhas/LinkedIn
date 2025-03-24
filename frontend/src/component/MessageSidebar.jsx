@@ -16,15 +16,11 @@ const MessageSidebar = ({onlineUsers}) => {
     },
   });
 
-  console.log("sidebarmessage", SidebarMessages);
 
   const handleClick = (user) => {
     messageContext?.setSelectedUser(user); // Set the user
   };
 
-  // useEffect(() => {
-  //   console.log("Online users updated in Sidebar:", onlineUsers);
-  // }, [onlineUsers]); // This ensures Sidebar updates whenever online users change
   
 
   return (

@@ -27,7 +27,6 @@ export const SocketIoContextProvider = (props) => {
         setSocket(socket);
         if(socket){
             socket.connect();
-            console.log("Called me socketcontext");
             setSocketId(socket.id);
         }
     }
