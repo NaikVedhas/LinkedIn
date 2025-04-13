@@ -17,7 +17,7 @@ export const SocketIoContextProvider = (props) => {
 
     useEffect(()=>{
         if(authUser){
-        const socket =  io(import.meta.env.VITE_BACKEND_URL,{
+        const socket =  io(import.meta.env.VITE_BACKEND_URL,{   // write only one url here and not list 
             query:{
                 userId:authUser?._id     //we will send the connected userId to backend
             },

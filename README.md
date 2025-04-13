@@ -7,8 +7,7 @@ A sophisticated LinkedIn clone featuring a light UI theme, built with cutting-ed
 
 **⚠️ Security Notice**: If you encounter a security warning when visiting the site, please click <b><i>"Show Details"</i></b> and then <b><i>"Visit Unsafe Website"</i></b> to proceed. My LinkedIn clone is so authentic that Google Chrome's security features sometimes flag it as a potential phishing attempt! This is actually a good sign - it means the UI is impressively similar to the real LinkedIn. Rest assured, this is just an educational project with no data collection.
 
-## Demo Video
-[View video](https://drive.google.com/file/d/1TTWYVQcMXfiB9cyM2D4zB9UvZDK1jE6t/view?usp=sharing)
+
 
 ## 🖥️ UI Preview Showcase
 <div align="center">
