@@ -45,6 +45,7 @@ A sophisticated LinkedIn clone featuring a light UI theme, built with cutting-ed
 - **🔐 Security & Authentication**
   - 🔑 JWT-based authentication
   - 📱 OTP verification for enhanced security
+  - 🫂 Forgot Password 
   
 - **🔔 Notifications & Engagement**
   - 📧 Custom email notification system for connection accept, comments and welcome emails
