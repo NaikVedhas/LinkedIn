@@ -1,6 +1,6 @@
 #  <img src="https://github.com/NaikVedhas/l/blob/main/frontend/public/logo.png?raw=true" alt="LinkedIn Clone" width="450" height="150"> 
 ## 🚀 Overview
-A sophisticated LinkedIn clone featuring a light UI theme, built with cutting-edge web technologies. <b>Remarkably, 70% of this project was developed independently without following tutorials or YouTube lectures</b>, showcasing original implementation and problem-solving. This platform replicates LinkedIn's core functionality while adding custom features and optimizations for an exceptional user experience.
+A sophisticated LinkedIn clone featuring a light UI theme, built with cutting-edge web technologies. <b>Remarkably, 70% of this project was developed independently without following tutorials or YouTube lectures</b>, showcasing original implementation and problem-solving. This platform replicates LinkedIn's core functionality while adding custom features and optimizations for an exceptional user experience!
 
 ## 🌐 Live Demo
 [✨ View Live Project](https://linkedin-clone-educational.vercel.app)
